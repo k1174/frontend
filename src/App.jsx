@@ -10,6 +10,8 @@ function App() {
     "Igarashi"
   ];
 
+  const loggedIn = true
+
   return (
     <>
 
@@ -23,6 +25,9 @@ function App() {
         ))}
       </ul>
 
+      <hr className="pt-3 mt-3" />
+        {loggedIn ? <h1>{name}</h1>: ''}
+        {loggedIn && <h1>{name}</h1>}
     </>
 
   )
