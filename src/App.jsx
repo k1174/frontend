@@ -18,8 +18,8 @@ function App() {
       <p>And I know {x} + {y} is {x + y}</p>
 
       <ul>
-        {toranagas_team.map((member) => (
-          <li >{member}</li>
+        {toranagas_team.map((member, index) => (
+          <li key={index}>{member}</li>
         ))}
       </ul>
 
