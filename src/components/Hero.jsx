@@ -1,4 +1,4 @@
-function Hero( {title, subTitle} ) {
+function Hero({ title = 'Become a React dev', subTitle = 'Find React Jobs that fits your skill set.' }) {
   return (
     <>
       {/* <!-- Hero --> */}
