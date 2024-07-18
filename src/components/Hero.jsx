@@ -1,4 +1,4 @@
-function Hero(props) {
+function Hero( {title, subTitle} ) {
   return (
     <>
       {/* <!-- Hero --> */}
@@ -10,10 +10,10 @@ function Hero(props) {
             <h1
               className="text-4xl font-extrabold text-white sm:text-5xl md:text-6xl"
             >
-              {props.title}
+              {title}
             </h1>
             <p className="my-4 text-xl text-white">
-              {props.subTitle}
+              {subTitle}
             </p>
           </div>
         </div>
