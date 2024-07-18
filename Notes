@@ -1,0 +1,10 @@
+changed server port to :3000
+
+- since its an single page app( as for oter types when we click it direct to new page, but here
+    it renders components on the same page)
+    So, index.html has main.jsx file.
+
+- cleared all css files, 
+- added tailwind from its documentaion with dependencies like PostCSS, and Autoprefixer
+- Added cutome fonts
+    
