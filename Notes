@@ -8,3 +8,6 @@ changed server port to :3000
 - added tailwind from its documentaion with dependencies like PostCSS, and Autoprefixer
 - Added cutome fonts
     
+
+VSCODE 
+: changed shortcut of view control(ctrl++/ctrl+-) for editor font size
