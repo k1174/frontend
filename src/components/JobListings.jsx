@@ -1,11 +1,14 @@
 import JobListing from './JobListing';
 import { useState, useEffect } from 'react';
+import Spinner from './Spinner';
+const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
 const JobListings = ({ isHome = true }) => {
     const [isLoading, setLoading] = useState(true)
     const [recent, setRecent] = useState([])
     
     const fetchData = async () => {
+        await delay(1000);
         try {
             const response = await fetch('http://localhost:4000/jobs')
             const result = await response.json()
@@ -25,7 +28,7 @@ const JobListings = ({ isHome = true }) => {
     return (
         <>
             {isLoading ? (
-                <div >Loading</div>
+                <Spinner />
             ) : (
                 <section className="bg-blue-50 px-4 py-10">
                     <div className="container-xl lg:container m-auto">
