@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { FaMapMarkerAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
-const JobListing = ({ job }) => { // {job} -> Destructuring assignment
+const JobListing = ({ job, isHome }) => { // {job} -> Destructuring assignment
     const description = job.description.substring(0, 90) + '...';
     const [showFullDesc, setShowFullDesc] = useState(false)
-
+    const url = isHome ? `/jobspage/${job.id}`: `${job.id}`
     return (
         <>
             <div className="bg-white rounded-xl shadow-md relative">
@@ -28,7 +28,7 @@ const JobListing = ({ job }) => { // {job} -> Destructuring assignment
                             {job.location}
                         </div>
                         <Link
-                            to={job.id}
+                            to={url}
                             className="h-[36px] bg-indigo-500 hover:bg-indigo-600 text-white px-4 py-2 rounded-lg text-center text-sm"
                         >
                             Read More

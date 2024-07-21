@@ -11,7 +11,7 @@ const JobListings = ({ isHome = true }) => {
     const fetchData = async () => {
         await delay(1000);
         try {
-            const url = isHome ? '/api' : '/api?_limit=10'
+            const url = isHome ? '/api?_limit=3' : '/api?_limit=10'
             const response = await fetch(url)
             if(!response.ok){
                 throw new Error('Failed to fetch data')
@@ -47,7 +47,7 @@ const JobListings = ({ isHome = true }) => {
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                             <>
                                 {recent.map(job => (
-                                    <JobListing key={job.id} job={job} />
+                                    <JobListing key={job.id} job={job} isHome={isHome}/>
                                 ))}
                             </>
 
