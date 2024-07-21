@@ -16,7 +16,7 @@ const router = createBrowserRouter(
     <Route path='/' element={<MainLayout />}>
       <Route index element={<Home />} />
       <Route path='/jobsPage' element={<JobsPage />} />
-      <Route path='/jobsPage/:jobId' element={<JobPage />} loader={JobPageLoader}/>
+      <Route path='/jobsPage/:jobId' element={<JobPage />} loader={JobPageLoader} errorElement={<NotFound />}/>
       <Route path='*' element={<NotFound />}></Route>
     </Route>
   )
