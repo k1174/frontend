@@ -1,0 +1,132 @@
+Certainly! Working with JSON Server and exploring its capabilities can uncover several interesting features and techniques. Here are a few more things you might find useful or intriguing:
+
+### 1. **Sorting Data**
+You can sort the data returned from JSON Server based on a specific field, such as `salary` or `title`. Here’s how you can do it using `curl`:
+
+```bash
+# Sort by salary in descending order
+curl "http://localhost:4000/jobs?_sort=salary&_order=desc"
+
+# Sort by title in ascending order
+curl "http://localhost:4000/jobs?_sort=title&_order=asc"
+```
+
+- **Explanation**: 
+  - `_sort` specifies the field to sort by (`salary` or `title`).
+  - `_order` specifies the order (`asc` for ascending, `desc` for descending).
+
+### 2. **Filtering Data**
+You can filter data based on multiple criteria using query parameters:
+
+```bash
+# Filter by location and salary range
+curl "http://localhost:4000/jobs?location=Portland,%20OR&salary_gte=90000"
+```
+
+- **Explanation**:
+  - `location=Portland,%20OR` filters jobs located in Portland, OR.
+  - `salary_gte=90000` filters jobs with a salary greater than or equal to $90,000 (`_gte` stands for "greater than or equal to").
+
+### 3. **Pagination**
+JSON Server supports pagination using `_page` and `_limit` parameters:
+
+```bash
+# Get jobs from page 2 with 5 items per page
+curl "http://localhost:4000/jobs?_page=2&_limit=5"
+```
+
+- **Explanation**:
+  - `_page=2` specifies the page number.
+  - `_limit=5` specifies the number of items per page.
+
+### 4. **Generating Unique IDs**
+If you need to add new entries to your JSON data, JSON Server can generate unique IDs for you:
+
+```bash
+# Example POST request to add a new job
+curl -X POST -H "Content-Type: application/json" -d '{
+  "title": "New Job Title",
+  "type": "Full-Time",
+  "location": "New City, NC",
+  "salary": "$80K - $90K",
+  "company": {
+    "name": "New Company",
+    "description": "A new company description",
+    "contactEmail": "contact@newcompany.com",
+    "contactPhone": "555-555-5555"
+  }
+}' "http://localhost:4000/jobs"
+```
+
+- **Explanation**:
+  - `-X POST` specifies a POST request.
+  - `-H "Content-Type: application/json"` sets the content type to JSON.
+  - `-d '{ ... }'` specifies the JSON data to send.
+  - `"http://localhost:4000/jobs"` is the endpoint to which the request is sent.
+
+### 5. **Static Files Serving**
+JSON Server can also serve static files (like images or documents) from a `public` directory in your project:
+
+```bash
+# Serve static files from the public directory
+json-server --watch db.json --static ./public
+```
+
+- **Explanation**:
+  - `--static ./public` tells JSON Server to serve static files from the `public` directory.
+
+### 6. **Custom Routes**
+You can define custom routes and behaviors using JSON Server’s `routes` feature in your `db.json` file:
+
+```json
+{
+  "routes": {
+    "/api/jobs/:id/comments": "/comments?jobId=:id"
+  },
+  "jobs": [
+    {
+      "id": "1",
+      "title": "Senior React Developer",
+      ...
+    }
+  ],
+  "comments": [
+    {
+      "id": "1",
+      "jobId": "1",
+      "text": "This job looks exciting!"
+    }
+  ]
+}
+```
+
+- **Explanation**:
+  - This example defines a custom route `/api/jobs/:id/comments` that maps to `/comments?jobId=:id`, allowing you to fetch comments for a specific job ID.
+
+### 7. **Middleware**
+JSON Server supports middleware functions for handling requests before they reach the JSON server:
+
+```javascript
+const jsonServer = require('json-server');
+const server = jsonServer.create();
+const router = jsonServer.router('db.json');
+const middlewares = jsonServer.defaults();
+
+server.use(middlewares);
+server.use((req, res, next) => {
+  if (req.method === 'POST') {
+    req.body.createdAt = Date.now();
+  }
+  next();
+});
+
+server.use(router);
+server.listen(4000, () => {
+  console.log('JSON Server is running');
+});
+```
+
+- **Explanation**:
+  - `server.use((req, res, next) => { ... })` defines a middleware function that adds a `createdAt` field to POST requests before they are processed by JSON Server.
+
+These are just a few examples of what you can do with JSON Server. Experimenting with these features can provide a deeper understanding and help you leverage JSON Server effectively in your projects.
