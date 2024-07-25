@@ -10,7 +10,7 @@ export default async function getJobs(jobId) {
         if (result.length === 0) {
             throw new Error('No jobs found'); 
         }
-        console.log(result[0])
+        // console.log(result[0])
         return result[0]
     } catch (error) {
         console.error('Error in getJobs:', error)

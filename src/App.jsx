@@ -12,7 +12,7 @@ import NotFound from './pages/NotFound.jsx';
 import { loader as JobPageLoader } from './loader.js';
 import AddJob from './pages/AddJob.jsx';
 import { action as editAction } from './pages/AddJob.jsx';
-import {action as deleteAction} from './methods/delete.jsx'
+import {action as deleteAction} from './pages/delete.jsx'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
