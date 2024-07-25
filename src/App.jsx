@@ -11,8 +11,10 @@ import {
 import NotFound from './pages/NotFound.jsx';
 import { loader as JobPageLoader } from './loader.js';
 import AddJob from './pages/AddJob.jsx';
-import { action as editAction } from './pages/AddJob.jsx';
+import { action as addAction } from './pages/AddJob.jsx';
 import {action as deleteAction} from './pages/delete.jsx'
+import Edit from './pages/Edit.jsx';
+import {action as editAction} from './pages/Edit.jsx'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -20,8 +22,9 @@ const router = createBrowserRouter(
       <Route index element={<Home />} />
       <Route path='/jobsPage' element={<JobsPage />} />
       <Route path='/jobsPage/:jobId' element={<JobPage />} loader={JobPageLoader} errorElement={<NotFound />}/>
+      <Route path='/jobsPage/:jobId/edit' element={<Edit />} loader={JobPageLoader} errorElement={<NotFound />} action={editAction}/>
       <Route path='/jobsPage/:jobId/delete' action={deleteAction}  errorElement={<NotFound />}/>
-      <Route path='/addjob' element={<AddJob />} action={editAction} />
+      <Route path='/addjob' element={<AddJob />} action={addAction} />
       <Route path='*' element={<NotFound />}></Route>
     </Route>
   )
