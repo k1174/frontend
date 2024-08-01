@@ -11,19 +11,19 @@ import {
 import NotFound from './pages/NotFound.jsx';
 import { loader as JobPageLoader } from './loader.js';
 import AddJob from './pages/AddJob.jsx';
-import { action as addAction } from './pages/AddJob.jsx';
-import {action as deleteAction} from './pages/delete.jsx'
+import addAction  from './actions/addAction.js';
+import {action as deleteAction} from './actions/deleteAction.js'
 import Edit from './pages/Edit.jsx';
-import {action as editAction} from './pages/Edit.jsx'
+import {action as editAction} from './actions/editAction.js'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<MainLayout />}>
       <Route index element={<Home />} />
-      <Route path='/jobsPage' element={<JobsPage />} />
-      <Route path='/jobsPage/:jobId' element={<JobPage />} loader={JobPageLoader} errorElement={<NotFound />}/>
-      <Route path='/jobsPage/:jobId/edit' element={<Edit />} loader={JobPageLoader} errorElement={<NotFound />} action={editAction}/>
-      <Route path='/jobsPage/:jobId/delete' action={deleteAction}  errorElement={<NotFound />}/>
+      <Route path='/eventsPage' element={<JobsPage />} />
+      <Route path='/eventsPage/:jobId' element={<JobPage />} loader={JobPageLoader} errorElement={<NotFound />}/>
+      <Route path='/eventsPage/:jobId/edit' element={<Edit />} loader={JobPageLoader} errorElement={<NotFound />} action={editAction}/>
+      <Route path='/eventsPage/:jobId/delete' action={deleteAction}  errorElement={<NotFound />}/>
       <Route path='/addjob' element={<AddJob />} action={addAction} />
       <Route path='*' element={<NotFound />}></Route>
     </Route>
