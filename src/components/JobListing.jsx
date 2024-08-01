@@ -4,21 +4,24 @@ import { Link } from "react-router-dom";
 const JobListing = ({ job, isHome }) => { // {job} -> Destructuring assignment
     const description = job.description.substring(0, 90) + '...';
     const [showFullDesc, setShowFullDesc] = useState(false)
-    const url = isHome ? `/jobspage/${job.id}`: `${job.id}`
+    const url = isHome ? `/eventspage/${job._id}`: `${job._id}`
     return (
         <>
             <div className="bg-white rounded-xl shadow-md relative">
                 <div className="p-4">
                     <div className="mb-6">
                         <div className="text-gray-600 my-2">{job.type}</div>
-                        <h3 className="text-xl font-bold"> {job.title} </h3>
+                        <h3 className="text-xl font-bold"> {job.name} </h3>
                     </div>
 
-                    <div className="mb-1">{showFullDesc ? job.description : description}</div>
+                    <div className="mb-4">{showFullDesc ? job.description : description}</div>
+                    
                     <button onClick={() => (setShowFullDesc( prevState => (!prevState)))}
                         className="mb-7 text-indigo-600">{showFullDesc ? "Less" : "More"}</button>
+                    <p className="mb-1">{job.time}</p>
+                    <p className="mb-4">{job.date.split('T')[0]}</p>
 
-                    <h3 className="text-indigo-500 mb-2">{job.salary}</h3>
+                    <h3 className="text-indigo-500 mb-2">Price: {job.price}</h3>
 
                     <div className="border border-gray-100 mb-5"></div>
 

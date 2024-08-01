@@ -4,9 +4,9 @@ const ViewAllJobs = () => {
         <>
             <section className="m-auto max-w-lg my-10 px-6">
                 <Link
-                    to="jobspage"
+                    to="eventsPage"
                     className="block bg-black text-white text-center py-4 px-6 rounded-xl hover:bg-gray-700"
-                >View All Jobs</Link
+                >View All Events</Link
                 >
             </section>
         </>

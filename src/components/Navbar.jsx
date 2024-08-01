@@ -12,14 +12,14 @@ function Navbar() {
                             className="flex flex-1 items-center justify-center md:items-stretch md:justify-start"
                         >
                             {/* <!-- Logo --> */}
-                            <a className="flex flex-shrink-0 items-center mr-4" href="/index.html">
+                            <a className="flex flex-shrink-0 items-center mr-4" href="/">
                                 <img
                                     className="h-10 w-auto"
                                     src={logo}
-                                    alt="React Jobs"
+                                    alt="Events"
                                 />
                                 <span className="hidden md:block text-white text-2xl font-bold ml-2"
-                                >React Jobs</span
+                                >Events</span
                                 >
                             </a>
                             <div className="md:ml-auto">
@@ -30,14 +30,14 @@ function Navbar() {
                                     >Home</NavLink
                                     >
                                     <NavLink
-                                        to="/jobsPage"
+                                        to="/eventsPage"
                                         className={linkClass}
-                                    >Jobs</NavLink
+                                    >Events</NavLink
                                     >
                                     <NavLink
                                         to="/addjob"
                                         className={linkClass}
-                                    >Add Job</NavLink
+                                    >Add Events</NavLink
                                     >
                                 </div>
                             </div>
