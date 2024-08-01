@@ -1,29 +1,5 @@
-import { Form, redirect } from 'react-router-dom';
-import { toast } from 'react-toastify';
-export const action = async ({ request }) => {
-    const formData = await request.formData();
-    const updates = Object.fromEntries(formData);
-    const url = '/api/addevent';
-    const response = await fetch(url, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(updates),
-    })
-    if (!response.ok) {
+import { Form } from 'react-router-dom';
 
-        // throw new Error('Failed to add job');
-        console.error('Failed to add job');
-        toast.error("Event creation Failed")
-        return redirect(`/eventsPage/`);
-    }
-    toast.success("Event Added Successfully")
-    console.log("Event added successfully");
-    // return redirect('/');
-    return redirect(`/eventsPage/`);
-
-}
 const AddJob = () => {
     return (
         <>
@@ -98,7 +74,7 @@ const AddJob = () => {
                                         name="time"
                                         id="time"
                                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
-                                        value="00:00"
+ 
                                     />
                                 </div>
 
