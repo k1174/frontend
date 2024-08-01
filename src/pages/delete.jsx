@@ -1,4 +1,5 @@
 import { redirect } from "react-router-dom";
+import { toast } from "react-toastify";
 export async function action({ params }) {
     const id = params.jobId;
     const url = `/api/${id}`
@@ -14,6 +15,6 @@ export async function action({ params }) {
     }
 
     console.log('Job deleted successfully');
-
+    toast.success("Job Deleted Successfully")
     return redirect('/')
 }

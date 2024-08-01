@@ -2,7 +2,7 @@ import { Link, useLoaderData, Form } from "react-router-dom";
 
 const JobPage = () => {
     const job = useLoaderData();
-
+    console.log(job)
     return (
         <>
             <section>
@@ -11,7 +11,7 @@ const JobPage = () => {
                         to="/"
                         className="text-indigo-500 hover:text-indigo-600 flex items-center"
                     >
-                        <i className="fas fa-arrow-left mr-2"></i> Back to Job Listings
+                        <i className="fas fa-arrow-left mr-2"></i> Back to Events
                     </Link>
                 </div>
             </section>
@@ -25,7 +25,7 @@ const JobPage = () => {
                             >
                                 <div className="text-gray-500 mb-4">{job.type}</div>
                                 <h1 className="text-3xl font-bold mb-4">
-                                    {job.title}
+                                    {job.name}
                                 </h1>
                                 <div
                                     className="text-gray-500 mb-4 flex align-middle justify-center md:justify-start"
@@ -43,10 +43,12 @@ const JobPage = () => {
                                 </h3>
 
                                 <p className="mb-4">{job.description}</p>
+                                <p className="mb-4">{job.time}</p>
+                                <p className="mb-4">{job.date.split('T')[0]}</p>
 
-                                <h3 className="text-indigo-800 text-lg font-bold mb-2">Salary</h3>
+                                <h3 className="text-indigo-800 text-lg font-bold mb-2">Price</h3>
 
-                                <p className="mb-4">{job.salary} / Year</p>
+                                <p className="mb-4">{job.price}</p>
                             </div>
                         </main>
 
@@ -54,32 +56,32 @@ const JobPage = () => {
                         <aside>
                             {/* <!-- Company Info --> */}
                             <div className="bg-white p-6 rounded-lg shadow-md">
-                                <h3 className="text-xl font-bold mb-6">Company Info</h3>
+                                <h3 className="text-xl font-bold mb-6">Organiser Info</h3>
 
-                                <h2 className="text-2xl">{job.company.name}</h2>
+                                <h2 className="text-2xl">{job.organiserName}</h2>
 
-                                <p className="my-2">{job.company.description}</p>
+                                {/* <p className="my-2">{job.company.description}</p> */}
 
                                 <hr className="my-4" />
 
                                 <h3 className="text-xl">Contact Email:</h3>
 
                                 <p className="my-2 bg-indigo-100 p-2 font-bold">
-                                    {job.company.contactEmail}
+                                    {job.organiserName}
                                 </p>
 
-                                <h3 className="text-xl">Contact Phone:</h3>
+                                <h3 className="text-xl">Department :</h3>
 
-                                <p className="my-2 bg-indigo-100 p-2 font-bold">{job.company.contactPhone} </p>
+                                <p className="my-2 bg-indigo-100 p-2 font-bold">{job.organiserDepartment} </p>
                             </div>
 
                             {/* <!-- Manage --> */}
-                            <div className="bg-white p-6 rounded-lg shadow-md mt-6 w-52">
-                                <h3 className="text-xl font-bold mb-6">Manage Job</h3>
+                            <div className="bg-white p-6 rounded-lg shadow-md mt-6 ">
+                                <h3 className="text-xl font-bold mb-6">Manage Event</h3>
                                 <Form action="edit">
-                                    <button 
+                                    <button
                                         className="bg-indigo-500 hover:bg-indigo-600 text-white text-center font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline mt-4 block" >
-                                        Edit Job
+                                        Edit
                                     </button>
                                 </Form>
 
@@ -92,9 +94,10 @@ const JobPage = () => {
                                 >
 
                                     <button type="submit"
-                                        className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline mt-4 block"
+                                        disabled
+                                        className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline mt-4 block opacity-50 cursor-not-allowed"
                                     >
-                                        Delete Job
+                                        Delete
                                     </button>
                                 </Form>
                             </div>

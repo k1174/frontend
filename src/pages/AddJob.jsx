@@ -1,14 +1,9 @@
 import { Form, redirect } from 'react-router-dom';
-import transform from '../methods/transform';
-
-export const action = async ({request}) =>{
+import { toast } from 'react-toastify';
+export const action = async ({ request }) => {
     const formData = await request.formData();
-    const id = Math.random().toString(36).substring(2);
-    formData.append('id', id); 
-    
-    const formEntries = Object.fromEntries(formData);
-    const updates = transform(formEntries);
-    const url = '/api';
+    const updates = Object.fromEntries(formData);
+    const url = '/api/addevent';
     const response = await fetch(url, {
         method: 'POST',
         headers: {
@@ -17,171 +12,162 @@ export const action = async ({request}) =>{
         body: JSON.stringify(updates),
     })
     if (!response.ok) {
-        throw new Error('Failed to add job'); 
+
+        // throw new Error('Failed to add job');
+        console.error('Failed to add job');
+        toast.error("Event creation Failed")
+        return redirect(`/eventsPage/`);
     }
-    console.log("Job added successfully");
-    return redirect('/');
+    toast.success("Event Added Successfully")
+    console.log("Event added successfully");
+    // return redirect('/');
+    return redirect(`/eventsPage/`);
+
 }
 const AddJob = () => {
     return (
         <>
             <section className="bg-indigo-50">
                 <div className="container m-auto max-w-2xl py-24">
-                    <div
-                        className="bg-white px-6 py-8 mb-4 shadow-md rounded-md border m-4 md:m-0"
-                    >
-                        <Form method="post">
-                            <h2 className="text-3xl text-center font-semibold mb-6">Add Job</h2>
+                    <div className="bg-white px-6 py-8 mb-4 shadow-md rounded-md border m-4 md:m-0">
+                        <Form  method="post">
+                            <h2 className="text-3xl text-center font-semibold mb-6">Add Event</h2>
 
                             <div className="mb-4">
-                                <label htmlFor="type" className="block text-gray-700 font-bold mb-2"
-                                >Job Type</label
-                                >
-                                <select
-                                    id="type"
-                                    name="type"
-                                    className="border rounded w-full py-2 px-3"
-                                    required
-                                >
-                                    <option value="Full-Time">Full-Time</option>
-                                    <option value="Part-Time">Part-Time</option>
-                                    <option value="Remote">Remote</option>
-                                    <option value="Internship">Internship</option>
-                                </select>
-                            </div>
-
-                            <div className="mb-4">
-                                <label className="block text-gray-700 font-bold mb-2"
-                                >Job Listing Name</label
-                                >
+                                <label htmlFor="name" className="block text-gray-700 font-bold mb-2">Event Name</label>
                                 <input
+                                    required
                                     type="text"
-                                    id="title"
-                                    name="title"
+                                    name="name"
+                                    id="name"
                                     className="border rounded w-full py-2 px-3 mb-2"
-                                    placeholder="eg. Beautiful Apartment In Miami"
-                                    required
-                                />
-                            </div>
-                            <div className="mb-4">
-                                <label
-                                    htmlFor="description"
-                                    className="block text-gray-700 font-bold mb-2"
-                                >Description</label
-                                >
-                                <textarea
-                                    id="description"
-                                    name="description"
-                                    className="border rounded w-full py-2 px-3"
-                                    rows="4"
-                                    placeholder="Add any job duties, expectations, requirements, etc"
-                                ></textarea>
-                            </div>
-
-                            <div className="mb-4">
-                                <label htmlFor="type" className="block text-gray-700 font-bold mb-2"
-                                >Salary</label
-                                >
-                                <select
-                                    id="salary"
-                                    name="salary"
-                                    className="border rounded w-full py-2 px-3"
-                                    required
-                                >
-                                    <option value="Under $50K">Under $50K</option>
-                                    <option value="$50K - 60K">$50K - $60K</option>
-                                    <option value="$60K - 70K">$60K - $70K</option>
-                                    <option value="$70K - 80K">$70K - $80K</option>
-                                    <option value="$80K - 90K">$80K - $90K</option>
-                                    <option value="$90K - 100K">$90K - $100K</option>
-                                    <option value="$100K - 125K">$100K - $125K</option>
-                                    <option value="$125K - 150K">$125K - $150K</option>
-                                    <option value="$150K - 175K">$150K - $175K</option>
-                                    <option value="$175K - 200K">$175K - $200K</option>
-                                    <option value="Over $200K">Over $200K</option>
-                                </select>
-                            </div>
-
-                            <div className='mb-4'>
-                                <label className='block text-gray-700 font-bold mb-2'>
-                                    Location
-                                </label>
-                                <input
-                                    type='text'
-                                    id='location'
-                                    name='location'
-                                    className='border rounded w-full py-2 px-3 mb-2'
-                                    placeholder='Company Location'
-                                    required
                                 />
                             </div>
 
-                            <h3 className="text-2xl mb-5">Company Info</h3>
-
                             <div className="mb-4">
-                                <label htmlFor="company" className="block text-gray-700 font-bold mb-2"
-                                >Company Name</label
-                                >
+                                <label  className="block text-gray-700 font-bold mb-2">Location</label>
                                 <input
+                                    required
                                     type="text"
-                                    id="company"
-                                    name="company"
-                                    className="border rounded w-full py-2 px-3"
-                                    placeholder="Company Name"
+                                    name="location"
+                                    id="location"
+                                    className="border rounded w-full py-2 px-3 mb-2"
                                 />
                             </div>
 
                             <div className="mb-4">
-                                <label
-                                    htmlFor="company_description"
-                                    className="block text-gray-700 font-bold mb-2"
-                                >Company Description</label
-                                >
+                                <label htmlFor="description" className="block text-gray-700 font-bold mb-2">Description</label>
                                 <textarea
-                                    id="company_description"
-                                    name="company_description"
-                                    className="border rounded w-full py-2 px-3"
+                                    name="description"
+                                    id="description"
+                                    cols="30"
                                     rows="4"
-                                    placeholder="What does your company do?"
+                                    className="border rounded w-full py-2 px-3"
+                                    placeholder="Add event details, activities, etc"
                                 ></textarea>
                             </div>
 
                             <div className="mb-4">
-                                <label
-                                    htmlFor="contact_email"
-                                    className="block text-gray-700 font-bold mb-2"
-                                >Contact Email</label
-                                >
+                                <label htmlFor="type" className="block text-gray-700 font-bold mb-2">Type</label>
                                 <input
-                                    type="email"
-                                    id="contact_email"
-                                    name="contact_email"
-                                    className="border rounded w-full py-2 px-3"
-                                    placeholder="Email address htmlFor applicants"
                                     required
+                                    type="text"
+                                    name="type"
+                                    id="type"
+                                    className="border rounded w-full py-2 px-3 mb-2"
                                 />
                             </div>
+
                             <div className="mb-4">
-                                <label
-                                    htmlFor="contact_phone"
-                                    className="block text-gray-700 font-bold mb-2"
-                                >Contact Phone</label
-                                >
+                                <label htmlFor="department" className="block text-gray-700 font-bold mb-2">Department</label>
                                 <input
-                                    type="tel"
-                                    id="contact_phone"
-                                    name="contact_phone"
-                                    className="border rounded w-full py-2 px-3"
-                                    placeholder="Optional phone htmlFor applicants"
+                                    required
+                                    type="text"
+                                    name="department"
+                                    id="department"
+                                    className="border rounded w-full py-2 px-3 mb-2"
+                                />
+                            </div>
+
+                            <div className="mb-4 flex gap-2">
+                                <div className="flex-1">
+                                    <label htmlFor="time" className="block text-gray-700 font-bold mb-2">Time</label>
+                                    <input
+                                        required
+                                        type="time"
+                                        name="time"
+                                        id="time"
+                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
+                                        value="00:00"
+                                    />
+                                </div>
+
+                                <div className="flex-1">
+                                    <label htmlFor="date" className="block text-gray-700 font-bold mb-2">Date</label>
+                                    <input
+                                        required
+                                        type="date"
+                                        name="date"
+                                        id="date"
+                                        className="border rounded w-full py-2 px-3"
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="mb-4">
+                                <label htmlFor="price" className="block text-gray-700 font-bold mb-2">Price</label>
+                                <input
+                                    required
+                                    type="number"
+                                    name="price"
+                                    id="price"
+                                    className="border rounded w-full py-2 px-3 mb-2"
+                                />
+                            </div>
+
+                            <hr className="my-6" />
+
+                            <h3 className="text-2xl mb-5">Organiser Info</h3>
+
+                            <div className="mb-4">
+                                <label htmlFor="organiserName" className="block text-gray-700 font-bold mb-2">Organiser Name</label>
+                                <input
+                                    required
+                                    type="text"
+                                    name="organiserName"
+                                    id="organiserName"
+                                    className="border rounded w-full py-2 px-3 mb-2"
+                                />
+                            </div>
+
+                            <div className="mb-4">
+                                <label htmlFor="organiserEmail" className="block text-gray-700 font-bold mb-2">Organiser Email</label>
+                                <input
+                                    required
+                                    type="email"
+                                    name="organiserEmail"
+                                    id="organiserEmail"
+                                    className="border rounded w-full py-2 px-3 mb-2"
+                                />
+                            </div>
+
+                            <div className="mb-4">
+                                <label htmlFor="organiserDepartment" className="block text-gray-700 font-bold mb-2">Organiser Department</label>
+                                <input
+                                    required
+                                    type="text"
+                                    name="organiserDepartment"
+                                    id="organiserDepartment"
+                                    className="border rounded w-full py-2 px-3 mb-2"
                                 />
                             </div>
 
                             <div>
                                 <button
+                                    type="submit"
                                     className="bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline"
-                                    type="submit" 
                                 >
-                                    Add Job
+                                    Submit
                                 </button>
                             </div>
                         </Form>
