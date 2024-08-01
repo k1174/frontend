@@ -5,12 +5,16 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    fontFamily: {
-      'sans': ['Roboto', 'sans-serif'],
-      'serif': ['Merriweather', 'serif'],
-      'mono': ['Menlo', 'monospace']
+    extend: {
+      fontFamily: {
+        'sans': ['Roboto', 'sans-serif'],
+        'serif': ['Merriweather', 'serif'],
+        'mono': ['Menlo', 'monospace']
+      },
+      gridTemplateColumns: {
+        '70/30': '70% 28%',
+      },
     },
-    extend: {},
   },
   plugins: [],
 }

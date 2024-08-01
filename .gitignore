@@ -24,3 +24,7 @@ dist-ssr
 *.sw?
 
 Temp-Notes
+
+src/events.json
+
+src/jobs.json
