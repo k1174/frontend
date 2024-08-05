@@ -10,7 +10,12 @@ export default defineConfig({
       '/api': {
         target: 'http://localhost:4000/events',
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/,'')
+        rewrite: (path) => path.replace(/^\/api/, '')
+      },
+      '/pia': {
+        target: 'http://localhost:4000/admin',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/pia/, '')
       },
     },
   },

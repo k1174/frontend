@@ -15,16 +15,23 @@ import addAction  from './actions/addAction.js';
 import {action as deleteAction} from './actions/deleteAction.js'
 import Edit from './pages/Edit.jsx';
 import {action as editAction} from './actions/editAction.js'
+import AdminPage from './pages/AdminPage.jsx';
+import Calender from './pages/Calender.jsx';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<MainLayout />}>
       <Route index element={<Home />} />
+      <Route path='/admin' element={<AdminPage />} />
+      <Route path='/admin/:jobId' element={<JobPage />} loader={JobPageLoader} errorElement={<NotFound />} />
+
       <Route path='/eventsPage' element={<JobsPage />} />
       <Route path='/eventsPage/:jobId' element={<JobPage />} loader={JobPageLoader} errorElement={<NotFound />}/>
       <Route path='/eventsPage/:jobId/edit' element={<Edit />} loader={JobPageLoader} errorElement={<NotFound />} action={editAction}/>
       <Route path='/eventsPage/:jobId/delete' action={deleteAction}  errorElement={<NotFound />}/>
       <Route path='/addjob' element={<AddJob />} action={addAction} />
+      <Route path='/Calender' element={<Calender />}  />
+
       <Route path='*' element={<NotFound />}></Route>
     </Route>
   )
