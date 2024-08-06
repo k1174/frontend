@@ -17,13 +17,15 @@ import Edit from './pages/Edit.jsx';
 import {action as editAction} from './actions/editAction.js'
 import AdminPage from './pages/AdminPage.jsx';
 import Calender from './pages/Calender.jsx';
+import AdminJobPage from './pages/AdminJobPage.jsx';
+
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<MainLayout />}>
       <Route index element={<Home />} />
       <Route path='/admin' element={<AdminPage />} />
-      <Route path='/admin/:jobId' element={<JobPage />} loader={JobPageLoader} errorElement={<NotFound />} />
+      <Route path='/admin/:jobId' element={<AdminJobPage />} loader={JobPageLoader} errorElement={<NotFound />} />
 
       <Route path='/eventsPage' element={<JobsPage />} />
       <Route path='/eventsPage/:jobId' element={<JobPage />} loader={JobPageLoader} errorElement={<NotFound />}/>

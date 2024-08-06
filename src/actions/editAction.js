@@ -1,13 +1,12 @@
 import { redirect } from "react-router-dom"
-import transform from "../methods/transform";
 import { toast } from "react-toastify";
 
 export async function action({ request, params }) {
     const formData = await request.formData();
     formData.append('id', params.jobId);
 
-    const formEntries = Object.fromEntries(formData);
-    const updates = transform(formEntries);
+    const updates = Object.fromEntries(formData);
+  
 
     const url = `/api${params.jobId}`
     const response = await fetch(url, {

@@ -86,8 +86,8 @@ const Job = ({job}) => {
                                 >
 
                                     <button type="submit"
-                                        disabled
-                                        className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline mt-4 block opacity-50 cursor-not-allowed"
+                                        
+                                        className="bg-red-400 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline mt-4 block  "
                                     >
                                         Delete
                                     </button>

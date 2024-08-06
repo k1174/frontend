@@ -1,16 +1,17 @@
 import { Form, useLoaderData } from "react-router-dom";
+import convertTo24HourFormat from "../methods/timeUtil";
 
 
 export default function Edit(){
     const job = useLoaderData();
-
+    const time = convertTo24HourFormat(job.time);
     return (
         <>
         <section className="bg-indigo-50">
                 <div className="container m-auto max-w-2xl py-24">
                     <div className="bg-white px-6 py-8 mb-4 shadow-md rounded-md border m-4 md:m-0">
                         <Form  method="post">
-                            <h2 className="text-3xl text-center font-semibold mb-6">Add Event</h2>
+                            <h2 className="text-3xl text-center font-semibold mb-6">Edit Event</h2>
 
                             <div className="mb-4">
                                 <label htmlFor="name" className="block text-gray-700 font-bold mb-2">Event Name</label>
@@ -83,7 +84,7 @@ export default function Edit(){
                                         id="time"
                                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
                                         
-                                        defaultValue={job.time}
+                                        defaultValue={time}
                                     />
                                 </div>
 
@@ -95,7 +96,7 @@ export default function Edit(){
                                         name="date"
                                         id="date"
                                         className="border rounded w-full py-2 px-3"
-                                        defaultValue={job.date}
+                                        defaultValue={job.date.slice(0, 10)}
                                     />
                                 </div>
                             </div>
