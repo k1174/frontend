@@ -1,15 +1,27 @@
 import { useLoaderData } from "react-router-dom";
 import Job from "../components/Job"
 import BackLink from "../components/BackLink"
-import AddToCal from "../components/AddToCal"
+import DownloadEmailsButton from "../components/Email";
+import { useAuth } from "../../context/AuthContext";
+import TotalRegistration from "../components/TotalRegistration";
 
 const JobPage = () => {
     const job = useLoaderData();
+    const { isAdmin } = useAuth();
     return (
         <>
             <BackLink />
             <Job job={job} />
-            <AddToCal job={job} />
+
+            <div className="flex justify-center items-baseline">
+                {<TotalRegistration job={job} />}
+            </div>
+
+            <div className="flex justify-center">
+                {isAdmin && <DownloadEmailsButton job={job} />}
+               
+            </div>
+
         </>
     )
 }

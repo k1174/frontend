@@ -7,6 +7,12 @@ export default defineConfig({
   server: {
     port: 3000,
     proxy: {
+      '/auth': {
+        target: 'http://localhost:4000/auth',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/auth/, '')
+      },
+
       '/api': {
         target: 'http://localhost:4000/events',
         changeOrigin: true,
@@ -17,6 +23,12 @@ export default defineConfig({
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/pia/, '')
       },
+      '/service': {
+        target: 'http://localhost:4000/api',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/service/, '')
+      }
+
     },
   },
 })

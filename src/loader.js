@@ -1,4 +1,4 @@
-import getJobs from './api'
+import { getJobs } from "./api";
 export async function loader({ params }) {
 
     const jobs = await getJobs(params.jobId);

@@ -1,12 +1,13 @@
-import { Form } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext"
+import AdminManage from "./AdminManage";
+import UserManage from "./UserManage";
 
-const Job = ({job}) => {
-    
+const Job = ({ job }) => {
+    const { isAdmin } = useAuth();
     console.log(job)
-    
+
     return (
         <>
-            
 
             <section className="bg-indigo-50">
                 <div className="container m-auto py-10 px-6">
@@ -59,7 +60,7 @@ const Job = ({job}) => {
                                 <h3 className="text-xl">Contact Email:</h3>
 
                                 <p className="my-2 bg-indigo-100 p-2 font-bold">
-                                    {job.organiserName}
+                                    {job.organiserEmail}
                                 </p>
 
                                 <h3 className="text-xl">Department :</h3>
@@ -68,37 +69,11 @@ const Job = ({job}) => {
                             </div>
 
                             {/* <!-- Manage --> */}
-                            <div className="bg-white p-6 rounded-lg shadow-md mt-6 ">
-                                <h3 className="text-xl font-bold mb-6">Manage Event</h3>
-                                <Form action="edit">
-                                    <button
-                                        className="bg-indigo-500 hover:bg-indigo-600 text-white text-center font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline mt-4 block" >
-                                        Edit
-                                    </button>
-                                </Form>
-
-                                <Form method="post" action="delete"
-                                    onSubmit={(event) => {
-                                        if (!confirm("Please confirm you want to delete this record.")) {
-                                            event.preventDefault();
-                                        }
-                                    }}
-                                >
-
-                                    <button type="submit"
-                                        
-                                        className="bg-red-400 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline mt-4 block  "
-                                    >
-                                        Delete
-                                    </button>
-                                </Form>
-                            </div>
+                            {isAdmin ? <AdminManage /> : <UserManage job={job}/>}
                         </aside>
                     </div>
                 </div>
             </section>
-
-            
 
         </>
     )
