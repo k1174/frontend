@@ -15,9 +15,10 @@
         {
             "source": "/service/:path*",
             "destination": "https://server-56ae.onrender.com/api/:path*"
+        },
+        {
+            "source": "/(.*)",
+            "destination": "/"
         }
-    
-    
-
     ]
 }
