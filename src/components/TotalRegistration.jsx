@@ -10,7 +10,7 @@ export default function TotalRegistration({ job }) {
         return;
       }
       const total = await response.json();
-      console.log(total)
+
       setTotal(total.count);
     };
 

@@ -15,15 +15,16 @@ export default function Profile() {
             if (!token) {
                 navigate('/login');
             }
-            else{
+            else {
                 // Fetch user profile data if token exists
-                try{
+                try {
                     const userProfile = await getUserProfile(token)
-                    setUser(userProfile) 
+                    setUser(userProfile)
                     setLoading(false)
+
                 }
-                catch(error){
-                    console.error('Failed to fetch user profile: '. error)
+                catch (error) {
+                    console.error('Failed to fetch user profile: '.error)
                 }
             }
         }
@@ -44,13 +45,25 @@ export default function Profile() {
     }
 
     return (
-        <div>
-            <h1>Profile</h1>
+        <>
             <div>
-                <p>Name: {user.name}</p>
-                <p>Email: {user.email}</p>
-                <p>Role: {user.role}</p>
+                <h1>Profile</h1>
+                <div>
+                    <p>Name: {user.name}</p>
+                    <p>Email: {user.email}</p>
+                    <p>Role: {user.role}</p>
+                    {/* List of registered events */}
+                    <h2>Registered Events</h2>
+                    {/* <ul>
+                    {user.events.map((event) => (
+                        <li key={event.id}>
+                        <p>{event.name}</p>
+                        <p>{event.date}</p>
+                        </li>
+                        ))}
+                        </ul> */}
+                </div>
             </div>
-        </div>
+        </>
     )
 }
