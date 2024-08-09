@@ -15,17 +15,17 @@ export default defineConfig({
       },
 
       '/api': {
-        target: `${url}/api`,
+        target: `${url}/events`,
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, '')
       },
       '/pia': {
-        target: `${url}/pia`,
+        target: `${url}/admin`,
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/pia/, '')
       },
       '/service': {
-        target: `${url}/service`,
+        target: `${url}/api`,
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/service/, '')
       }
