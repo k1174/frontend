@@ -1,0 +1,23 @@
+{
+    "rewrites": [
+        {
+            "source": "/api/:path*",
+            "destination": "https://server-56ae.onrender.com/events/:path*"
+        },
+        {
+            "source": "/auth/:path*",
+            "destination": "https://server-56ae.onrender.com/auth/:path*"
+        },
+        {
+            "source": "/pia/:path*",
+            "destination": "https://server-56ae.onrender.com/admin/:path*"
+        },
+        {
+            "source": "/service/:path*",
+            "destination": "https://server-56ae.onrender.com/api/:path*"
+        }
+    
+    
+
+    ]
+}
