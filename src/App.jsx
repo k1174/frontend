@@ -24,6 +24,7 @@ import Profile from './pages/auth/Profile.jsx';
 import ProtectedRoute from './components/ProtectedRoute.jsx';
 import { AuthProvider } from '../context/AuthContext.jsx';
 import DownloadEmailsButton from './components/Email.jsx'
+import Test from './components/Test.jsx';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -52,9 +53,18 @@ const router = createBrowserRouter(
       <Route path='/eventsPage/:jobId' element={<JobPage />} loader={JobPageLoader} errorElement={<NotFound />} />
       <Route path='/eventsPage/:jobId/edit' element={<Edit />} loader={JobPageLoader} errorElement={<NotFound />} action={editAction} />
       <Route path='/eventsPage/:jobId/delete' action={deleteAction} errorElement={<NotFound />} />
-      <Route path='/addjob' element={<AddJob />} action={addAction} />
+
+      <Route path='/addjob'
+        element={
+          <ProtectedRoute >
+            <AddJob />
+          </ProtectedRoute>
+        }
+        action={addAction} />
+
       <Route path='/Calender' element={<Calender />} />
       <Route path='/download' element={<DownloadEmailsButton />} />
+      <Route path='/test' element={<Test />} />
 
       <Route path='/Register' element={<Register />} />
       <Route path='/Login' element={<Login />} />
@@ -75,4 +85,4 @@ function App() {
   )
 }
 
-export default App
+export default App;
