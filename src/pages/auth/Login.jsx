@@ -1,6 +1,5 @@
-import { Link, useNavigate } from "react-router-dom"
+import { Link } from "react-router-dom"
 export default function Login() {
-    const navigate = useNavigate();
     const handleSubmit = async (e) => {
         e.preventDefault()
         try {
@@ -25,7 +24,7 @@ export default function Login() {
             const { token } = await response.json();
             localStorage.setItem('token', token);
             console.log("Login Successful");
-            navigate('/profile')
+            window.location.href = '/profile';
         }
         catch (error) {
             console.error('Login Failed:', error.message);
