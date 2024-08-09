@@ -61,11 +61,7 @@ function Navbar() {
                                         </>
                                     ) : (
                                         <>
-                                            <NavLink
-                                                to="/register"
-                                                className={linkClass}
-                                            >Register</NavLink
-                                            >
+                                            
                                             <NavLink
                                                 to="/login"
                                                 className={linkClass}
