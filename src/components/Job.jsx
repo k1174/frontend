@@ -1,10 +1,14 @@
+import { useEffect } from "react";
 import { useAuth } from "../../context/AuthContext"
 import AdminManage from "./AdminManage";
 import UserManage from "./UserManage";
 
 const Job = ({ job }) => {
     const { isAdmin } = useAuth();
-    console.log(job)
+
+    useEffect(() => {
+        console.log(job)
+    }, [job]) 
 
     return (
         <>
