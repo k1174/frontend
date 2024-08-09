@@ -1,6 +1,10 @@
 import { NavLink } from 'react-router-dom';
 import logo from '../assets/images/image.png'
+import { useAuth } from '../../context/AuthContext';
+
 function Navbar() {
+
+    const { isAuthenticated, isAdmin } = useAuth();
     const linkClass = ({ isActive }) => `text-white hover:bg-gray-900 hover:text-white rounded-md px-3 py-2 ${isActive ? "bg-black" : ""}`
 
     return (
@@ -39,6 +43,37 @@ function Navbar() {
                                         className={linkClass}
                                     >Add Events</NavLink
                                     >
+
+                                    {isAuthenticated ? (
+                                        <>
+                                            <NavLink
+                                                to="/profile"
+                                                className={linkClass}
+                                            >Profile</NavLink
+                                            >
+                                            {isAdmin && (
+                                                <NavLink
+                                                    to="/admin"
+                                                    className={linkClass}
+                                                >Admin</NavLink
+                                                >
+                                            )}
+                                        </>
+                                    ) : (
+                                        <>
+                                            <NavLink
+                                                to="/register"
+                                                className={linkClass}
+                                            >Register</NavLink
+                                            >
+                                            <NavLink
+                                                to="/login"
+                                                className={linkClass}
+                                            >Login</NavLink
+                                            >
+                                        </>
+                                    )}
+
                                 </div>
                             </div>
                         </div>
