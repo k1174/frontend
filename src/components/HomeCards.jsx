@@ -12,7 +12,7 @@ const HomeCards = () => {
                                 Get ready to schedule your events
                             </p>
                             <Link   
-                                to="/eventsPage"
+                                to="/addjob"
                                 className={`inline-block bg-black text-white rounded-lg px-4 py-2 hover:bg-gray-700`}
                             >
                                 Create Event
@@ -25,7 +25,7 @@ const HomeCards = () => {
                             Find the your favourite events here
                             </p>
                             <Link
-                                to="/addjob"
+                                to="/eventsPage"
                                 className={`inline-block bg-indigo-500 text-white rounded-lg px-4 py-2 hover:bg-indigo-600`}
                             >
                                 Browse Events
