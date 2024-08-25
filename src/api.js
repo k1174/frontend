@@ -18,10 +18,10 @@ async function getJobs(jobId) {
 }
 
 async function getUserProfile(token) {
-    try{
+    try {
         const response = await fetch('/auth/profile', {
-            headers: {'Authorization': `Bearer ${token}`},
-            });
+            headers: { 'Authorization': `Bearer ${token}` },
+        });
         if (!response.ok) {
             throw new Error('Failed to fetch data')
         }
@@ -33,7 +33,40 @@ async function getUserProfile(token) {
     }
 }
 
+async function getUserRegistrations(token) {
+    try {
+        const response = await fetch('/auth/registrations', {
+            headers: { 'Authorization': `Bearer ${token}` },
+        });
+        if (!response.ok) {
+            throw new Error('Failed to fetch data')
+        }
+        const result = await response.json()
+        return result
+    } catch (error) {
+        console.error('Error in getUserRegistrations:', error)
+        throw error;
+    }
+}
+
+async function getUserCreatedEvents(userId) {
+    try {
+        const response = await fetch(`/api/user/${userId}`);
+        if (!response.ok) {
+            throw new Error('Failed to fetch data')
+        }
+        const result = await response.json()
+        return result
+    } catch (error) {
+        console.error('Error in getUserCreatedEvents:', error)
+        throw error;
+    }
+}
+
+
 export {
     getJobs,
-    getUserProfile
+    getUserProfile,
+    getUserRegistrations,
+    getUserCreatedEvents
 }
