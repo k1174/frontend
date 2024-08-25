@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import JobListing from './JobListing';
 import { useState, useEffect } from 'react';
 import { Form, useSubmit } from "react-router-dom";
@@ -188,7 +189,7 @@ const JobListings = ({ isHome = true, isAdmin = false }) => {
 
                 </nav>
             }
-            {!isLoading &&
+            { pages > 1 && !isLoading &&
                 <div className="w-full flex justify-center">
                     <div >
                         Showing Page : {page} of {pages}
