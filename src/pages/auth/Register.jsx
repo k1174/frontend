@@ -25,7 +25,7 @@ export default function Register() {
                 const errorMessage = errorData.error || 'Registration failed';
                 throw new Error(errorMessage);
             }
-            
+
             console.log("Registration Successful");
             navigate('/login');
         }
@@ -59,8 +59,9 @@ export default function Register() {
                                     name="name"
                                     type="name"
                                     required
-                                    placeholder=" Enter Your Name"
-                                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                    placeholder="  Your Name"
+                                    pattern="^[a-zA-Z\s]+$"
+                                    className="block w-full rounded-md border-0 pl-1 focus:outline-none py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6  invalid:text-red-600"
                                 />
                             </div>
                         </div>
@@ -76,7 +77,8 @@ export default function Register() {
                                     type="email"
                                     required
                                     autoComplete="email"
-                                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                    placeholder="  Your Email"
+                                    className="block w-full rounded-md border-0 pl-1 focus:outline-none py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6  invalid:text-red-600"
                                 />
                             </div>
                         </div>
@@ -95,7 +97,9 @@ export default function Register() {
                                     type="password"
                                     required
                                     autoComplete="current-password"
-                                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                    placeholder="  Your Password"
+                                    minLength="8"
+                                    className="block w-full rounded-md border-0 pl-1 focus:outline-none py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6  invalid:text-red-600"
                                 />
                             </div>
                         </div>
@@ -115,7 +119,7 @@ export default function Register() {
                         Already a member?{' '}
                         <Link to="/login" className="font-semibold text-indigo-600 hover:text-indigo-500">
                             Login
-                        </Link>    
+                        </Link>
                     </p>
 
                 </div>
