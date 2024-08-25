@@ -1,6 +1,8 @@
 import { Form } from 'react-router-dom';
+import { useAuth } from "../../context/AuthContext";
 
 const AddJob = () => {
+    const {user} = useAuth();
     return (
         <>
             <section className="bg-indigo-50">
@@ -137,6 +139,13 @@ const AddJob = () => {
                                     className="border rounded w-full py-2 px-3 mb-2"
                                 />
                             </div>
+                            
+                            {/* userId */}
+                            <input
+                                type="hidden"
+                                name="userId"
+                                value={user._id}
+                            />
 
                             <div>
                                 <button
