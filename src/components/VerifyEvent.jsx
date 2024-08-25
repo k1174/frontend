@@ -5,7 +5,7 @@ export default function VerifyEvent({ job }) {
     const handleClick = async () => {
         job.status = "approved"
         console.log(job._id)
-        const url = `/api${job._id}`
+        const url = `/api/${job._id}`
         const response = await fetch(url, {
             method: 'PUT',
             headers: {
