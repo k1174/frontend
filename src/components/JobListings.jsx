@@ -21,6 +21,18 @@ const JobListings = ({ isHome = true, isAdmin = false }) => {
     const q = params.get('q');
     // console.log(query, params.get('q'))
 
+    /*
+
+    //debounce was implemente but need to learn usecallback
+    const debounce = (form, isFirstSearch, delay) => {
+        let timeout;
+        clearTimeout(timeout);
+        timeout = setTimeout(() => {
+            submit(form, { replace: !isFirstSearch, })
+        }, delay)
+    }
+
+    */
 
     const fetchData = async () => {
         setLoading(true)
@@ -63,28 +75,6 @@ const JobListings = ({ isHome = true, isAdmin = false }) => {
     useEffect(() => {
         setPage(1)
     }, [q])
-   
-    useEffect(() => {
-        if (isLoading) {
-            console.log('loading')
-        }
-        else {
-            console.log('loaded')
-            if (pages > 1) {
-                //change the button color of id = page
-                const buttons = document.querySelectorAll('button');
-                buttons.forEach(button => {
-                    if (button.id == page) {
-                        button.classList.add('bg-indigo-600', 'text-white', 'focus-visible:outline', 'focus-visible:outline-2', 'focus-visible:outline-offset-2', 'focus-visible:outline-indigo-600')
-                    }
-                    else {
-                        button.classList.remove('bg-indigo-600', 'text-white', 'focus-visible:outline', 'focus-visible:outline-2', 'focus-visible:outline-offset-2', 'focus-visible:outline-indigo-600')
-                    }
-                })
-        
-            }
-        }
-    }, [isLoading])
 
 
     if (error) return <div className="text-red-500 text-center">{error}</div>;
@@ -156,7 +146,9 @@ const JobListings = ({ isHome = true, isAdmin = false }) => {
                                     {
                                         Array.from({ length: pages }, (_, i) => (
                                             <button id={i + 1} key={i} onClick={() => setPage(i + 1)}
-                                                className="relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-300 focus:z-20 focus:outline-offset-0">
+                                                // className="relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-300 focus:z-20 focus:outline-offset-0"
+                                                className={`relative inline-flex items-center px-4 py-2 text-sm font-semibold ring-1 ring-inset ring-gray-300 hover:bg-gray-300 focus:z-20 focus:outline-offset-0 ${page == i + 1 ? 'bg-indigo-600 text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600' : 'text-gray-900'}`}
+                                                >
                                                 {i + 1}
                                             </button>
                                         ))
