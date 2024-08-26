@@ -6,6 +6,8 @@ import Spinner from './Spinner';
 import { MdArrowBackIos, MdArrowForwardIos } from "react-icons/md";
 
 const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+const PAGE_SIZE_HOME = 3;
+const PAGE_SIZE_DEFAULT = 12;
 
 const JobListings = ({ isHome = true, isAdmin = false }) => {
 
@@ -53,9 +55,9 @@ const JobListings = ({ isHome = true, isAdmin = false }) => {
 
             setPages(Math.ceil(result.length / 12))
             if (isHome) {
-                setRecent(result.slice(0, 3));
+                setRecent(result.slice(0, PAGE_SIZE_HOME));
             } else {
-                setRecent(result.slice(((page - 1) * 9), page * 9));
+                setRecent(result.slice(((page - 1) * PAGE_SIZE_DEFAULT), page * PAGE_SIZE_DEFAULT));
             }
 
 
