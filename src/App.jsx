@@ -25,6 +25,7 @@ import ProtectedRoute from './components/ProtectedRoute.jsx';
 import { AuthProvider } from '../context/AuthContext.jsx';
 import DownloadEmailsButton from './components/Email.jsx'
 import Test from './components/Test.jsx';
+import Past from './pages/Past.jsx';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -54,6 +55,11 @@ const router = createBrowserRouter(
       <Route path='profile/:jobId' element={<JobPage />} loader={JobPageLoader} errorElement={<NotFound />} />
       <Route path='/eventsPage/:jobId/edit' element={<Edit />} loader={JobPageLoader} errorElement={<NotFound />} action={editAction} />
       <Route path='/eventsPage/:jobId/delete' action={deleteAction} errorElement={<NotFound />} />
+
+      <Route path='/past' element={<Past />} errorElement={<NotFound />} />
+      <Route path='/past/:jobId' element={<JobPage />} loader={JobPageLoader} errorElement={<NotFound />} />
+      <Route path='/past/:jobId/edit' element={<Edit />} loader={JobPageLoader} errorElement={<NotFound />} action={editAction} />
+      <Route path='/past/:jobId/delete' action={deleteAction} errorElement={<NotFound />} />
 
       <Route path='/addjob'
         element={
