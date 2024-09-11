@@ -4,7 +4,8 @@ import BackLink from "../components/BackLink"
 import DownloadEmailsButton from "../components/Email";
 import { useAuth } from "../../context/AuthContext";
 import TotalRegistration from "../components/TotalRegistration";
-
+import DownloadReportButton from "../components/Report";
+// import Feedbacks from "../components/Feedbacks.jsx";
 const JobPage = () => {
     const job = useLoaderData();
     const { isAdmin } = useAuth();
@@ -17,10 +18,17 @@ const JobPage = () => {
                 {<TotalRegistration job={job} />}
             </div>
 
-            <div className="flex justify-center">
-                {isAdmin && <DownloadEmailsButton job={job} />}
-               
-            </div>
+            {isAdmin &&
+                <>
+                    <div className="flex justify-center">
+                        <DownloadEmailsButton job={job} />
+                        <DownloadReportButton job={job} />
+                        {/* <Feedbacks job={job} /> */}
+                    </div>
+
+                </>
+
+            }
 
         </>
     )

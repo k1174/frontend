@@ -37,6 +37,23 @@ const JobListing = ({ job, isHome, isAdmin }) => { // {job} -> Destructuring ass
                         </Link>
                     </div>
                 </div>
+                {job.status !== 'pending' ?
+                    <span className="absolute -translate-y-1/5 translate-x-1/9 left-auto top-2 right-2">
+                        <span className="inline-flex items-center bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded-full ">
+                            <span className="w-2 h-2 me-1 bg-green-500 rounded-full"></span>
+                            Verified
+                        </span>
+                    </span>
+                    :
+
+                    <span className="absolute -translate-y-1/5 translate-x-1/9 left-auto top-1 right-2">
+
+                        <span className=" inline-flex items-center bg-red-100 text-red-800 text-xs font-medium px-2.5 py-0.5 rounded-full ">
+                            <span className="w-2 h-2 me-1 bg-red-500 rounded-full"></span>
+                            Not verified
+                        </span>
+                    </span>
+                }
             </div>
         </>
     )

@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
-const url = "https://server-56ae.onrender.com/"
+const arr = ["https://server-56ae.onrender.com/" , "http://localhost:4000/"]
+const url = arr[1]
 
 // https://vitejs.dev/config/
 export default defineConfig({

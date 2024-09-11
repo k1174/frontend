@@ -1,6 +1,7 @@
 import Hero from '../components/Hero'
 import HomeCards from '../components/HomeCards'
 import JobListings from '../components/JobListings'
+import Steps from '../components/Steps'
 import ViewAllJobs from '../components/ViewAllJobs'
 const Home = () => {
     return(
@@ -9,6 +10,7 @@ const Home = () => {
         <HomeCards />
         <JobListings />
         <ViewAllJobs />
+        <Steps />
         </>
     )
 }

@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* styles.css */
+body {
+    background-color: #eff6ff;
+    /* This is the hex code for bg-blue-50 */
+}

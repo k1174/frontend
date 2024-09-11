@@ -38,11 +38,11 @@ function Navbar() {
                                         className={linkClass}
                                     >Events</NavLink
                                     >
-                                    <NavLink
+                                    {/* <NavLink
                                         to="/addjob"
                                         className={linkClass}
                                     >Add Events</NavLink
-                                    >
+                                    > */}
 
                                     {isAuthenticated ? (
                                         <>

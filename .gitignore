@@ -28,3 +28,6 @@ Temp-Notes
 src/events.json
 
 src/jobs.json
+
+# ignore test.jsx
+src/components/Test.jsx

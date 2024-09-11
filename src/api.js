@@ -45,7 +45,7 @@ async function getUserRegistrations(token) {
         return result
     } catch (error) {
         console.error('Error in getUserRegistrations:', error)
-        throw error;
+        // throw error;
     }
 }
 

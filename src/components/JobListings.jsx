@@ -22,7 +22,9 @@ const JobListings = ({ isHome = true, isAdmin = false }) => {
     const params = new URL(window.location.href).searchParams;
     const q = params.get('q');
     // console.log(query, params.get('q'))
-
+    //print url
+    // console.log(window.location.href)
+    const fetchUrl = window.location.href
     /*
 
     //debounce was implemente but need to learn usecallback
@@ -43,6 +45,7 @@ const JobListings = ({ isHome = true, isAdmin = false }) => {
         try {
 
             let url = isAdmin ? '/pia' : '/api'
+            if(fetchUrl.includes('/past')) url = '/api/past';
             if (q) {
                 url = `${url}?q=${q}`
             }
@@ -127,11 +130,11 @@ const JobListings = ({ isHome = true, isAdmin = false }) => {
                 </div>
             </section>
 
-            {
+            { !isHome &&
                 pages > 1 && !isLoading &&
                 <nav className="w-full flex justify-center ">
 
-                    <div className="flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6 ">
+                    <div className="flex items-center justify-between border-t border-gray-200  px-4 py-3 sm:px-6 ">
 
                         <div className="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
 
@@ -183,7 +186,7 @@ const JobListings = ({ isHome = true, isAdmin = false }) => {
 
                 </nav>
             }
-            { pages > 1 && !isLoading &&
+            { !isHome && pages > 1 && !isLoading &&
                 <div className="w-full flex justify-center">
                     <div >
                         Showing Page : {page} of {pages}
