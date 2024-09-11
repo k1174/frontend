@@ -40,6 +40,8 @@ const router = createBrowserRouter(
           </ProtectedRoute>
         }
       />
+      <Route path='/admin/:jobId/edit' element={<Edit />} loader={JobPageLoader} errorElement={<NotFound />} action={editAction} />
+      <Route path='/admin/:jobId/delete' action={deleteAction} errorElement={<NotFound />} />
       <Route path='/admin/:jobId'
 
         element={
@@ -53,8 +55,7 @@ const router = createBrowserRouter(
       <Route path='/eventsPage' element={<JobsPage />} />
       <Route path='/eventsPage/:jobId' element={<JobPage />} loader={JobPageLoader} errorElement={<NotFound />} />
       <Route path='profile/:jobId' element={<JobPage />} loader={JobPageLoader} errorElement={<NotFound />} />
-      <Route path='/eventsPage/:jobId/edit' element={<Edit />} loader={JobPageLoader} errorElement={<NotFound />} action={editAction} />
-      <Route path='/eventsPage/:jobId/delete' action={deleteAction} errorElement={<NotFound />} />
+      
 
       <Route path='/past' element={<Past />} errorElement={<NotFound />} />
       <Route path='/past/:jobId' element={<JobPage />} loader={JobPageLoader} errorElement={<NotFound />} />
