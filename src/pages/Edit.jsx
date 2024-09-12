@@ -51,6 +51,19 @@ export default function Edit(){
                             </div>
 
                             <div className="mb-4">
+                                <label htmlFor="description" className="block text-gray-700 font-bold mb-2">Details</label>
+                                <textarea
+                                    name="details"
+                                    id="details"
+                                    cols="30"
+                                    rows="10"
+                                    className="border rounded w-full py-2 px-3"
+                                    placeholder="Add event details, activities, etc"
+                                    defaultValue={job.details}
+                                ></textarea>
+                            </div>
+
+                            <div className="mb-4">
                                 <label htmlFor="type" className="block text-gray-700 font-bold mb-2">Type</label>
                                 <input
                                     required

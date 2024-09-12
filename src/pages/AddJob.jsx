@@ -41,6 +41,18 @@ const AddJob = () => {
                                     cols="30"
                                     rows="4"
                                     className="border rounded w-full py-2 px-3"
+                                    placeholder="Add event Description"
+                                ></textarea>
+                            </div>
+
+                            <div className="mb-4">
+                                <label htmlFor="description" className="block text-gray-700 font-bold mb-2">Description</label>
+                                <textarea
+                                    name="details"
+                                    id="details"
+                                    cols="30"
+                                    rows="10"
+                                    className="border rounded w-full py-2 px-3"
                                     placeholder="Add event details, activities, etc"
                                 ></textarea>
                             </div>

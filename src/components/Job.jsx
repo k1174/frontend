@@ -6,7 +6,7 @@ import UserManage from "./UserManage";
 const Job = ({ job }) => {
     const { user, isAdmin, isAuthenticated } = useAuth();
     const [submit, setSubmit] = useState(false)
-    
+
     useEffect(() => {
         // console.log(job)
     }, [job])
@@ -26,8 +26,36 @@ const Job = ({ job }) => {
             },
             body: JSON.stringify(data),
         })
-        
     }
+
+    const parseCustomSyntax = (text) => {
+        // Replace **bold** with <strong>bold</strong>
+        text = text.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+
+        // Replace *italic* with <em>italic</em>
+        text = text.replace(/\*(.+?)\*/g, '<em>$1</em>');
+
+        // Replace # Heading with <h1>Heading</h1>
+        text = text.replace(/(^|\n)# (.+?)(\n|$)/g, '<h1 class="text-2xl font-medium">$2</h1>');
+
+        // Replace unordered lists
+        text = text.replace(/(^|\n)(-|\*)\s(.+?)(\n|$)/gm, (match, p1, p2, p3) => {
+            // This part handles simple unordered lists
+            return p1 + '<ul><li class="ps-5 mt-2 space-y-1 list-disc list-inside">' + p3.replace(/(\n\s{2,}[-*]\s)/g, '</li><li>').replace(/<\/li>\s*<\/li>/g, '</li>') + '</li></ul>';
+        });
+
+        // Replace ordered lists
+        text = text.replace(/(^|\n)(\d+)\.\s(.+?)(\n|$)/gm, (match, p1, p2, p3) => {
+            // This part handles simple ordered lists
+            return p1 + '<ol><li class="ps-5 mt-2 space-y-1 list list-inside">' + p3.replace(/(\n\s{2,}\d+\.\s)/g, '</li><li>').replace(/<\/li>\s*<\/li>/g, '</li>') + '</li></ol>';
+        });
+
+        // Add more rules as needed
+
+        return text;
+    };
+
+    const formattedText = parseCustomSyntax(job.details);
 
     return (
         <>
@@ -59,6 +87,11 @@ const Job = ({ job }) => {
                                 </h3>
 
                                 <p className="mb-4">{job.description}</p>
+                                {/* <div style={{ whiteSpace: 'pre-wrap' }} className="mb-4">{job.details}</div> */}
+                                <div
+                                    dangerouslySetInnerHTML={{ __html: formattedText }}
+                                    style={{ whiteSpace: 'pre-wrap' }}
+                                />
                                 <p className="mb-4">{job.time}</p>
                                 <p className="mb-4">{job.date.split('T')[0]}</p>
 
@@ -102,7 +135,7 @@ const Job = ({ job }) => {
 
                                 <hr className="my-4" />
 
-                                <h3 className="text-base rounded-lg my-2 p-2 bg-gray-100 "> Email :   
+                                <h3 className="text-base rounded-lg my-2 p-2 bg-gray-100 "> Email :
 
                                     <span className="pl-1   font-semibold">
                                         {job.organiserEmail}
@@ -111,7 +144,7 @@ const Job = ({ job }) => {
 
 
                                 <h3 className="text-base rounded-lg my-2 p-2 bg-gray-100">Department :
-                                <span className="pl-1  font-semibold">
+                                    <span className="pl-1  font-semibold">
                                         {job.organiserDepartment}
                                     </span>
                                 </h3>
