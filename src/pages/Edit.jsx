@@ -1,16 +1,16 @@
 import { Form, useLoaderData } from "react-router-dom";
 import convertTo24HourFormat from "../methods/timeUtil";
+import Tooltip from "../components/Tooltip";
 
-
-export default function Edit(){
+export default function Edit() {
     const job = useLoaderData();
     const time = convertTo24HourFormat(job.time);
     return (
         <>
-        <section className="bg-indigo-50">
+            <section className="bg-indigo-50">
                 <div className="container m-auto max-w-2xl py-24">
                     <div className="bg-white px-6 py-8 mb-4 shadow-md rounded-md border m-4 md:m-0">
-                        <Form  method="post">
+                        <Form method="post">
                             <h2 className="text-3xl text-center font-semibold mb-6">Edit Event</h2>
 
                             <div className="mb-4">
@@ -26,7 +26,7 @@ export default function Edit(){
                             </div>
 
                             <div className="mb-4">
-                                <label  className="block text-gray-700 font-bold mb-2">Location</label>
+                                <label className="block text-gray-700 font-bold mb-2">Location</label>
                                 <input
                                     required
                                     type="text"
@@ -51,7 +51,8 @@ export default function Edit(){
                             </div>
 
                             <div className="mb-4">
-                                <label htmlFor="description" className="block text-gray-700 font-bold mb-2">Details</label>
+                                <label htmlFor="description" className="block text-gray-700 font-bold mb-2">Details </label>
+                                <Tooltip />
                                 <textarea
                                     name="details"
                                     id="details"
@@ -96,7 +97,7 @@ export default function Edit(){
                                         name="time"
                                         id="time"
                                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
-                                        
+
                                         defaultValue={time}
                                     />
                                 </div>
@@ -178,6 +179,6 @@ export default function Edit(){
                     </div>
                 </div>
             </section>
-    </>
+        </>
     )
 }

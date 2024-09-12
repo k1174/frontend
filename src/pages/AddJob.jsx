@@ -1,5 +1,6 @@
 import { Form } from 'react-router-dom';
 import { useAuth } from "../../context/AuthContext";
+import Tooltip from '../components/Tooltip';
 
 const AddJob = () => {
     const {user} = useAuth();
@@ -46,7 +47,8 @@ const AddJob = () => {
                             </div>
 
                             <div className="mb-4">
-                                <label htmlFor="description" className="block text-gray-700 font-bold mb-2">Description</label>
+                                <label htmlFor="description" className="block text-gray-700 font-bold mb-2">Details</label>
+                                <Tooltip />
                                 <textarea
                                     name="details"
                                     id="details"
