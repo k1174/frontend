@@ -56,7 +56,7 @@ const Job = ({ job }) => {
     };
     let formattedText = '';
 
-    if(job.details){
+    if (job.details) {
         formattedText = parseCustomSyntax(job.details);
     }
 
@@ -91,11 +91,11 @@ const Job = ({ job }) => {
 
                                 <p className="mb-4">{job.description}</p>
                                 {/* <div style={{ whiteSpace: 'pre-wrap' }} className="mb-4">{job.details}</div> */}
-                                {job.details && 
-                                <div
-                                    dangerouslySetInnerHTML={{ __html: formattedText }}
-                                    style={{ whiteSpace: 'pre-wrap' }}
-                                />}
+                                {job.details &&
+                                    <div className="mb-6"
+                                        dangerouslySetInnerHTML={{ __html: formattedText }}
+                                        style={{ whiteSpace: 'pre-wrap' }}
+                                    />}
                                 <p className="mb-4">{job.time}</p>
                                 <p className="mb-4">{job.date.split('T')[0]}</p>
 
