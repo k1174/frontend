@@ -9,7 +9,7 @@ const Steps = () => {
                     <h1 className="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl ">Need to Schedule an Event?</h1>
                     <p className="mb-4 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 lg:px-48 ">Start scheduling today and discover how simple it is to bring your event vision to life with just a few clicks.</p>
 
-                    <div className="mx-56 w-full mb-8">
+                    <div className="flex justify-center w-full mb-8">
 
                         <ol className="flex  items-center w-2/3 text-sm font-medium text-center text-gray-500  sm:text-base">
                             <li className="flex md:w-full items-center text-blue-600  sm:after:content-[''] after:w-full after:h-1 after:border-b after:border-gray-200 after:border-1 after:hidden sm:after:inline-block after:mx-6 xl:after:mx-10 ">
