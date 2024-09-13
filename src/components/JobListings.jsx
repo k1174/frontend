@@ -136,7 +136,7 @@ const JobListings = ({ isHome = true, isAdmin = false }) => {
 
                     <div className="flex items-center justify-between border-t border-gray-200  px-4 py-3 sm:px-6 ">
 
-                        <div className="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
+                        <div className=" sm:flex sm:flex-1 sm:items-center sm:justify-between">
 
                             <div>
                                 <nav className="isolate inline-flex -space-x-px rounded-md shadow-sm">
