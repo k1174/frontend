@@ -8,7 +8,7 @@ export async function action({ request, params }) {
     const updates = Object.fromEntries(formData);
   
 
-    const url = `/api${params.jobId}`
+    const url = `/api/${params.jobId}`
     const response = await fetch(url, {
         method: 'PUT',
         headers: {
