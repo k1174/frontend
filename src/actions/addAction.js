@@ -3,14 +3,11 @@ import { toast } from 'react-toastify';
 
 const addAction = async ({ request }) => {
     const formData = await request.formData();
-    const updates = Object.fromEntries(formData);
+
     const url = '/api/addevent';
     const response = await fetch(url, {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(updates),
+        body: formData,
     })
     if (!response.ok) {
 
