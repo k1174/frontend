@@ -1,6 +1,6 @@
 import { useState } from "react";
 export default function Tooltip() {
-    const [display, setDisplay] = useState('');
+    const [display, setDisplay] = useState('hidden');
     return (
         <>
             <p className="flex items-center text-sm text-gray-500">Formating Option <button onMouseEnter={() => setDisplay('')}
