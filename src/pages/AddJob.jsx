@@ -1,15 +1,16 @@
 import { Form } from 'react-router-dom';
 import { useAuth } from "../../context/AuthContext";
 import Tooltip from '../components/Tooltip';
+import Upload from '../components/Upload';
 
 const AddJob = () => {
-    const {user} = useAuth();
+    const { user } = useAuth();
     return (
         <>
             <section className="bg-indigo-50">
                 <div className="container m-auto max-w-2xl py-2">
                     <div className="bg-white px-6 py-8 mb-4 shadow-md rounded-md border m-4 md:m-0">
-                        <Form  method="post">
+                        <Form method="post" encType="multipart/form-data">
                             <h2 className="text-3xl text-center font-semibold mb-6">Add Event</h2>
 
                             <div className="mb-4">
@@ -24,7 +25,7 @@ const AddJob = () => {
                             </div>
 
                             <div className="mb-4">
-                                <label  className="block text-gray-700 font-bold mb-2">Location</label>
+                                <label className="block text-gray-700 font-bold mb-2">Location</label>
                                 <input
                                     required
                                     type="text"
@@ -59,6 +60,8 @@ const AddJob = () => {
                                 ></textarea>
                             </div>
 
+                            <Upload />
+
                             <div className="mb-4">
                                 <label htmlFor="type" className="block text-gray-700 font-bold mb-2">Type</label>
                                 <input
@@ -90,7 +93,7 @@ const AddJob = () => {
                                         name="time"
                                         id="time"
                                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
- 
+
                                     />
                                 </div>
 
@@ -153,7 +156,7 @@ const AddJob = () => {
                                     className="border rounded w-full py-2 px-3 mb-2"
                                 />
                             </div>
-                            
+
                             {/* userId */}
                             <input
                                 type="hidden"
