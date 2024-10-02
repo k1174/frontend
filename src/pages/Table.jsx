@@ -4,7 +4,6 @@ import Spinner from "../components/Spinner";
 const Table = () => {
 
     const eventId = window.location.pathname.split('/').pop()
-    console.log(eventId)
 
     const [data, setData] = useState();
     const [loading, setLoading] = useState(true);
@@ -29,7 +28,7 @@ const Table = () => {
     }
 
     //if data doesn't contains additionaldetails field
-    if(!data.additionalDetails){
+    if(!data[0].additionalDetails){
         return <h1 className="text-center text-3xl mt-10">No Additional Details Found</h1>
     }
 
