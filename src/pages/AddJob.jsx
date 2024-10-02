@@ -2,6 +2,7 @@ import { Form } from 'react-router-dom';
 import { useAuth } from "../../context/AuthContext";
 import Tooltip from '../components/Tooltip';
 import Upload from '../components/Upload';
+import FormComponet from '../components/FormComponet'
 
 const AddJob = () => {
     const { user } = useAuth();
@@ -163,6 +164,9 @@ const AddJob = () => {
                                 name="userId"
                                 value={user._id}
                             />
+
+                            <h3 className="text-2xl my-5">Add Form Fields</h3>
+                            <FormComponet />
 
                             <div>
                                 <button
