@@ -23,9 +23,19 @@ const Table = () => {
     if (loading) {
         return <Spinner />
     }
+
+    if(data.length == 0){
+        return <h1 className="text-center text-3xl mt-10">No Registrations Yet</h1>
+    }
+
+    //if data doesn't contains additionaldetails field
+    if(!data.additionalDetails){
+        return <h1 className="text-center text-3xl mt-10">No Additional Details Found</h1>
+    }
+
+
     // Extract keys for the first registration to create the header
     const keys = data.length > 0 ? Object.keys(data[0].additionalDetails) : [];
-
     return (
         <>
             {/* tailwind */}
