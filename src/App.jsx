@@ -26,31 +26,23 @@ import { AuthProvider } from '../context/AuthContext.jsx';
 import DownloadEmailsButton from './components/Email.jsx'
 import Test from './components/Test.jsx';
 import Past from './pages/Past.jsx';
+import Table from './pages/Table.jsx';
+import AdminRoutes from './components/AdminRoutes.jsx';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<MainLayout />}>
       <Route index element={<Home />} />
 
-      <Route
-        path='/admin'
-        element={
-          <ProtectedRoute requireAdmin>
-            <AdminPage />
-          </ProtectedRoute>
-        }
-      />
-      <Route path='/admin/:jobId/edit' element={<Edit />} loader={JobPageLoader} errorElement={<NotFound />} action={editAction} />
-      <Route path='/admin/:jobId/delete' action={deleteAction} errorElement={<NotFound />} />
-      <Route path='/admin/:jobId'
-
-        element={
-          <ProtectedRoute requireAdmin>
-            <AdminJobPage />
-          </ProtectedRoute>
-        }
-
-        loader={JobPageLoader} errorElement={<NotFound />} />
+      {/* Protect all Admin Routes */}
+      <Route element={<AdminRoutes />}>
+        <Route path='/admin' element={<AdminPage />} />
+        <Route path='/admin/:jobId/edit' element={<Edit />} loader={JobPageLoader} errorElement={<NotFound />} action={editAction} />
+        <Route path='/admin/:jobId/delete' action={deleteAction} errorElement={<NotFound />} />
+        <Route path='/admin/:jobId' element={<AdminJobPage />} loader={JobPageLoader} errorElement={<NotFound />} />
+        <Route path='/table' element={<Table />} />
+        <Route path='/table/:jobId' element={<Table />} />
+      </Route>
 
       <Route path='/eventsPage' element={<JobsPage />} />
       <Route path='/eventsPage/:jobId' element={<JobPage />} loader={JobPageLoader} errorElement={<NotFound />} />
