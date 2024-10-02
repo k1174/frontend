@@ -41,8 +41,8 @@ const router = createBrowserRouter(
         <Route path='/admin/:jobId/delete' action={deleteAction} errorElement={<NotFound />} />
         <Route path='/admin/:jobId' element={<AdminJobPage />} loader={JobPageLoader} errorElement={<NotFound />} />
         <Route path='/table' element={<Table />} />
-        <Route path='/table/:jobId' element={<Table />} />
       </Route>
+      <Route path='/table/:jobId' element={<Table />} />
 
       <Route path='/eventsPage' element={<JobsPage />} />
       <Route path='/eventsPage/:jobId' element={<JobPage />} loader={JobPageLoader} errorElement={<NotFound />} />
