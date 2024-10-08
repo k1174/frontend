@@ -60,6 +60,10 @@ const Job = ({ job }) => {
                                 </div>
                             </div>
 
+                            {job.images.length > 0 &&
+                                <Carousel items={job.images} />
+                            }
+
                             <div className="bg-white p-6 rounded-lg shadow-md mt-6">
                                 <h3 className="text-indigo-800 text-lg font-bold mb-6">
                                     Event Description
@@ -99,10 +103,6 @@ const Job = ({ job }) => {
 
 
                             }
-                         
-                            {job.images.length > 0 &&
-                                <Carousel items={job.images} />
-                            } 
 
                         </main>
 

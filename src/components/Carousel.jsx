@@ -1,7 +1,6 @@
 import { useState } from 'react';
 
 const Carousel = ({ items }) => {
-
     const [currentIndex, setCurrentIndex] = useState(0);
 
     const nextSlide = () => {
@@ -13,38 +12,40 @@ const Carousel = ({ items }) => {
     };
 
     return (
-        <div className="relative w-full max-w-2xl mx-auto">
-            <div className="overflow-hidden rounded-lg">
+        <div className="relative w-full max-w-2xl mx-auto pt-4">
+            <div className="overflow-hidden rounded-lg shadow-lg">
                 <div
-                    className="flex transition-transform duration-500"
+                    className="flex transition-transform duration-700 ease-in-out"
                     style={{ transform: `translateX(-${currentIndex * 100}%)` }}
                 >
                     {items.map((item, index) => (
-                        <div key={index} className="min-w-full ">
-                            <img key={index} src={item} alt="event" className="w-600 h-auto" />
+                        <div key={index} className="min-w-full flex items-center justify-center">
+                            <img src={item} alt="Event" className="w-auto h-[450px]  rounded-lg" />
                         </div>
                     ))}
                 </div>
             </div>
+            {/* Previous Button */}
             <button
                 onClick={prevSlide}
-                className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-white rounded-full shadow-md p-2"
+                className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white rounded-full p-2 shadow-lg hover:bg-gray-700 focus:outline-none"
             >
                 &#10094;
             </button>
+            {/* Next Button */}
             <button
                 onClick={nextSlide}
-                className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-white rounded-full shadow-md p-2"
+                className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white rounded-full p-2 shadow-lg hover:bg-gray-700 focus:outline-none"
             >
                 &#10095;
             </button>
-            <div className="flex justify-center mt-2">
+            {/* Indicator Dots */}
+            <div className="flex justify-center mt-4 space-x-2">
                 {items.map((_, index) => (
                     <button
                         key={index}
                         onClick={() => setCurrentIndex(index)}
-                        className={`w-2 h-2 mx-1 rounded-full ${currentIndex === index ? 'bg-blue-600' : 'bg-gray-300'
-                            }`}
+                        className={`w-3 h-3 rounded-full ${currentIndex === index ? 'bg-indigo-600' : 'bg-gray-400'}`}
                     />
                 ))}
             </div>
