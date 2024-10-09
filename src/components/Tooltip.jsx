@@ -21,6 +21,8 @@ export default function Tooltip() {
                         <li className="list-disc list-inside">List item 1</li>
                         <li className="list-disc list-inside">List item 2</li>
                     </ul>
+                    {/* --- for hr */}
+                    <p><em>--- for horizontal rule</em></p>
 
                 </div>
             </div>
