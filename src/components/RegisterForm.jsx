@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useAuth } from "../../context/AuthContext";
+import { toast } from 'react-toastify';
 
 const RegisterForm = ({ job }) => {
     const { isAuthenticated, user } = useAuth();
@@ -7,7 +8,8 @@ const RegisterForm = ({ job }) => {
     const [modal, setModal] = useState(false);
     const togle = () => {
         if (!isAuthenticated) {
-            alert('Please login to register for the event')
+            // alert('Please login to register for the event')
+            toast('Please login to register for the event');
         }
         else{
             setModal(!modal);
@@ -30,19 +32,11 @@ const RegisterForm = ({ job }) => {
 
         if (response.ok) {
             const data = await response.json();
-            alert(data.message);
-
-        } else if (response.status === 400) {
-            const data = await response.json();
-            alert(data.message);
-        } else if (response.status === 500) {
-            const data = await response.json();
-            alert('An error occured, please try again later');
-            throw new Error(data.error);
-        }
+            toast.success(data.message);
+        } 
         else {
-
-            throw new Error('Unexpected error occurred');
+            console.log(response)
+            toast.error('Unexpected error occurred');
         }
 
         togle();
