@@ -6,43 +6,43 @@ const RegisterForm = ({ job }) => {
 
     const [modal, setModal] = useState(false);
     const togle = () => {
-        setModal(!modal);
+        if (!isAuthenticated) {
+            alert('Please login to register for the event')
+        }
+        else{
+            setModal(!modal);
+        }
     }
 
     const handelSubmit = async (e) => {
         e.preventDefault();
-        if (!isAuthenticated) {
-            alert('Please login to register for the event')
+
+        const formData = new FormData(e.target)
+        const data = Object.fromEntries(formData.entries())
+
+        const response = await fetch(`/service/registerEvent`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ userId: user._id, eventId: job._id, additionalDetails: data })  // Add the user id and event id
+        })
+
+        if (response.ok) {
+            const data = await response.json();
+            alert(data.message);
+
+        } else if (response.status === 400) {
+            const data = await response.json();
+            alert(data.message);
+        } else if (response.status === 500) {
+            const data = await response.json();
+            alert('An error occured, please try again later');
+            throw new Error(data.error);
         }
         else {
 
-            const formData = new FormData(e.target)
-            const data = Object.fromEntries(formData.entries())
-
-            const response = await fetch(`/service/registerEvent`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ userId: user._id, eventId: job._id, additionalDetails: data })  // Add the user id and event id
-            })
-
-            if (response.ok) {
-                const data = await response.json();
-                alert(data.message);
-
-            } else if (response.status === 400) {
-                const data = await response.json();
-                alert(data.message);
-            } else if (response.status === 500) {
-                const data = await response.json();
-                alert('An error occured, please try again later');
-                throw new Error(data.error);
-            }
-            else {
-
-                throw new Error('Unexpected error occurred');
-            }
+            throw new Error('Unexpected error occurred');
         }
 
         togle();
@@ -68,13 +68,21 @@ const RegisterForm = ({ job }) => {
                 ))}
             </div> */}
 
+            {   !isAuthenticated ?
 
-            {/* <!-- Modal toggle --> */}
-            <button onClick={togle}
-                className="bg-indigo-500 hover:bg-indigo-600 text-white text-center font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline mt-4 block"
-            >
-                Register
-            </button>
+                <a href="/login"
+                    className="bg-indigo-500 hover:bg-indigo-600 text-white text-center font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline mt-4 block"
+                >
+                    Login
+                </a>
+
+                :
+                <button onClick={togle}
+                    className="bg-indigo-500 hover:bg-indigo-600 text-white text-center font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline mt-4 block"
+                >
+                    Register
+                </button>
+            }
 
             {/* <!-- Main modal --> */}
             <div id="default-modal" tabIndex="-1" aria-hidden="true" className={`${modal ? '' : 'hidden'} flex overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full`}>
