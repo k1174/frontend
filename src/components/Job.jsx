@@ -8,10 +8,35 @@ import parseCustomSyntax from "../methods/parseCutomSyntax";
 const Job = ({ job }) => {
     const { user, isAdmin, isAuthenticated } = useAuth();
     const [submit, setSubmit] = useState(false)
+    const [creator, setCreator] = useState(false)
+
+    //get user id from token
+    const token = localStorage.getItem('token');
 
     useEffect(() => {
-        console.log(job)
+
+        const fetchData = async () => {
+            const response = await fetch('/auth/checkEvent',
+                {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ eventId: job._id, token: token }),
+                }
+            )
+            if (!response.ok) {
+                console.error('Failed to fetch data')
+                return
+            }
+            const result = await response.json()
+            if(result==true){
+                setCreator(true)
+            }
+        }
+        fetchData()
     }, [job])
+
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -35,6 +60,9 @@ const Job = ({ job }) => {
     if (job.details) {
         formattedText = parseCustomSyntax(job.details);
     }
+    const fetchUrl = window.location.href
+    let event = ""
+    if(fetchUrl.includes('/past')) event = "past"
 
     return (
         <>
@@ -70,6 +98,9 @@ const Job = ({ job }) => {
                                 </h3>
 
                                 <p className="mb-4">{job.description}</p>
+                                <h3 className="text-indigo-800 text-lg font-bold mb-2">
+                                    Event Details
+                                </h3>
                                 {/* <div style={{ whiteSpace: 'pre-wrap' }} className="mb-4">{job.details}</div> */}
                                 {job.details &&
                                     <div className="mb-6"
@@ -84,7 +115,7 @@ const Job = ({ job }) => {
                                 <p className="mb-4">{job.price}</p>
                             </div>
 
-                            {isAuthenticated && !isAdmin && !submit &&
+                            {isAuthenticated && !isAdmin && !submit && !creator &&
 
                                 <div className="bg-white p-6 rounded-lg shadow-md mt-6">
 
@@ -100,8 +131,6 @@ const Job = ({ job }) => {
 
                                     </form>
                                 </div>
-
-
                             }
 
                         </main>
@@ -135,7 +164,10 @@ const Job = ({ job }) => {
                             </div>
 
                             {/* <!-- Manage --> */}
-                            {isAdmin ? <AdminManage /> : <UserManage job={job} />}
+                            {isAdmin ? <AdminManage /> : 
+                            creator ? <AdminManage /> :
+                            event === "past"   
+                            ? "" : <UserManage job={job} /> }
                         </aside>
                     </div>
                 </div>
