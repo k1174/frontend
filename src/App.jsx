@@ -28,6 +28,7 @@ import Test from './components/Test.jsx';
 import Past from './pages/Past.jsx';
 import Table from './pages/Table.jsx';
 import AdminRoutes from './components/AdminRoutes.jsx';
+import Download from './components/Download.jsx';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -46,7 +47,6 @@ const router = createBrowserRouter(
 
       <Route path='/eventsPage' element={<JobsPage />} />
       <Route path='/eventsPage/:jobId' element={<JobPage />} loader={JobPageLoader} errorElement={<NotFound />} />
-      <Route path='profile/:jobId' element={<JobPage />} loader={JobPageLoader} errorElement={<NotFound />} />
       <Route path='/eventsPage/:jobId/edit' element={<Edit />} loader={JobPageLoader} errorElement={<NotFound />} action={editAction} />
       <Route path='/eventsPage/:jobId/delete' action={deleteAction} errorElement={<NotFound />} />
 
@@ -54,6 +54,10 @@ const router = createBrowserRouter(
       <Route path='/past/:jobId' element={<JobPage />} loader={JobPageLoader} errorElement={<NotFound />} />
       <Route path='/past/:jobId/edit' element={<Edit />} loader={JobPageLoader} errorElement={<NotFound />} action={editAction} />
       <Route path='/past/:jobId/delete' action={deleteAction} errorElement={<NotFound />} />
+
+      <Route path='profile/:jobId' element={<JobPage />} loader={JobPageLoader} errorElement={<NotFound />} />
+      <Route path='/profile/:jobId/edit' element={<Edit />} loader={JobPageLoader} errorElement={<NotFound />} action={editAction} />
+      <Route path='/profile/:jobId/delete' action={deleteAction} errorElement={<NotFound />} />
 
       <Route path='/addjob'
         element={
@@ -65,6 +69,7 @@ const router = createBrowserRouter(
 
       <Route path='/Calender' element={<Calender />} />
       <Route path='/download' element={<DownloadEmailsButton />} />
+      <Route path='/dashboard/:jobId' element={<Download />} />
       <Route path='/test' element={<Test />} />
 
       <Route path='/Register' element={<Register />} />
