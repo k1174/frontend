@@ -1,4 +1,5 @@
 import { Form } from "react-router-dom";
+import AddImages from "./AddImages";
 export default function AdminManage() {
     return (
         <>
@@ -26,6 +27,7 @@ export default function AdminManage() {
                         Delete
                     </button>
                 </Form>
+                <AddImages />
             </div>
         </>
     )
