@@ -38,22 +38,22 @@ const Job = ({ job }) => {
     }, [job])
 
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
+    // const handleSubmit = (e) => {
+    //     e.preventDefault();
 
-        const formData = new FormData(e.target)
-        const data = Object.fromEntries(formData.entries())
-        data.eventId = job._id
-        data.userId = user._id
-        setSubmit(true)
-        fetch(`/service/feedback`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data),
-        })
-    }
+    //     const formData = new FormData(e.target)
+    //     const data = Object.fromEntries(formData.entries())
+    //     data.eventId = job._id
+    //     data.userId = user._id
+    //     setSubmit(true)
+    //     fetch(`/service/feedback`, {
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //         },
+    //         body: JSON.stringify(data),
+    //     })
+    // }
 
     let formattedText = '';
 
@@ -115,7 +115,8 @@ const Job = ({ job }) => {
                                 <p className="mb-4">{job.price}</p>
                             </div>
 
-                            {isAuthenticated && !isAdmin && !submit && !creator &&
+                              
+                            {/* {isAuthenticated && !isAdmin && !submit && !creator && event === "past" &&
 
                                 <div className="bg-white p-6 rounded-lg shadow-md mt-6">
 
@@ -131,7 +132,7 @@ const Job = ({ job }) => {
 
                                     </form>
                                 </div>
-                            }
+                            } */}
 
                         </main>
 
