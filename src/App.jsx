@@ -29,6 +29,7 @@ import Past from './pages/Past.jsx';
 import Table from './pages/Table.jsx';
 import AdminRoutes from './components/AdminRoutes.jsx';
 import Download from './components/Download.jsx';
+import DateRangeSelector from './components/DateRangeSelector.jsx';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -42,6 +43,7 @@ const router = createBrowserRouter(
         <Route path='/admin/:jobId/delete' action={deleteAction} errorElement={<NotFound />} />
         <Route path='/admin/:jobId' element={<AdminJobPage />} loader={JobPageLoader} errorElement={<NotFound />} />
         <Route path='/table' element={<Table />} />
+        <Route path='/date' element={<DateRangeSelector />} />
       </Route>
       <Route path='/table/:jobId' element={<Table />} />
 
