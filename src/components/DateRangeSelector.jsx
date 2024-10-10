@@ -1,5 +1,25 @@
 import { useState } from 'react';
 import { Link } from "react-router-dom";
+import * as XLSX from 'xlsx';
+
+// Function to generate Excel file
+const generateExcel = (events) => {
+    const data = events.map((event, index) => ({
+        Index: index + 1,
+        'Event Name': event.name,
+        'Organiser Email': event.organiserEmail,
+        'Event Date': new Date(event.date).toLocaleDateString(),
+        'Event Time': event.time,
+    }));
+    const worksheet = XLSX.utils.json_to_sheet(data);
+
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Events_List");
+
+    // Create a Blob and use it to download the file
+    XLSX.writeFile(workbook, "Events_List.xlsx");
+};
+
 const DateRangeSelector = () => {
     const [startDate, setStartDate] = useState('')
     const [endDate, setEndDate] = useState('')
@@ -60,33 +80,51 @@ const DateRangeSelector = () => {
             {error && <p className="text-red-500">{error}</p>}
             <div id="events" className='p-4 md:p-8 lg:p-12'>
                 {events.length > 0 ? (
-                    <table className="min-w-full border border-gray-300">
-                        <thead className="bg-gray-100">
-                            <tr>
-                                <th className="border border-gray-300 px-4 py-2 text-center">Index</th>
-                                <th className="border border-gray-300 px-4 py-2 text-center">Event Name</th>
-                                <th className="border border-gray-300 px-4 py-2 text-center">Event Date</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {events.map((event, index) => (
-                                <tr key={event.id}>
-                                    <td className="border border-gray-300 px-4 py-2 text-center">{index + 1}</td>
-                                    <td className="border border-gray-300 px-4 py-2 text-center">
-                                        <Link
-                                            to={event.status === 'pending' ? `/admin/${event._id}` : `/eventspage/${event._id}`}
-                                            className={event.status === 'pending' ? 'text-red-500' : 'text-blue-600'}
-                                        >
-                                            {event.name}
-                                        </Link>
-                                    </td>
-                                    <td className="border border-gray-300 px-4 py-2 text-center">
-                                        {new Date(event.date).toLocaleDateString()}
-                                    </td>
+                    <>
+                        <button
+                            className="bg-blue-700 text-white py-2 px-4 rounded my-4"
+                            onClick={() => generateExcel(events,)}
+                        >
+                            Download Excel
+                        </button>
+
+                        <table className="min-w-full border border-gray-300">
+                            <thead className="bg-gray-100">
+                                <tr>
+                                    <th className="border border-gray-300 px-4 py-2 text-center">Index</th>
+                                    <th className="border border-gray-300 px-4 py-2 text-center">Event Name</th>
+                                    <th className="border border-gray-300 px-4 py-2 text-center">Organiser Email</th>
+                                    <th className="border border-gray-300 px-4 py-2 text-center">Event Date</th>
+                                    <th className="border border-gray-300 px-4 py-2 text-center">Event Time</th>
                                 </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                {events.map((event, index) => (
+                                    <tr key={event.id}>
+                                        <td className="border border-gray-300 px-4 py-2 text-center">{index + 1}</td>
+                                        <td className="border border-gray-300 px-4 py-2 text-center">
+                                            <Link
+                                                to={event.status === 'pending' ? `/admin/${event._id}` : `/eventspage/${event._id}`}
+                                                className={event.status === 'pending' ? 'text-red-500' : 'text-blue-600'}
+                                            >
+                                                {event.name}
+                                            </Link>
+                                        </td>
+                                        <td className="border border-gray-300 px-4 py-2 text-center">{event.organiserEmail}</td>
+                                        <td className="border border-gray-300 px-4 py-2 text-center">
+                                            {new Date(event.date).toLocaleDateString()}
+                                        </td>
+                                        <td className="border border-gray-300 px-4 py-2 text-center">
+                                            {event.time}
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+
+
+                    </>
+
                 ) : (
                     <p>No events found for the selected range.</p>
                 )}
