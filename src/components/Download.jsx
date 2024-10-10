@@ -245,9 +245,9 @@ const Download = () => {
                                 {currentReport.map((report, index) => (
                                     <tr key={index} className="hover:bg-gray-100">
                                         {/* Add the Index Cell */}
-                                        <td className="border border-gray-300 p-2">{index + 1}</td>
+                                        <td className="border border-gray-300 px-4 py-2 text-center">{index + 1}</td>
                                         {keys.map((key) => (
-                                            <td className="border border-gray-300 p-2" key={key}>{report.additionalDetails[key]}</td>
+                                            <td className="border border-gray-300 px-4 py-2 text-center" key={key}>{report.additionalDetails[key]}</td>
                                         ))}
                                     </tr>
                                 ))}
