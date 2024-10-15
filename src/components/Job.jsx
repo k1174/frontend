@@ -4,18 +4,19 @@ import AdminManage from "./AdminManage";
 import UserManage from "./UserManage";
 import Carousel from "./Carousel";
 import parseCustomSyntax from "../methods/parseCutomSyntax";
+import PastEventManage from "./PastEventManage";
 
 const Job = ({ job }) => {
     const { user, isAdmin, isAuthenticated } = useAuth();
     const [submit, setSubmit] = useState(false)
     const [creator, setCreator] = useState(false)
 
-    //get user id from token
-    const token = localStorage.getItem('token');
 
     useEffect(() => {
 
         const fetchData = async () => {
+            //get user id from token
+            const token = localStorage.getItem('token');
             const response = await fetch('/auth/checkEvent',
                 {
                     method: 'POST',
@@ -30,11 +31,13 @@ const Job = ({ job }) => {
                 return
             }
             const result = await response.json()
-            if(result==true){
+            if (result == true) {
                 setCreator(true)
             }
         }
-        fetchData()
+        if (isAuthenticated) {
+            fetchData();
+        }
     }, [job])
 
 
@@ -62,7 +65,7 @@ const Job = ({ job }) => {
     }
     const fetchUrl = window.location.href
     let event = ""
-    if(fetchUrl.includes('/past')) event = "past"
+    if (fetchUrl.includes('/past')) event = "past"
 
     return (
         <>
@@ -115,7 +118,7 @@ const Job = ({ job }) => {
                                 <p className="mb-4">{job.price}</p>
                             </div>
 
-                              
+
                             {/* {isAuthenticated && !isAdmin && !submit && !creator && event === "past" &&
 
                                 <div className="bg-white p-6 rounded-lg shadow-md mt-6">
@@ -165,10 +168,14 @@ const Job = ({ job }) => {
                             </div>
 
                             {/* <!-- Manage --> */}
-                            {isAdmin ? <AdminManage /> : 
-                            creator ? <AdminManage /> :
-                            event === "past"   
-                            ? "" : <UserManage job={job} /> }
+                            {
+                                event === "past"
+                                    ? <PastEventManage job={job} /> : <UserManage job={job} />
+                            }
+                            {
+                                isAdmin ? <AdminManage /> :
+                                    creator ? <AdminManage /> : ""
+                            }
                         </aside>
                     </div>
                 </div>
