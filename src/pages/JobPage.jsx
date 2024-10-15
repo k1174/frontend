@@ -5,19 +5,19 @@ import BackLink from "../components/BackLink"
 // import DownloadEmailsButton from "../components/Email";
 import { useAuth } from "../../context/AuthContext";
 import TotalRegistration from "../components/TotalRegistration";
-// import DownloadReportButton from "../components/Report";
+import DownloadReportButton from "../components/Report";
 // import Feedbacks from "../components/Feedbacks.jsx";
 const JobPage = () => {
     const job = useLoaderData();
-    const { isAdmin } = useAuth();
+    const { isAdmin, isAuthenticated } = useAuth();
     const url = '/dashboard/' + job._id;
 
     const [creator, setCreator] = useState(false)
 
-    //get user id from token
-    const token = localStorage.getItem('token');
 
     useEffect(() => {
+        //get user id from token
+        const token = localStorage.getItem('token');
         const fetchData = async () => {
             const response = await fetch('/auth/checkEvent',
                 {
@@ -37,7 +37,9 @@ const JobPage = () => {
                 setCreator(true)
             }
         }
-        fetchData()
+        if (isAuthenticated) {
+            fetchData()
+        }
     }, [job])
 
     return (
@@ -53,7 +55,7 @@ const JobPage = () => {
                 <>
                     <div className="flex justify-center">
                         {/* <DownloadEmailsButton job={job} /> */}
-                        {/* <DownloadReportButton job={job} /> */}
+                        <DownloadReportButton job={job} />
                         <a href={url} className="text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2" >DashBoard</a>
                         {/* <Feedbacks job={job} /> */}
                     </div>
