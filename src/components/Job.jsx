@@ -101,6 +101,7 @@ const Job = ({ job }) => {
                             }
                          
                             {job.images.length > 0 &&
+                            
                                 <Carousel items={job.images} />
                             } 
 

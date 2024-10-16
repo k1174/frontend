@@ -27,10 +27,16 @@ import DownloadEmailsButton from './components/Email.jsx'
 import Test from './components/Test.jsx';
 import Past from './pages/Past.jsx';
 import Table from './pages/Table.jsx';
+import LandingPage from './pages/LandingPage.jsx';
 import AdminRoutes from './components/AdminRoutes.jsx';
+import Download from './pages/Download.jsx';
+
+
 
 const router = createBrowserRouter(
   createRoutesFromElements(
+    <Route>
+
     <Route path='/' element={<MainLayout />}>
       <Route index element={<Home />} />
 
@@ -64,7 +70,7 @@ const router = createBrowserRouter(
         action={addAction} />
 
       <Route path='/Calender' element={<Calender />} />
-      <Route path='/download' element={<DownloadEmailsButton />} />
+      {/* <Route path='/download' element={<DownloadEmailsButton />} /> */}
       <Route path='/test' element={<Test />} />
 
       <Route path='/Register' element={<Register />} />
@@ -73,12 +79,16 @@ const router = createBrowserRouter(
 
       <Route path='*' element={<NotFound />}></Route>
     </Route>
+    <Route path='/landing' element={<LandingPage/>} /> 
+    <Route path='/download' element={<Download/>}/>
+</Route>
+
   )
 );
 
 
 function App() {
-
+  
   return (
     <AuthProvider>
       <RouterProvider router={router} />
