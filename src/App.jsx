@@ -47,12 +47,12 @@ const router = createBrowserRouter(
         <Route path='/admin/:jobId/delete' action={deleteAction} errorElement={<NotFound />} />
         <Route path='/admin/:jobId' element={<AdminJobPage />} loader={JobPageLoader} errorElement={<NotFound />} />
         <Route path='/table' element={<Table />} />
+        <Route path='/date' element={<DateRangeSelector />} />
       </Route>
       <Route path='/table/:jobId' element={<Table />} />
 
       <Route path='/eventsPage' element={<JobsPage />} />
       <Route path='/eventsPage/:jobId' element={<JobPage />} loader={JobPageLoader} errorElement={<NotFound />} />
-      <Route path='profile/:jobId' element={<JobPage />} loader={JobPageLoader} errorElement={<NotFound />} />
       <Route path='/eventsPage/:jobId/edit' element={<Edit />} loader={JobPageLoader} errorElement={<NotFound />} action={editAction} />
       <Route path='/eventsPage/:jobId/delete' action={deleteAction} errorElement={<NotFound />} />
 
@@ -60,6 +60,10 @@ const router = createBrowserRouter(
       <Route path='/past/:jobId' element={<JobPage />} loader={JobPageLoader} errorElement={<NotFound />} />
       <Route path='/past/:jobId/edit' element={<Edit />} loader={JobPageLoader} errorElement={<NotFound />} action={editAction} />
       <Route path='/past/:jobId/delete' action={deleteAction} errorElement={<NotFound />} />
+
+      <Route path='profile/:jobId' element={<JobPage />} loader={JobPageLoader} errorElement={<NotFound />} />
+      <Route path='/profile/:jobId/edit' element={<Edit />} loader={JobPageLoader} errorElement={<NotFound />} action={editAction} />
+      <Route path='/profile/:jobId/delete' action={deleteAction} errorElement={<NotFound />} />
 
       <Route path='/addjob'
         element={

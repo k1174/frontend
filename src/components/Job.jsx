@@ -4,37 +4,68 @@ import AdminManage from "./AdminManage";
 import UserManage from "./UserManage";
 import Carousel from "./Carousel";
 import parseCustomSyntax from "../methods/parseCutomSyntax";
+import PastEventManage from "./PastEventManage";
 
 const Job = ({ job }) => {
     const { user, isAdmin, isAuthenticated } = useAuth();
     const [submit, setSubmit] = useState(false)
+    const [creator, setCreator] = useState(false)
+
 
     useEffect(() => {
-        console.log(job)
+
+        const fetchData = async () => {
+            //get user id from token
+            const token = localStorage.getItem('token');
+            const response = await fetch('/auth/checkEvent',
+                {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ eventId: job._id, token: token }),
+                }
+            )
+            if (!response.ok) {
+                console.error('Failed to fetch data')
+                return
+            }
+            const result = await response.json()
+            if (result == true) {
+                setCreator(true)
+            }
+        }
+        if (isAuthenticated) {
+            fetchData();
+        }
     }, [job])
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
 
-        const formData = new FormData(e.target)
-        const data = Object.fromEntries(formData.entries())
-        data.eventId = job._id
-        data.userId = user._id
-        setSubmit(true)
-        fetch(`/service/feedback`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data),
-        })
-    }
+    // const handleSubmit = (e) => {
+    //     e.preventDefault();
+
+    //     const formData = new FormData(e.target)
+    //     const data = Object.fromEntries(formData.entries())
+    //     data.eventId = job._id
+    //     data.userId = user._id
+    //     setSubmit(true)
+    //     fetch(`/service/feedback`, {
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //         },
+    //         body: JSON.stringify(data),
+    //     })
+    // }
 
     let formattedText = '';
 
     if (job.details) {
         formattedText = parseCustomSyntax(job.details);
     }
+    const fetchUrl = window.location.href
+    let event = ""
+    if (fetchUrl.includes('/past')) event = "past"
 
     return (
         <>
@@ -60,12 +91,19 @@ const Job = ({ job }) => {
                                 </div>
                             </div>
 
+                            {job.images.length > 0 &&
+                                <Carousel items={job.images} />
+                            }
+
                             <div className="bg-white p-6 rounded-lg shadow-md mt-6">
                                 <h3 className="text-indigo-800 text-lg font-bold mb-6">
                                     Event Description
                                 </h3>
 
                                 <p className="mb-4">{job.description}</p>
+                                <h3 className="text-indigo-800 text-lg font-bold mb-2">
+                                    Event Details
+                                </h3>
                                 {/* <div style={{ whiteSpace: 'pre-wrap' }} className="mb-4">{job.details}</div> */}
                                 {job.details &&
                                     <div className="mb-6"
@@ -80,7 +118,8 @@ const Job = ({ job }) => {
                                 <p className="mb-4">{job.price}</p>
                             </div>
 
-                            {isAuthenticated && !isAdmin && !submit &&
+
+                            {/* {isAuthenticated && !isAdmin && !submit && !creator && event === "past" &&
 
                                 <div className="bg-white p-6 rounded-lg shadow-md mt-6">
 
@@ -96,14 +135,7 @@ const Job = ({ job }) => {
 
                                     </form>
                                 </div>
-
-
-                            }
-                         
-                            {job.images.length > 0 &&
-                            
-                                <Carousel items={job.images} />
-                            } 
+                            } */}
 
                         </main>
 
@@ -136,7 +168,14 @@ const Job = ({ job }) => {
                             </div>
 
                             {/* <!-- Manage --> */}
-                            {isAdmin ? <AdminManage /> : <UserManage job={job} />}
+                            {
+                                event === "past"
+                                    ? <PastEventManage job={job} /> : <UserManage job={job} />
+                            }
+                            {
+                                isAdmin ? <AdminManage /> :
+                                    creator ? <AdminManage /> : ""
+                            }
                         </aside>
                     </div>
                 </div>
@@ -145,5 +184,5 @@ const Job = ({ job }) => {
         </>
     )
 }
-
+                
 export default Job

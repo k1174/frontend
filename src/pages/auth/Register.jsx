@@ -1,4 +1,6 @@
 import { useNavigate, Link } from "react-router-dom"
+import { validateEmail } from "../../actions/validateEmail";
+import { toast } from "react-toastify";
 
 export default function Register() {
 
@@ -9,7 +11,12 @@ export default function Register() {
 
             const formData = new FormData(e.target)
             const data = Object.fromEntries(formData.entries())
-
+            
+            //validating email
+            if(!validateEmail(data.email)){
+                toast.error("Invalid Email")
+                return
+            }
             console.log('Submitting data:', data);
             const response = await fetch('/auth/register', {
                 method: 'POST',

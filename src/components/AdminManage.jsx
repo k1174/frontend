@@ -1,4 +1,7 @@
 import { Form } from "react-router-dom";
+import AddImages from "./AddImages";
+import AddBrochure from "./AddBrochure";
+import AddActivityReport from "./AddActivityReport";
 export default function AdminManage() {
     return (
         <>
@@ -26,6 +29,10 @@ export default function AdminManage() {
                         Delete
                     </button>
                 </Form>
+                <hr className="my-3" />
+                <AddBrochure />
+                <AddImages />
+                <AddActivityReport />
             </div>
         </>
     )

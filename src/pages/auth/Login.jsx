@@ -1,4 +1,7 @@
 import { Link } from "react-router-dom"
+import { validateEmail } from "../../actions/validateEmail";
+import { toast } from "react-toastify";
+
 export default function Login() {
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -6,6 +9,12 @@ export default function Login() {
 
             const formData = new FormData(e.target)
             const data = Object.fromEntries(formData.entries())
+
+            //validating email
+            if(!validateEmail(data.email)){
+                toast.error("Invalid Email")
+                return
+            }
 
             console.log('Submitting data:', data);
             const response = await fetch('/auth/login', {
@@ -15,7 +24,7 @@ export default function Login() {
                 },
                 body: JSON.stringify(data)
             })
-            
+
             if (!response.ok) {
                 const errorData = await response.json();
                 const errorMessage = errorData.error || 'Login failed';
@@ -57,6 +66,7 @@ export default function Login() {
                                     type="email"
                                     required
                                     autoComplete="email"
+                                    pattern="/^([A-Z0-9_+-]+\.?)*[A-Z0-9_+-]@([A-Z0-9][A-Z0-9-]*\.)+[A-Z]{2,}$/i"
                                     className="block w-full rounded-md border-0 pl-1 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 focus:outline-none"
                                 />
                             </div>
@@ -67,7 +77,7 @@ export default function Login() {
                                 <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
                                     Password
                                 </label>
-                                
+
                             </div>
                             <div className="mt-2">
                                 <input
