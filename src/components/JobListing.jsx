@@ -19,12 +19,10 @@ const JobListing = ({ job, isHome, isAdmin }) => { // {job} -> Destructuring ass
 
         // Parse the job.date string into a Date object
         const eventDate = new Date(job.date); // This converts the ISO string to a Date object
-        //Indian Standard Time (IST) is UTC+5:30. 
-        // This means that IST is 5 hours and 30 minutes ahead of Coordinated Universal Time (UTC).
-        const adjustedDate = new Date(eventDate.getTime() - (5 * 60 * 60 * 1000) - (30 * 60 * 1000));
         const now = new Date();
+        
         // Calculate the difference in milliseconds
-        const diffMs = adjustedDate.getTime() - now.getTime();
+        const diffMs = eventDate.getTime() - now.getTime();
 
         // Convert milliseconds to days and hours
         const msPerDay = 24 * 60 * 60 * 1000; // Number of milliseconds in a day

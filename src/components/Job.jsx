@@ -49,9 +49,8 @@ const Job = ({ job }) => {
 
     function isPast(date) {
         const eventDate = new Date(date);
-        const adjustedDate = new Date(eventDate.getTime() - (5 * 60 * 60 * 1000) - (30 * 60 * 1000));
         const now = new Date();
-        const diffMs = adjustedDate.getTime() - now.getTime();
+        const diffMs = eventDate.getTime() - now.getTime();
         if (diffMs < 0) return true
     }
 

@@ -4,7 +4,9 @@ import Tooltip from "../components/Tooltip";
 export default function Edit() {
     const job = useLoaderData();
     const date = new Date(job.date);
-    const formattedDate = date.toISOString().slice(0, 16);
+    const adjusted = new Date(date.getTime() + (5 * 60 * 60 * 1000) + (30 * 60 * 1000));
+    const formattedDate = adjusted.toISOString().slice(0, 16);
+    
     return (
         <>
             <section className="bg-indigo-50">
