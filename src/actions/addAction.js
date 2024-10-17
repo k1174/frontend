@@ -14,12 +14,13 @@ const addAction = async ({ request }) => {
         // throw new Error('Failed to add job');
         console.error('Failed to add job');
         toast.error("Event creation Failed")
-        return redirect(`/eventsPage/`);
+        return null;
     }
     toast.success("Event Added Successfully")
-    console.log("Event added successfully");
+    const savedEvent = await response.json();
+    console.log("Event added successfully", savedEvent);
     // return redirect('/');
-    return redirect(`/eventsPage/`);
+    return redirect(`/eventsPage/${savedEvent._id}`);
 
 }
 
