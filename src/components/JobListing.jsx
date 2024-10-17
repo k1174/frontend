@@ -1,6 +1,7 @@
 import { FaMapMarkerAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
+import TimeDisplay from "./TimeDisplay";
 
 const JobListing = ({ job, isHome, isAdmin }) => { // {job} -> Destructuring assignment
     const [daysLeft, setDaysLeft] = useState(0);
@@ -15,33 +16,15 @@ const JobListing = ({ job, isHome, isAdmin }) => { // {job} -> Destructuring ass
     }
 
     function calculateTimeLeft() {
-        // Define your job date and time
-        const jobDate = job.date; //'2024-09-20T00:00:00.000Z'; // job.date in ISO format
-        const jobTime = job.time; // '06:00 PM'; // job.time in 12-hour format
 
-        // Function to convert 12-hour time format to 24-hour time format
-        function convertTo24Hour(time) {
-            const [timePart, modifier] = time.split(' ');
-            let [hours, minutes] = timePart.split(':').map(Number);
-
-            if (modifier === 'PM' && hours < 12) {
-                hours += 12;
-            } else if (modifier === 'AM' && hours === 12) {
-                hours = 0;
-            }
-
-            return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
-        }
-
-        // Combine job date and time into a single Date object
-        const jobTime24Hour = convertTo24Hour(jobTime);
-        const jobDateTime = new Date(`${jobDate.slice(0, 10)}T${jobTime24Hour}:00`);
-
-        // Get the current date and time
+        // Parse the job.date string into a Date object
+        const eventDate = new Date(job.date); // This converts the ISO string to a Date object
+        //Indian Standard Time (IST) is UTC+5:30. 
+        // This means that IST is 5 hours and 30 minutes ahead of Coordinated Universal Time (UTC).
+        const adjustedDate = new Date(eventDate.getTime() - (5 * 60 * 60 * 1000) - (30 * 60 * 1000));
         const now = new Date();
-
         // Calculate the difference in milliseconds
-        const diffMs = jobDateTime - now;
+        const diffMs = adjustedDate.getTime() - now.getTime();
 
         // Convert milliseconds to days and hours
         const msPerDay = 24 * 60 * 60 * 1000; // Number of milliseconds in a day
@@ -56,21 +39,11 @@ const JobListing = ({ job, isHome, isAdmin }) => { // {job} -> Destructuring ass
         setHoursLeft(hours);
         setMinutesLeft(minutes);
 
-        // if (daysLeft >= 1) {
-        //     console.log(`Days left: ${daysLeft}`);
-
-        // } else {
-        //     // Calculate hours and minutes left
-
-        //     console.log(`Time left: ${hoursLeft} hours ${minutesLeft} minutes`);
-        //     // console.log(jobDateTime," - " , now);
-        // }
-
         return { daysLeft, hoursLeft, minutesLeft };
 
     }
 
-        // Effect to calculate time left and set interval
+    // Effect to calculate time left and set interval
     useEffect(() => {
         calculateTimeLeft(); // Initial calculation
 
@@ -94,7 +67,7 @@ const JobListing = ({ job, isHome, isAdmin }) => { // {job} -> Destructuring ass
 
 
                     <h3 className="text-indigo-500 mb-4">Price: {job.price}</h3>
-                    <p className="mb-2"> {new Date(job.date).toLocaleDateString()}   {job.time} <span></span></p>
+                    <p className="mb-2"> {new Date(job.date).toLocaleDateString()}   <TimeDisplay jobDate={job.date} /> <span></span></p>
 
                     <div className="border border-gray-100 mb-5"></div>
 
@@ -119,22 +92,22 @@ const JobListing = ({ job, isHome, isAdmin }) => { // {job} -> Destructuring ass
                                 <svg className="w-2.5 h-2.5 me-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                                     <path d="M10 0a10 10 0 1 0 10 10A10.011 10.011 0 0 0 10 0Zm3.982 13.982a1 1 0 0 1-1.414 0l-3.274-3.274A1.012 1.012 0 0 1 9 10V6a1 1 0 0 1 2 0v3.586l2.982 2.982a1 1 0 0 1 0 1.414Z" />
                                 </svg>
-                                 {daysLeft} Days left
+                                {daysLeft} Days left
                             </span>
                             : hoursLeft >= 0 ?
-                            <span className="bg-blue-100 text-blue-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded  border border-blue-400">
-                                <svg className="w-2.5 h-2.5 me-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                                    <path d="M10 0a10 10 0 1 0 10 10A10.011 10.011 0 0 0 10 0Zm3.982 13.982a1 1 0 0 1-1.414 0l-3.274-3.274A1.012 1.012 0 0 1 9 10V6a1 1 0 0 1 2 0v3.586l2.982 2.982a1 1 0 0 1 0 1.414Z" />
-                                </svg>
-                                {hoursLeft} hrs {minutesLeft} mins left
-                            </span>
-                            :
-                            <span className="bg-blue-100 text-blue-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded  border border-blue-400">
-                                <svg className="w-2.5 h-2.5 me-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                                    <path d="M10 0a10 10 0 1 0 10 10A10.011 10.011 0 0 0 10 0Zm3.982 13.982a1 1 0 0 1-1.414 0l-3.274-3.274A1.012 1.012 0 0 1 9 10V6a1 1 0 0 1 2 0v3.586l2.982 2.982a1 1 0 0 1 0 1.414Z" />
-                                </svg>
-                                Completed
-                            </span>
+                                <span className="bg-blue-100 text-blue-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded  border border-blue-400">
+                                    <svg className="w-2.5 h-2.5 me-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M10 0a10 10 0 1 0 10 10A10.011 10.011 0 0 0 10 0Zm3.982 13.982a1 1 0 0 1-1.414 0l-3.274-3.274A1.012 1.012 0 0 1 9 10V6a1 1 0 0 1 2 0v3.586l2.982 2.982a1 1 0 0 1 0 1.414Z" />
+                                    </svg>
+                                    {hoursLeft} hrs {minutesLeft} mins left
+                                </span>
+                                :
+                                <span className="bg-blue-100 text-blue-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded  border border-blue-400">
+                                    <svg className="w-2.5 h-2.5 me-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M10 0a10 10 0 1 0 10 10A10.011 10.011 0 0 0 10 0Zm3.982 13.982a1 1 0 0 1-1.414 0l-3.274-3.274A1.012 1.012 0 0 1 9 10V6a1 1 0 0 1 2 0v3.586l2.982 2.982a1 1 0 0 1 0 1.414Z" />
+                                    </svg>
+                                    Completed
+                                </span>
                         }
 
                     </span>
