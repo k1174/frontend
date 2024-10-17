@@ -19,7 +19,7 @@ export async function action({ request, params }) {
     if (!response.ok) {
         console.error("Event Not Updated");
         toast.error("Event Edit Failed")
-        return redirect(`/eventsPage/${params.jobId}`);
+        return null;
     }
     toast.success("Event Edited Successfully")
     console.log("Event Updated Successfully");
