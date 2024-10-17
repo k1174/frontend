@@ -38,7 +38,7 @@ const Job = ({ job }) => {
         if (isAuthenticated) {
             fetchData();
         }
-    }, [job])
+    }, [job, isAuthenticated])
 
 
     let formattedText = '';
@@ -46,9 +46,14 @@ const Job = ({ job }) => {
     if (job.details) {
         formattedText = parseCustomSyntax(job.details);
     }
-    const fetchUrl = window.location.href
-    let event = ""
-    if (fetchUrl.includes('/past')) event = "past"
+
+    function isPast(date) {
+        const eventDate = new Date(date);
+        const adjustedDate = new Date(eventDate.getTime() - (5 * 60 * 60 * 1000) - (30 * 60 * 1000));
+        const now = new Date();
+        const diffMs = adjustedDate.getTime() - now.getTime();
+        if (diffMs < 0) return true
+    }
 
     return (
         <>
@@ -93,7 +98,7 @@ const Job = ({ job }) => {
                                         dangerouslySetInnerHTML={{ __html: formattedText }}
                                         style={{ whiteSpace: 'pre-wrap' }}
                                     />}
-                                
+
                                 <p className="mb-4">{job.date.split('T')[0]} <TimeDisplay jobDate={job.date} /></p>
 
                                 <h3 className="text-indigo-800 text-lg font-bold mb-2">Price</h3>
@@ -134,13 +139,11 @@ const Job = ({ job }) => {
 
                             {/* <!-- Manage --> */}
                             {
-                                event === "past"
+                                isPast(job.date)
                                     ? <PastEventManage job={job} /> : <UserManage job={job} />
                             }
-                            {
-                                isAdmin ? <AdminManage /> :
-                                    creator ? <AdminManage /> : ""
-                            }
+
+                            {(isAdmin || creator) && <AdminManage />}
                         </aside>
                     </div>
                 </div>
