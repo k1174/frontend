@@ -107,6 +107,7 @@ const AddJob = () => {
                                     name="price"
                                     id="price"
                                     className="border rounded w-full py-2 px-3 mb-2"
+                                    min={0}
                                 />
                             </div>
 

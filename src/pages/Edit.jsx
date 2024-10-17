@@ -113,6 +113,7 @@ export default function Edit() {
                                     id="price"
                                     className="border rounded w-full py-2 px-3 mb-2"
                                     defaultValue={job.price}
+                                    min={0}
                                 />
                             </div>
 
