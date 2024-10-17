@@ -34,6 +34,7 @@ export default function Navbar() {
             setIsUserDropdownOpen(false);
         }
     };
+    
 
     useEffect(() => {
         document.addEventListener('mousedown', handleClickOutside);

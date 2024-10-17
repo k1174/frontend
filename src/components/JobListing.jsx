@@ -25,29 +25,29 @@ const JobListing = ({ job, isHome, isAdmin }) => { // {job} -> Destructuring ass
             if (!time || typeof time !== 'string') {
                 return 'Invalid time format'; // Return an error or handle it as necessary
             }
-        
+
             // Split the time into the time part and AM/PM modifier
             const [timePart, modifier] = time.split(' ');
-        
+
             // Check if timePart exists before proceeding
             if (!timePart || !modifier) {
                 return 'Invalid time format';
             }
-        
+
             // Split the time part into hours and minutes
             let [hours, minutes] = timePart.split(':').map(Number);
-        
+
             // Convert based on AM/PM modifier
             if (modifier === 'PM' && hours < 12) {
                 hours += 12;
             } else if (modifier === 'AM' && hours === 12) {
                 hours = 0;
             }
-        
+
             // Return the formatted time in 24-hour format
             return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
         }
-        
+
         // Combine job date and time into a single Date object
         const jobTime24Hour = convertTo24Hour(jobTime);
         const jobDateTime = new Date(`${jobDate.slice(0, 10)}T${jobTime24Hour}:00`);
@@ -85,7 +85,7 @@ const JobListing = ({ job, isHome, isAdmin }) => { // {job} -> Destructuring ass
 
     }
 
-        // Effect to calculate time left and set interval
+    // Effect to calculate time left and set interval
     useEffect(() => {
         calculateTimeLeft(); // Initial calculation
 
@@ -134,22 +134,22 @@ const JobListing = ({ job, isHome, isAdmin }) => { // {job} -> Destructuring ass
                                 <svg className="w-2.5 h-2.5 me-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                                     <path d="M10 0a10 10 0 1 0 10 10A10.011 10.011 0 0 0 10 0Zm3.982 13.982a1 1 0 0 1-1.414 0l-3.274-3.274A1.012 1.012 0 0 1 9 10V6a1 1 0 0 1 2 0v3.586l2.982 2.982a1 1 0 0 1 0 1.414Z" />
                                 </svg>
-                                 {daysLeft} Days left
+                                {daysLeft} Days left
                             </span>
                             : hoursLeft >= 0 ?
-                            <span className="bg-blue-100 text-blue-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded  border border-blue-400">
-                                <svg className="w-2.5 h-2.5 me-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                                    <path d="M10 0a10 10 0 1 0 10 10A10.011 10.011 0 0 0 10 0Zm3.982 13.982a1 1 0 0 1-1.414 0l-3.274-3.274A1.012 1.012 0 0 1 9 10V6a1 1 0 0 1 2 0v3.586l2.982 2.982a1 1 0 0 1 0 1.414Z" />
-                                </svg>
-                                {hoursLeft} hrs {minutesLeft} mins left
-                            </span>
-                            :
-                            <span className="bg-blue-100 text-blue-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded  border border-blue-400">
-                                <svg className="w-2.5 h-2.5 me-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                                    <path d="M10 0a10 10 0 1 0 10 10A10.011 10.011 0 0 0 10 0Zm3.982 13.982a1 1 0 0 1-1.414 0l-3.274-3.274A1.012 1.012 0 0 1 9 10V6a1 1 0 0 1 2 0v3.586l2.982 2.982a1 1 0 0 1 0 1.414Z" />
-                                </svg>
-                                Completed
-                            </span>
+                                <span className="bg-blue-100 text-blue-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded  border border-blue-400">
+                                    <svg className="w-2.5 h-2.5 me-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M10 0a10 10 0 1 0 10 10A10.011 10.011 0 0 0 10 0Zm3.982 13.982a1 1 0 0 1-1.414 0l-3.274-3.274A1.012 1.012 0 0 1 9 10V6a1 1 0 0 1 2 0v3.586l2.982 2.982a1 1 0 0 1 0 1.414Z" />
+                                    </svg>
+                                    {hoursLeft} hrs {minutesLeft} mins left
+                                </span>
+                                :
+                                <span className="bg-blue-100 text-blue-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded  border border-blue-400">
+                                    <svg className="w-2.5 h-2.5 me-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M10 0a10 10 0 1 0 10 10A10.011 10.011 0 0 0 10 0Zm3.982 13.982a1 1 0 0 1-1.414 0l-3.274-3.274A1.012 1.012 0 0 1 9 10V6a1 1 0 0 1 2 0v3.586l2.982 2.982a1 1 0 0 1 0 1.414Z" />
+                                    </svg>
+                                    Completed
+                                </span>
                         }
 
                     </span>
