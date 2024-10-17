@@ -5,10 +5,10 @@ import UserManage from "./UserManage";
 import Carousel from "./Carousel";
 import parseCustomSyntax from "../methods/parseCutomSyntax";
 import PastEventManage from "./PastEventManage";
+import TimeDisplay from "./TimeDisplay";
 
 const Job = ({ job }) => {
-    const { user, isAdmin, isAuthenticated } = useAuth();
-    const [submit, setSubmit] = useState(false)
+    const { isAdmin, isAuthenticated } = useAuth();
     const [creator, setCreator] = useState(false)
 
 
@@ -40,23 +40,6 @@ const Job = ({ job }) => {
         }
     }, [job])
 
-
-    // const handleSubmit = (e) => {
-    //     e.preventDefault();
-
-    //     const formData = new FormData(e.target)
-    //     const data = Object.fromEntries(formData.entries())
-    //     data.eventId = job._id
-    //     data.userId = user._id
-    //     setSubmit(true)
-    //     fetch(`/service/feedback`, {
-    //         method: 'POST',
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //         },
-    //         body: JSON.stringify(data),
-    //     })
-    // }
 
     let formattedText = '';
 
@@ -110,32 +93,14 @@ const Job = ({ job }) => {
                                         dangerouslySetInnerHTML={{ __html: formattedText }}
                                         style={{ whiteSpace: 'pre-wrap' }}
                                     />}
-                                <p className="mb-4">{job.time}</p>
-                                <p className="mb-4">{job.date.split('T')[0]}</p>
+                                
+                                <p className="mb-4">{job.date.split('T')[0]} <TimeDisplay jobDate={job.date} /></p>
 
                                 <h3 className="text-indigo-800 text-lg font-bold mb-2">Price</h3>
 
                                 <p className="mb-4">{job.price}</p>
                             </div>
 
-
-                            {/* {isAuthenticated && !isAdmin && !submit && !creator && event === "past" &&
-
-                                <div className="bg-white p-6 rounded-lg shadow-md mt-6">
-
-                                    <form onSubmit={handleSubmit} >
-
-                                        <label htmlFor="feedback" className="block mb-2 text-sm font-medium text-gray-900 ">Your Feedback</label>
-                                        <textarea name="feedback" rows="4" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:outline-offset-1 focus:outline-indigo-600" placeholder="Write your thoughts here..." ></textarea>
-
-                                        <label htmlFor="rating" className="inline-block my-2 text-sm font-medium text-gray-900 ">Rating : </label>
-                                        <input name="rating" type="range" defaultValue="3" min="0" max="5" step="1" className=" h-2 bg-gray-200 rounded-lg  cursor-pointer " />
-
-                                        <button type="submit" className="block p-2 text-gray-600 text-sm font-semibold py-2.5 hover:bg-gray-100 border border-gray-400 rounded ">Submit</button>
-
-                                    </form>
-                                </div>
-                            } */}
 
                         </main>
 
