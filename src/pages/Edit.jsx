@@ -1,10 +1,10 @@
 import { Form, useLoaderData } from "react-router-dom";
-import convertTo24HourFormat from "../methods/timeUtil";
 import Tooltip from "../components/Tooltip";
 
 export default function Edit() {
     const job = useLoaderData();
-    const time = convertTo24HourFormat(job.time);
+    const date = new Date(job.date);
+    const formattedDate = date.toISOString().slice(0, 16);
     return (
         <>
             <section className="bg-indigo-50">
@@ -90,27 +90,14 @@ export default function Edit() {
 
                             <div className="mb-4 flex gap-2">
                                 <div className="flex-1">
-                                    <label htmlFor="time" className="block text-gray-700 font-bold mb-2">Time</label>
-                                    <input
-                                        required
-                                        type="time"
-                                        name="time"
-                                        id="time"
-                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
-
-                                        defaultValue={time}
-                                    />
-                                </div>
-
-                                <div className="flex-1">
                                     <label htmlFor="date" className="block text-gray-700 font-bold mb-2">Date</label>
                                     <input
                                         required
-                                        type="date"
+                                        type="datetime-local"
                                         name="date"
                                         id="date"
                                         className="border rounded w-full py-2 px-3"
-                                        defaultValue={job.date.slice(0, 10)}
+                                        defaultValue={formattedDate}
                                     />
                                 </div>
                             </div>
