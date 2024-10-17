@@ -60,6 +60,7 @@ const router = createBrowserRouter(
       <Route path='profile/:jobId' element={<JobPage />} loader={JobPageLoader} errorElement={<NotFound />} />
       <Route path='/profile/:jobId/edit' element={<Edit />} loader={JobPageLoader} errorElement={<NotFound />} action={editAction} />
       <Route path='/profile/:jobId/delete' action={deleteAction} errorElement={<NotFound />} />
+      <Route path='/profile' element={<Profile/>} />
 
       <Route path='/addjob'
         element={

@@ -21,18 +21,33 @@ const JobListing = ({ job, isHome, isAdmin }) => { // {job} -> Destructuring ass
 
         // Function to convert 12-hour time format to 24-hour time format
         function convertTo24Hour(time) {
+            // Ensure time is defined and in the correct format
+            if (!time || typeof time !== 'string') {
+                return 'Invalid time format'; // Return an error or handle it as necessary
+            }
+        
+            // Split the time into the time part and AM/PM modifier
             const [timePart, modifier] = time.split(' ');
+        
+            // Check if timePart exists before proceeding
+            if (!timePart || !modifier) {
+                return 'Invalid time format';
+            }
+        
+            // Split the time part into hours and minutes
             let [hours, minutes] = timePart.split(':').map(Number);
-
+        
+            // Convert based on AM/PM modifier
             if (modifier === 'PM' && hours < 12) {
                 hours += 12;
             } else if (modifier === 'AM' && hours === 12) {
                 hours = 0;
             }
-
+        
+            // Return the formatted time in 24-hour format
             return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
         }
-
+        
         // Combine job date and time into a single Date object
         const jobTime24Hour = convertTo24Hour(jobTime);
         const jobDateTime = new Date(`${jobDate.slice(0, 10)}T${jobTime24Hour}:00`);
