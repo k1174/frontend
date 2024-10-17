@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import logo from '../assets/images/image.png';
@@ -13,7 +13,6 @@ export default function Navbar() {
     const [isUserDropdownOpen, setIsUserDropdownOpen] = useState(false);
     const eventDropdownRef = useRef(null);
     const userDropdownRef = useRef(null);
-    const navigate = useNavigate();
     const { isAuthenticated, isAdmin } = useAuth();
 
     const toggleEventDropdown = () => {
@@ -149,11 +148,10 @@ export default function Navbar() {
                                     )}
                                 </div>
                             ) : (
-                                // Uncomment this to add a login link if user is not authenticated
-                                // <NavLink to="/login" className={linkClass}>
-                                //     Login
-                                // </NavLink>
-                                ""
+                                
+                                <NavLink to="/login" className={linkClass}>
+                                    Login
+                                </NavLink>
                             )}
                         </div>
                     </div>
