@@ -88,8 +88,8 @@ export default function Navbar() {
                                 </button>
 
                                 {isEventDropdownOpen && (
-                                    <div className="absolute left-2 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-10">
-                                        <ul className="py-2 space-y-1">
+                                     <div className="absolute -right-12 md:left-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-10">
+                             <ul className="py-2 space-y-1">
                                             <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
                                                 <Link onClick={() => setIsEventDropdownOpen(false)} to="/past">
                                                     Past Event
@@ -106,7 +106,7 @@ export default function Navbar() {
                                                 </Link>
                                             </li>
                                         </ul>
-                                    </div>
+                                 </div>
                                 )}
                             </div>
 
@@ -120,7 +120,7 @@ export default function Navbar() {
                                     </button>
 
                                     {isUserDropdownOpen && (
-                                        <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-10">
+                                        <div className="absolute right-0 md:-left-12 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-10">
                                             <ul className="py-2">
                                                 <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
                                                     <Link onClick={() => setIsUserDropdownOpen(false)} to="/profile">
