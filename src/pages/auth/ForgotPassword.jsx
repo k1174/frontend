@@ -4,7 +4,7 @@ import Spinner from "../../components/Spinner";
 
 const ForgotPassword = () => {
     const [loading, setLoading] = useState(false);
-    
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
@@ -38,9 +38,7 @@ const ForgotPassword = () => {
     return (
         <>
             {loading &&
-                <div className="absolute inset-0 flex items-center justify-center z-20 backdrop-blur-sm">
-                    <Spinner />
-                </div>
+                <Spinner />
             }
             <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
                 <div className="sm:mx-auto sm:w-full sm:max-w-sm">
