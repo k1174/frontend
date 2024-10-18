@@ -30,6 +30,7 @@ import Table from './pages/Table.jsx';
 import AdminRoutes from './components/AdminRoutes.jsx';
 import Download from './components/Download.jsx';
 import DateRangeSelector from './components/DateRangeSelector.jsx';
+import Landing from './pages/Landing.jsx';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -77,7 +78,6 @@ const router = createBrowserRouter(
       <Route path='/Register' element={<Register />} />
       <Route path='/Login' element={<Login />} />
       <Route path='/profile' element={<Profile />} />
-
       <Route path='*' element={<NotFound />}></Route>
     </Route>
   )

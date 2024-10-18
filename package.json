@@ -11,15 +11,23 @@
     "start": "json-server --watch src/events.json --port 4000"
   },
   "dependencies": {
+    "@emotion/react": "^11.13.3",
+    "@emotion/styled": "^11.13.0",
+    "@mui/icons-material": "^6.1.4",
+    "@mui/material": "^6.1.4",
+    "@mui/styled-engine-sc": "^6.1.4",
     "@react-pdf/renderer": "^4.0.0",
-    "axios": "^1.7.4",
+    "axios": "^1.7.7",
     "json-server": "^1.0.0-beta.1",
+    "lucide-react": "^0.453.0",
     "prop-types": "^15.8.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-icons": "^5.2.1",
+    "react-intersection-observer": "^9.13.1",
     "react-router-dom": "^6.25.1",
     "react-toastify": "^10.0.5",
+    "styled-components": "^6.1.13",
     "xlsx": "^0.18.5"
   },
   "devDependencies": {
