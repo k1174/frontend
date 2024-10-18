@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link } from "react-router-dom";
 import * as XLSX from 'xlsx';
+import Spinner from './Spinner';
 
 // Function to generate Excel file
 const generateExcel = (events) => {
@@ -26,17 +27,22 @@ const DateRangeSelector = () => {
     const [endDate, setEndDate] = useState('')
     const [events, setEvents] = useState([]);
     const [error, setError] = useState('');
+    const [loading, setLoading] = useState(false);
 
     const handelSubmit = async (e) => {
         e.preventDefault()
+        setLoading(true)
         try {
             const response = await fetch(`/api/range?startDate=${startDate}&endDate=${endDate}`);
             if (!response.ok) throw new Error('Network response was not ok');
 
             const data = await response.json();
-            setEvents(data); 
+            setEvents(data);
+            setError('');
+            setLoading(false);
         }
         catch (err) {
+            setLoading(false);
             console.error('Error fetching events:', err);
             setError('Error fetching events.');
         }
@@ -44,6 +50,7 @@ const DateRangeSelector = () => {
 
     return (
         <>
+            {loading && <Spinner />}
             <form onSubmit={handelSubmit}>
                 <div className=''>
 
