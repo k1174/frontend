@@ -5,6 +5,8 @@ import { FaArrowRight } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import eventHome from "../assets/eventSchedular_Home.jpg"
+
 
 export default function Landing() {
 
@@ -102,37 +104,41 @@ export default function Landing() {
 
       <main className="flex-1">
 
-        <section className="w-full h-[600px] py-12 md:py-24 lg:py-32 xl:py-48 bg-white">
-          <div className="container mx-auto px-4 md:px-36">
-            <div className="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-8">
-              <div className="flex-1 text-center md:text-left space-y-6 md:-translate-y-24 md:translate-x-20">
-                <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl text-gray-900">
-                  Event Management Simplified
-                </h1>
-                <p className="mx-auto max-w-[700px] text-gray-500 md:text-xl">
-                  Streamline your event planning process with our comprehensive platform. From creation to execution, we've got you covered.
-                </p>
-                <div className="space-x-4 mt-4 space-y-4">
-                  <button onClick={handleGetStarted} className="px-8 py-3 text-white bg-blue-600 hover:bg-blue-700 rounded-md font-medium transition-colors">
-                    Get Started!
-                  </button>
-                  <button className="px-8 py-3 text-blue-600 bg-white border border-blue-600 hover:bg-gray-50 rounded-md font-medium transition-colors">
-                    <a href='/addjob'  >  Schedule Event</a>
+      <section className="w-full h-[600px] py-12 md:py-24 lg:py-32 xl:py-48 ">
+  <div className="container mx-auto px-4 md:px-36 ">
+    <div className="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-8 gap-12 ">
+      
+      {/* Left Side: Text Section */}
+      <div className="flex-1 text-center md:text-left space-y-6 md:-translate-y-24 md:translate-x-12">
+        <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl text-gray-900">
+          Event Management Simplified
+        </h1>
+        <p className="mx-auto max-w-[700px] text-gray-500 md:text-xl">
+          Streamline your event planning process with our comprehensive platform. From creation to execution, we've got you covered.
+        </p>
+        <div className="space-x-4 mt-4">
+          <button onClick={handleGetStarted} className="px-8 py-3 text-white bg-blue-600 hover:bg-blue-700 rounded-md font-medium transition-colors">
+            Get Started!
+          </button>
+          <button className="px-8 py-3 text-blue-600 bg-white border border-blue-600 hover:bg-gray-50 rounded-md font-medium transition-colors">
+            <a href='/addjob'>Schedule Event</a>
+          </button>
+        </div>
+      </div>
 
+      {/* Right Side: Image Section */}
+      <div className="w-full md:w-1/2 flex justify-center md:justify-center md:-translate-y-24">
+        <img
+          src={eventHome}
+          alt="Event Management"
+          className="max-w-full rounded-2xl h-auto" // Ensure the image scales within its container
+        />
+      </div>
 
-                  </button>
-                </div>
-              </div>
-              <div className="flex-1 w-full flex justify-center md:-translate-y-24">
-                <img
-                  src="https://img.freepik.com/free-vector/online-booking-services-abstract-concept-illustration_335657-3908.jpg?t=st=1729282787~exp=1729286387~hmac=df0e9872ed39a3a0f07afd925b10e4000aeff2a52646ac1d85bc7411e7c531f3&w=740" // Replace with your image URL
-                  alt="Event Management"
-                  className="w-full max-w-md h-auto " // Adjusted size and styling
-                />
-              </div>
-            </div>
-          </div>
-        </section>
+    </div>
+  </div>
+</section>
+
 
 
 
@@ -141,7 +147,7 @@ export default function Landing() {
             <h2 className="text-2xl font-bold tracking-tighter sm:text-3xl md:text-4xl mb-6 text-gray-900">
               Featured Event
             </h2>
-            <div className="bg-white rounded-lg shadow-lg overflow-hidden flex flex-col md:flex-row h-[500px] px-12">
+            <div className="bg-white rounded-lg shadow-lg overflow-hidden flex flex-col md:flex-row h-[500px] md:px-12 ">
               {/* Left Side: Event Details */}
               <div className="p-4 flex-1 flex flex-col justify-between">
                 <div>
