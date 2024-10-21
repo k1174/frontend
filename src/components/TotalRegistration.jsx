@@ -19,7 +19,7 @@ export default function TotalRegistration({ job }) {
   
   return (
     <>
-        <h2>Total Registrations: {total}</h2>
+        {total}
     </>
   )
 }
