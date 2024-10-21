@@ -30,6 +30,10 @@ import Table from './pages/Table.jsx';
 import AdminRoutes from './components/AdminRoutes.jsx';
 import Download from './components/Download.jsx';
 import DateRangeSelector from './components/DateRangeSelector.jsx';
+import RestPassword from './pages/auth/RestPassword.jsx';
+import ForgotPassword from './pages/auth/ForgotPassword.jsx';
+import ConfirmAccount from './pages/auth/ConfirmAccount.jsx';
+// import Feedbacks from './components/Feedbacks.jsx';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -75,8 +79,12 @@ const router = createBrowserRouter(
       <Route path='/test' element={<Test />} />
 
       <Route path='/Register' element={<Register />} />
+      <Route path='ConfirmAccount/:token' element={<ConfirmAccount /> } />
       <Route path='/Login' element={<Login />} />
+      <Route path='/forgotpassword/' element={<ForgotPassword />} />
+      <Route path='/password-reset/:token' element={<RestPassword />} />
       <Route path='/profile' element={<Profile />} />
+      {/* <Route path='/feedback/:jobId' element={<Feedbacks />} /> */}
 
       <Route path='*' element={<NotFound />}></Route>
     </Route>
