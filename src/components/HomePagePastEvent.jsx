@@ -1,20 +1,17 @@
 import { FaMapMarkerAlt } from "react-icons/fa";
-import { CalendarCheck } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import TimeDisplay from "./TimeDisplay";
 
-const JobListing = ({ job, isHome, isAdmin }) => { // {job} -> Destructuring assignment
+const HomePagePastEvent = ({ job }) => { // {job} -> Destructuring assignment
     const [daysLeft, setDaysLeft] = useState(0);
     const [hoursLeft, setHoursLeft] = useState(0);
     const [minutesLeft, setMinutesLeft] = useState(0);
 
     const description = job.description.substring(0, 90) + '...';
 
-    let url = isHome ? `/eventspage/${job._id}` : `${job._id}`
-    if (isAdmin) {
-        url = `/admin/${job._id}`
-    }
+    let url = `/past/${job._id}`
+
 
     function calculateTimeLeft() {
 
@@ -65,16 +62,8 @@ const JobListing = ({ job, isHome, isAdmin }) => { // {job} -> Destructuring ass
                     <div className="mb-4 h-20 ">{description}</div>
 
 
-                    <h3 className="text-indigo-500 mb-4">Fees: {job.price < 1 ? "Free" : job.price}</h3>
-                    <p className="mb-2 flex ">
-                        <span className="flex gap-1  mr-4">
-                            <CalendarCheck size={20} strokeWidth={1} />
-
-
-                            {new Date(job.date).toLocaleDateString()}
-                        </span>
-                        <TimeDisplay jobDate={job.date} />
-                    </p>
+                    <h3 className="text-indigo-500 mb-4">Price: {job.price}</h3>
+                    <p className="mb-2"> {new Date(job.date).toLocaleDateString()}   <TimeDisplay jobDate={job.date} /> <span></span></p>
 
                     <div className="border border-gray-100 mb-5"></div>
 
@@ -91,46 +80,37 @@ const JobListing = ({ job, isHome, isAdmin }) => { // {job} -> Destructuring ass
                         </Link>
                     </div>
                 </div>
-                {job.status !== 'pending' ?
-                    <span className="absolute -translate-y-1/5 translate-x-1/9 left-auto top-2 right-2">
-                        {daysLeft > 0 ?
 
-                            <span className="bg-gray-100 text-gray-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded me-2  border border-gray-500 ">
+                <span className="absolute -translate-y-1/5 translate-x-1/9 left-auto top-2 right-2">
+                    {daysLeft > 0 ?
+
+                        <span className="bg-gray-100 text-gray-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded me-2  border border-gray-500 ">
+                            <svg className="w-2.5 h-2.5 me-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M10 0a10 10 0 1 0 10 10A10.011 10.011 0 0 0 10 0Zm3.982 13.982a1 1 0 0 1-1.414 0l-3.274-3.274A1.012 1.012 0 0 1 9 10V6a1 1 0 0 1 2 0v3.586l2.982 2.982a1 1 0 0 1 0 1.414Z" />
+                            </svg>
+                            {daysLeft} Days left
+                        </span>
+                        : hoursLeft >= 0 ?
+                            <span className="bg-blue-100 text-blue-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded  border border-blue-400">
                                 <svg className="w-2.5 h-2.5 me-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                                     <path d="M10 0a10 10 0 1 0 10 10A10.011 10.011 0 0 0 10 0Zm3.982 13.982a1 1 0 0 1-1.414 0l-3.274-3.274A1.012 1.012 0 0 1 9 10V6a1 1 0 0 1 2 0v3.586l2.982 2.982a1 1 0 0 1 0 1.414Z" />
                                 </svg>
-                                {daysLeft} Days left
+                                {hoursLeft} hrs {minutesLeft} mins left
                             </span>
-                            : hoursLeft >= 0 ?
-                                <span className="bg-blue-100 text-blue-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded  border border-blue-400">
-                                    <svg className="w-2.5 h-2.5 me-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                                        <path d="M10 0a10 10 0 1 0 10 10A10.011 10.011 0 0 0 10 0Zm3.982 13.982a1 1 0 0 1-1.414 0l-3.274-3.274A1.012 1.012 0 0 1 9 10V6a1 1 0 0 1 2 0v3.586l2.982 2.982a1 1 0 0 1 0 1.414Z" />
-                                    </svg>
-                                    {hoursLeft} hrs {minutesLeft} mins left
-                                </span>
-                                :
-                                <span className="bg-blue-100 text-blue-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded  border border-blue-400">
-                                    <svg className="w-2.5 h-2.5 me-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                                        <path d="M10 0a10 10 0 1 0 10 10A10.011 10.011 0 0 0 10 0Zm3.982 13.982a1 1 0 0 1-1.414 0l-3.274-3.274A1.012 1.012 0 0 1 9 10V6a1 1 0 0 1 2 0v3.586l2.982 2.982a1 1 0 0 1 0 1.414Z" />
-                                    </svg>
-                                    Completed
-                                </span>
-                        }
+                            :
+                            <span className="bg-blue-100 text-blue-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded  border border-blue-400">
+                                <svg className="w-2.5 h-2.5 me-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M10 0a10 10 0 1 0 10 10A10.011 10.011 0 0 0 10 0Zm3.982 13.982a1 1 0 0 1-1.414 0l-3.274-3.274A1.012 1.012 0 0 1 9 10V6a1 1 0 0 1 2 0v3.586l2.982 2.982a1 1 0 0 1 0 1.414Z" />
+                                </svg>
+                                Completed
+                            </span>
+                    }
 
-                    </span>
-                    :
+                </span>
 
-                    <span className="absolute -translate-y-1/5 translate-x-1/9 left-auto top-1 right-2">
-
-                        <span className=" inline-flex items-center bg-red-100 text-red-800 text-xs font-medium px-2.5 py-0.5 rounded-full ">
-                            <span className="w-2 h-2 me-1 bg-red-500 rounded-full"></span>
-                            Not verified
-                        </span>
-                    </span>
-                }
             </div>
         </>
     )
 }
 
-export default JobListing
+export default HomePagePastEvent

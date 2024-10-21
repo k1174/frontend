@@ -1,16 +1,23 @@
+// import FeaturedEvent from '../components/FeaturedEvent'
+import FeatureSection from '../components/FeatureSection'
 import Hero from '../components/Hero'
-import HomeCards from '../components/HomeCards'
+import HomePagePastEvents from '../components/HomePagePastEvents'
 import JobListings from '../components/JobListings'
+import Landing from '../components/Landing'
 import Steps from '../components/Steps'
 import ViewAllJobs from '../components/ViewAllJobs'
 const Home = () => {
-    return(
+    return (
         <>
-        <Hero />
-        <HomeCards />
-        <JobListings />
-        <ViewAllJobs />
-        <Steps />
+            <Hero />
+            {/* <HomeCards /> */}
+            <JobListings />
+            <ViewAllJobs />
+            <HomePagePastEvents />
+            <Landing />
+            {/* <FeaturedEvent /> */}
+            <Steps />
+            <FeatureSection />
         </>
     )
 }
