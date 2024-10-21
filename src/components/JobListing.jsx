@@ -1,4 +1,5 @@
 import { FaMapMarkerAlt } from "react-icons/fa";
+import { CalendarCheck } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import TimeDisplay from "./TimeDisplay";
@@ -20,7 +21,7 @@ const JobListing = ({ job, isHome, isAdmin }) => { // {job} -> Destructuring ass
         // Parse the job.date string into a Date object
         const eventDate = new Date(job.date); // This converts the ISO string to a Date object
         const now = new Date();
-        
+
         // Calculate the difference in milliseconds
         const diffMs = eventDate.getTime() - now.getTime();
 
@@ -64,8 +65,16 @@ const JobListing = ({ job, isHome, isAdmin }) => { // {job} -> Destructuring ass
                     <div className="mb-4 h-20 ">{description}</div>
 
 
-                    <h3 className="text-indigo-500 mb-4">Price: {job.price}</h3>
-                    <p className="mb-2"> {new Date(job.date).toLocaleDateString()}   <TimeDisplay jobDate={job.date} /> <span></span></p>
+                    <h3 className="text-indigo-500 mb-4">Fees: {job.price < 1 ? "Free" : job.price}</h3>
+                    <p className="mb-2 flex ">
+                        <span className="flex gap-1  mr-4">
+                            <CalendarCheck size={20} strokeWidth={1} />
+
+
+                            {new Date(job.date).toLocaleDateString()}
+                        </span>
+                        <TimeDisplay jobDate={job.date} />
+                    </p>
 
                     <div className="border border-gray-100 mb-5"></div>
 

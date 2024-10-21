@@ -1,3 +1,4 @@
+import { Clock } from "lucide-react";
 const TimeDisplay = ({ jobDate }) => {
     const eventDate = new Date(jobDate)
     //formate the time
@@ -11,7 +12,10 @@ const TimeDisplay = ({ jobDate }) => {
 
     return (
         <>
-            {formattedTime}
+            <div className="flex items-center gap-1">
+                <Clock size={20} strokeWidth={1} />
+                {formattedTime}
+            </div>
         </>
     )
 }
