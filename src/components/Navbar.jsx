@@ -33,7 +33,7 @@ export default function Navbar() {
             setIsUserDropdownOpen(false);
         }
     };
-    
+
 
     useEffect(() => {
         document.addEventListener('mousedown', handleClickOutside);
@@ -87,25 +87,25 @@ export default function Navbar() {
                                 </button>
 
                                 {isEventDropdownOpen && (
-                                     <div className="absolute -right-12 md:left-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-10">
-                             <ul className="py-2 space-y-1">
-                                            <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
-                                                <Link onClick={() => setIsEventDropdownOpen(false)} to="/past">
+                                    <div className="absolute -right-12 md:left-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-10">
+                                        <ul className="py-2 space-y-1">
+                                            <li >
+                                                <Link className="px-4 py-2 hover:bg-gray-100 cursor-pointer w-full block" onClick={() => setIsEventDropdownOpen(false)} to="/past">
                                                     Past Event
                                                 </Link>
                                             </li>
-                                            <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
-                                                <Link onClick={() => setIsEventDropdownOpen(false)} to="/eventspage">
+                                            <li >
+                                                <Link className="px-4 py-2 hover:bg-gray-100 cursor-pointer w-full block" onClick={() => setIsEventDropdownOpen(false)} to="/eventspage">
                                                     Upcoming Event
                                                 </Link>
                                             </li>
-                                            <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
-                                                <Link onClick={() => setIsEventDropdownOpen(false)} to="/addjob">
+                                            <li >
+                                                <Link className="px-4 py-2 hover:bg-gray-100 cursor-pointer w-full block" onClick={() => setIsEventDropdownOpen(false)} to="/addjob">
                                                     Add Event
                                                 </Link>
                                             </li>
                                         </ul>
-                                 </div>
+                                    </div>
                                 )}
                             </div>
 
@@ -121,34 +121,34 @@ export default function Navbar() {
                                     {isUserDropdownOpen && (
                                         <div className="absolute right-0 md:-left-12 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-10">
                                             <ul className="py-2">
-                                                <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
-                                                    <Link onClick={() => setIsUserDropdownOpen(false)} to="/profile">
+                                                <li >
+                                                    <Link className="px-4 py-2 hover:bg-gray-100 cursor-pointer w-full block" onClick={() => setIsUserDropdownOpen(false)} to="/profile">
                                                         Profile
                                                     </Link>
                                                 </li>
                                                 {isAdmin && (
-                                                    <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
-                                                        <Link onClick={() => setIsUserDropdownOpen(false)} to="/admin">
+                                                    <li >
+                                                        <Link className="px-4 py-2 hover:bg-gray-100 cursor-pointer w-full block" onClick={() => setIsUserDropdownOpen(false)} to="/admin">
                                                             Admin Panel
                                                         </Link>
                                                     </li>
                                                 )}
-                                                <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
-                                                    <Link onClick={() => setIsUserDropdownOpen(false)} to="/reset-password">
+                                                <li >
+                                                    <Link className="px-4 py-2 hover:bg-gray-100 cursor-pointer w-full block" onClick={() => setIsUserDropdownOpen(false)} to="/forgotpassword">
                                                         Reset Password
                                                     </Link>
                                                 </li>
-                                                <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
-                                                    <button onClick={handleLogout}>
+                                                <li >
+                                                    <div className="px-4 py-2 hover:bg-gray-100 cursor-pointer w-full block" onClick={handleLogout}>
                                                         Logout
-                                                    </button>
+                                                    </div>
                                                 </li>
                                             </ul>
                                         </div>
                                     )}
                                 </div>
                             ) : (
-                                
+
                                 <NavLink to="/login" className={linkClass}>
                                     Login
                                 </NavLink>
