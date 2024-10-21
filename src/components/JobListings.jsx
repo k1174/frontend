@@ -21,12 +21,10 @@ const JobListings = ({ isHome = true, isAdmin = false }) => {
     //get the query from url
     const params = new URL(window.location.href).searchParams;
     const q = params.get('q');
-    // console.log(query, params.get('q'))
-    //print url
-    // console.log(window.location.href)
+ 
     const fetchUrl = window.location.href
+    
     /*
-
     //debounce was implemente but need to learn usecallback
     const debounce = (form, isFirstSearch, delay) => {
         let timeout;
@@ -45,7 +43,7 @@ const JobListings = ({ isHome = true, isAdmin = false }) => {
         try {
 
             let url = isAdmin ? '/pia' : '/api'
-            if(fetchUrl.includes('/past')) url = '/api/past';
+            if (fetchUrl.includes('/past')) url = '/api/past';
             if (q) {
                 url = `${url}?q=${q}`
             }
@@ -84,14 +82,13 @@ const JobListings = ({ isHome = true, isAdmin = false }) => {
 
     if (error) return <div className="text-red-500 text-center">{error}</div>;
 
-
     return (
         <>
 
             <section className="bg-blue-50 px-4 py-10">
                 <div className="container-xl lg:container m-auto">
                     <h2 className="text-3xl font-bold text-indigo-500 mb-6 text-center">
-                        {isHome ? "Recent Events" : "Browse Events"}
+                        {isHome ? "Upcoming Events" : "Browse Events"}
                     </h2>
 
                     {!isHome &&
@@ -118,19 +115,24 @@ const JobListings = ({ isHome = true, isAdmin = false }) => {
                         </Form>
                     }
 
-                    {isLoading ? <Spinner /> :
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                            <>
-                                {recent.map(job => (
-                                    <JobListing key={job._id} job={job} isHome={isHome} isAdmin={isAdmin} />
-                                ))}
-                            </>
-
-                        </div>}
+                    {isLoading ?
+                        <Spinner />
+                        : recent.length < 1
+                            ?
+                            <div className="text-center text-gray-500">No events found</div>
+                            :
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                <>
+                                    {recent.map(job => (
+                                        <JobListing key={job._id} job={job} isHome={isHome} isAdmin={isAdmin} />
+                                    ))}
+                                </>
+                            </div>
+                    }
                 </div>
             </section>
 
-            { !isHome &&
+            {!isHome &&
                 pages > 1 && !isLoading &&
                 <nav className="w-full flex justify-center ">
 
@@ -145,34 +147,17 @@ const JobListings = ({ isHome = true, isAdmin = false }) => {
                                         <span className="sr-only">Previous</span>
                                         <MdArrowBackIos />
                                     </button>
-                                    {/* Current: "z-10 bg-indigo-600 text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600", Default: "text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:outline-offset-0" */}
 
                                     {/*loop to  pages */}
                                     {
                                         Array.from({ length: pages }, (_, i) => (
                                             <button id={i + 1} key={i} onClick={() => setPage(i + 1)}
-                                                // className="relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-300 focus:z-20 focus:outline-offset-0"
                                                 className={`relative inline-flex items-center px-4 py-2 text-sm font-semibold ring-1 ring-inset ring-gray-300 hover:bg-gray-300 focus:z-20 focus:outline-offset-0 ${page == i + 1 ? 'bg-indigo-600 text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600' : 'text-gray-900'}`}
-                                                >
+                                            >
                                                 {i + 1}
                                             </button>
                                         ))
                                     }
-
-
-                                    {/* <span className="relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-700 ring-1 ring-inset ring-gray-300 focus:outline-offset-0">
-                                        ...
-                                    </span> */}
-
-                                    {/* <button className="relative hidden items-center px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0 md:inline-flex">
-                                8
-                            </button>
-                            <button className="relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0">
-                                9
-                            </button>
-                            <button className="relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0" >
-                                10
-                            </button> */}
 
                                     <button onClick={() => setPage(page + 1)} disabled={page >= pages}
                                         className="relative inline-flex items-center rounded-r-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0">
@@ -186,7 +171,7 @@ const JobListings = ({ isHome = true, isAdmin = false }) => {
 
                 </nav>
             }
-            { !isHome && pages > 1 && !isLoading &&
+            {!isHome && pages > 1 && !isLoading &&
                 <div className="w-full flex justify-center">
                     <div >
                         Showing Page : {page} of {pages}
