@@ -1,12 +1,14 @@
 import { useState } from 'react';
 import { Link } from "react-router-dom";
 import * as XLSX from 'xlsx';
+import Spinner from './Spinner';
 
 // Function to generate Excel file
 const generateExcel = (events) => {
     const data = events.map((event, index) => ({
         Index: index + 1,
         'Event Name': event.name,
+        'Registrations': event.registrationCount,
         'Organiser Email': event.organiserEmail,
         'Event Date': new Date(event.date).toLocaleDateString(),
         'Event Time': event.time,
@@ -25,17 +27,22 @@ const DateRangeSelector = () => {
     const [endDate, setEndDate] = useState('')
     const [events, setEvents] = useState([]);
     const [error, setError] = useState('');
+    const [loading, setLoading] = useState(false);
 
     const handelSubmit = async (e) => {
         e.preventDefault()
+        setLoading(true)
         try {
             const response = await fetch(`/api/range?startDate=${startDate}&endDate=${endDate}`);
             if (!response.ok) throw new Error('Network response was not ok');
 
             const data = await response.json();
             setEvents(data);
+            setError('');
+            setLoading(false);
         }
         catch (err) {
+            setLoading(false);
             console.error('Error fetching events:', err);
             setError('Error fetching events.');
         }
@@ -43,6 +50,7 @@ const DateRangeSelector = () => {
 
     return (
         <>
+            {loading && <Spinner />}
             <form onSubmit={handelSubmit}>
                 <div className=''>
 
@@ -87,41 +95,43 @@ const DateRangeSelector = () => {
                         >
                             Download Excel
                         </button>
-
-                        <table className="min-w-full border border-gray-300">
-                            <thead className="bg-gray-100">
-                                <tr>
-                                    <th className="border border-gray-300 px-4 py-2 text-center">Index</th>
-                                    <th className="border border-gray-300 px-4 py-2 text-center">Event Name</th>
-                                    <th className="border border-gray-300 px-4 py-2 text-center">Organiser Email</th>
-                                    <th className="border border-gray-300 px-4 py-2 text-center">Event Date</th>
-                                    <th className="border border-gray-300 px-4 py-2 text-center">Event Time</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {events.map((event, index) => (
-                                    <tr key={event.id}>
-                                        <td className="border border-gray-300 px-4 py-2 text-center">{index + 1}</td>
-                                        <td className="border border-gray-300 px-4 py-2 text-center">
-                                            <Link
-                                                to={event.status === 'pending' ? `/admin/${event._id}` : `/eventspage/${event._id}`}
-                                                className={event.status === 'pending' ? 'text-red-500' : 'text-blue-600'}
-                                            >
-                                                {event.name}
-                                            </Link>
-                                        </td>
-                                        <td className="border border-gray-300 px-4 py-2 text-center">{event.organiserEmail}</td>
-                                        <td className="border border-gray-300 px-4 py-2 text-center">
-                                            {new Date(event.date).toLocaleDateString()}
-                                        </td>
-                                        <td className="border border-gray-300 px-4 py-2 text-center">
-                                            {event.time}
-                                        </td>
+                        <div className="relative overflow-x-auto">
+                            <table className="min-w-full border border-gray-300">
+                                <thead className="bg-gray-100">
+                                    <tr>
+                                        <th className="border border-gray-300 px-4 py-2 text-center">Index</th>
+                                        <th className="border border-gray-300 px-4 py-2 text-center">Event Name</th>
+                                        <th className="border border-gray-300 px-4 py-2 text-center">Registrations</th>
+                                        <th className="border border-gray-300 px-4 py-2 text-center">Organiser Email</th>
+                                        <th className="border border-gray-300 px-4 py-2 text-center">Event Date</th>
+                                        <th className="border border-gray-300 px-4 py-2 text-center">Event Time</th>
                                     </tr>
-                                ))}
-                            </tbody>
-                        </table>
-
+                                </thead>
+                                <tbody>
+                                    {events.map((event, index) => (
+                                        <tr key={event.id}>
+                                            <td className="border border-gray-300 px-4 py-2 text-center">{index + 1}</td>
+                                            <td className="border border-gray-300 px-4 py-2 text-center">
+                                                <Link
+                                                    to={event.status === 'pending' ? `/admin/${event._id}` : `/eventspage/${event._id}`}
+                                                    className={event.status === 'pending' ? 'text-red-500' : 'text-blue-600'}
+                                                >
+                                                    {event.name}
+                                                </Link>
+                                            </td>
+                                            <td className="border border-gray-300 px-4 py-2 text-center">{event.registrationCount}</td>
+                                            <td className="border border-gray-300 px-4 py-2 text-center">{event.organiserEmail}</td>
+                                            <td className="border border-gray-300 px-4 py-2 text-center">
+                                                {new Date(event.date).toLocaleDateString()}
+                                            </td>
+                                            <td className="border border-gray-300 px-4 py-2 text-center">
+                                                {event.time}
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
 
                     </>
 
