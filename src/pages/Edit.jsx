@@ -156,7 +156,35 @@ export default function Edit() {
                                     defaultValue={job.organiserDepartment}
                                 />
                             </div>
+                            {job.registrationStart &&
+                                <>
+                                    <div className="mb-4 flex gap-2">
+                                        <div className="flex-1">
+                                            <label htmlFor="registrationStart" className="block text-gray-700 font-bold mb-2">Registraion Start</label>
+                                            <input
+                                                required
+                                                type="datetime-local"
+                                                name="registrationStart"
+                                                id="registrationStart"
+                                                className="border rounded w-full py-2 px-3"
+                                            />
+                                        </div>
+                                    </div>
 
+                                    <div className="mb-4 flex gap-2">
+                                        <div className="flex-1">
+                                            <label htmlFor="registrationEnd" className="block text-gray-700 font-bold mb-2">Registraion End</label>
+                                            <input
+                                                required
+                                                type="datetime-local"
+                                                name="registrationEnd"
+                                                id="registrationEnd"
+                                                className="border rounded w-full py-2 px-3"
+                                            />
+                                        </div>
+                                    </div>
+                                </>
+                            }
                             <div>
                                 <button
                                     type="submit"
