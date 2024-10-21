@@ -6,10 +6,22 @@ import Carousel from "./Carousel";
 import parseCustomSyntax from "../methods/parseCutomSyntax";
 import PastEventManage from "./PastEventManage";
 import TimeDisplay from "./TimeDisplay";
+import { FaCalendarAlt, FaMapMarkerAlt, FaRupeeSign } from "react-icons/fa";
+import BackLink from "./BackLink";
+import { MdOutlineAlternateEmail } from "react-icons/md";
+import { FcDepartment } from "react-icons/fc";
+import { IoIosCreate } from "react-icons/io";
+import { FaIndianRupeeSign } from "react-icons/fa6";
+import TotalRegistration from "./TotalRegistration";
+import moment from "moment"
+import { GoCopy } from "react-icons/go";
+import { LuCheck } from "react-icons/lu";
+
 
 const Job = ({ job }) => {
     const { isAdmin, isAuthenticated } = useAuth();
     const [creator, setCreator] = useState(false)
+
 
 
     useEffect(() => {
@@ -54,11 +66,44 @@ const Job = ({ job }) => {
         if (diffMs < 0) return true
     }
 
+    const UrlbyOrg = job.details?.match(/(https?:\/\/[^\s]+)/g)[0];
+
+
+
+    const [showTooltip, setShowTooltip] = useState("copy"); // Initial state for tooltip
+    const [copied, setCopied] = useState(false); // State to manage emoji
+
+    const copyToClipboard = (text) => {
+        navigator.clipboard.writeText(text)
+            .then(() => {
+                setCopied(true); // Change the emoji state to "copied"
+                setShowTooltip("Copied!"); // Change tooltip text
+                // Set a timeout to revert back to the original emoji and tooltip text
+                setTimeout(() => {
+                    setCopied(false);
+                    setShowTooltip("copy"); // Reset tooltip to original
+                }, 1000); // Change back after 1 second
+            })
+            .catch((err) => {
+                console.error('Failed to copy: ', err);
+            });
+    };
+
     return (
         <>
 
             <section className="bg-indigo-50">
-                <div className="container m-auto py-10 px-6">
+                <div className=" w-full h-[450px]">
+                    {/* this is for event banner image */}
+
+                    <img className="object-fill w-full max-h-[450px]" src={`${job.images[0]}`} alt="" />
+
+
+
+                </div>
+                <BackLink />
+
+                <div className="container m-auto py-2 px-6">
                     <div className="grid grid-cols-1 md:grid-cols-70/30 w-full gap-6">
                         <main>
                             <div
@@ -74,13 +119,12 @@ const Job = ({ job }) => {
                                     <i
                                         className="fa-solid fa-location-dot text-lg text-orange-700 mr-2"
                                     ></i>
-                                    <p className="text-orange-700">{job.location}</p>
+
+
                                 </div>
                             </div>
 
-                            {job.images.length > 0 &&
-                                <Carousel items={job.images} />
-                            }
+
 
                             <div className="bg-white p-6 rounded-lg shadow-md mt-6">
                                 <h3 className="text-indigo-800 text-lg font-bold mb-6">
@@ -98,43 +142,183 @@ const Job = ({ job }) => {
                                         style={{ whiteSpace: 'pre-wrap' }}
                                     />}
 
-                                <p className="mb-4">{job.date.split('T')[0]} <TimeDisplay jobDate={job.date} /></p>
+                                {job.images.length > 0 &&
+                                    <Carousel items={job.images} />
+                                }
 
-                                <h3 className="text-indigo-800 text-lg font-bold mb-2">Price</h3>
 
-                                <p className="mb-4">{job.price}</p>
+
                             </div>
+
+
 
 
                         </main>
 
                         {/* <!-- Sidebar --> */}
                         <aside>
+                            {/* Event Link */}
+                            {/* {
+                                       
+
+                                      <div className="bg-white rounded-lg shadow-md ">
+                                        <div className="p-6 mb-3">
+
+                                            
+                                        <p className="font-normal text-gray-500 ">Link Provided by Organiser</p>
+                                        <a className="text-base font-normal" href={UrlbyOrg} > {UrlbyOrg} </a>
+                                        <div>
+
+                                    </div>
+                                        </div>
+                                    </div>
+
+                                    } */}
+
                             {/* <!-- Company Info --> */}
                             <div className="bg-white p-6 rounded-lg shadow-md">
-                                <h3 className="text-lg font-bold mb-3">Organiser Info</h3>
+                                <h3 className="text-lg font-bold mb-3 flex justify-center">Organiser Information</h3>
 
-                                <p className="text-base">{job.organiserName}</p>
+                                <div>
+                                    <div>
+                                        <p className="font-normal text-gray-500 ">Organiser Name</p>
 
-                                {/* <p className="my-2">{job.company.description}</p> */}
+                                        <p className="text-base font-bold">{job.organiserName}</p>
+                                    </div>
+
+                                </div>
+
 
                                 <hr className="my-4" />
 
-                                <h3 className="text-base rounded-lg my-2 p-2 bg-gray-100 "> Email :
+                                <div className="space-y-2">
+                                    <div className="flex">
+                                        {/* email styling */}
+                                        <div className="flex w-10 items-center">
+                                            {/* for icons */}
+                                            <div class="bg-orange-100 p-2 rounded-full">
 
-                                    <span className="pl-1   font-semibold">
-                                        {job.organiserEmail}
-                                    </span>
-                                </h3>
+                                                <MdOutlineAlternateEmail className="text-orange-400 h-6 w-6" size={20} />
+                                            </div>
+                                        </div>
+                                        <div className="flex-1 ml-3 flex items-center">
+                                            {/* for text */}
+                                            <div>
+                                                
+                                                <div className="flex">
+                                                    <p className="font-normal text-gray-500">Organiser Email</p> 
+                                                <div className="relative inline-block">
+            <button
+                className="ml-2 p-1 text-gray-500 hover:text-gray-700 border-none"
+                onMouseEnter={() => setShowTooltip(copied ? "Copied!" : "copy")}
+                onMouseLeave={() => setShowTooltip(copied ? "Copied!" : "copy")}
+                onClick={() => copyToClipboard(job.organiserEmail)} // Replace with your text
+            >
+                {copied ? <LuCheck className="transition duration-1000" /> : <GoCopy className="transition duration-1000" />}
+            </button>
+            {copied && <div className="absolute  bottom-full mb-2 left-1/2 transform -translate-x-1/2 bg-black text-white text-center text-sm rounded py-1 px-2">
+                {showTooltip === 'copy' && <>Copy</>}
+                {showTooltip === 'Copied!' && <>Copied!</>}
+            </div>
+    }
+        </div>
+                                                </div>
+                                                
+                                                <p className="font-medium text-sm">{job.organiserEmail}</p>
+                                            </div>
+
+                                            {/* Clipboard button */}
+
+                                            {/* <LuCheck /> */}
+
+                                        </div>
 
 
-                                <h3 className="text-base rounded-lg my-2 p-2 bg-gray-100">Department :
-                                    <span className="pl-1  font-semibold">
-                                        {job.organiserDepartment}
-                                    </span>
-                                </h3>
+                                    </div>
+
+                                    <div className="flex">
+                                        {/* email styling */}
+                                        <div className="flex w-10 items-center">
+                                            {/* for icons */}
+                                            <div class="bg-orange-100 p-2 rounded-full">
+
+                                                <FcDepartment className="text-orange-400 h-6 w-6" size={20} />
+                                            </div>
+                                        </div>
+                                        <div className="flex-1 ml-3">
+                                            {/* for text */}
+                                            <p className="font-normal text-gray-500 ">Organiser Department</p>
+                                            <p className="font-medium ">{job.organiserDepartment}</p>
+                                        </div>
+
+
+                                    </div>
+
+                                </div>
+
+
+
 
                             </div>
+                            {/* Date and Venue */}
+                            <div className="bg-white p-6 rounded-lg shadow-md mt-6">
+                                {/* Event Date */}
+                                <div className="flex items-center mb-4">
+                                    <div className="bg-blue-100 p-2 rounded-full">
+                                        <FaCalendarAlt className="h-6 w-6 text-indigo-600" />
+                                    </div>
+                                    <div className="ml-3">
+                                        <p className="text-gray-600">Event Date</p>
+                                        <p className="text-lg font-medium">{moment(job.date).format('ddd, MMM DD YYYY')}</p>
+
+                                    </div>
+                                </div>
+
+
+                                {/* Venue */}
+                                <div className="flex items-center">
+                                    <div className="bg-purple-100 p-2 rounded-full">
+                                        <FaMapMarkerAlt className="h-6 w-6 text-orange-600" />
+                                    </div>
+                                    <div className="ml-3">
+                                        <p className="text-gray-600">Venue</p>
+                                        <p className="text-lg font-medium">{job.location}</p>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            {/* Registred User and Fees */}
+                            <div class="bg-white p-6 rounded-lg shadow-md  mt-6">
+
+
+                                <div class="flex items-center mb-4">
+                                    <div class="bg-green-100 p-2 rounded-full">
+                                        {/* <!-- Icon for Registrations --> */}
+                                        <IoIosCreate className="text-green-400 h-6 w-6" />
+                                    </div>
+                                    <div class="ml-3">
+
+                                        <p class="text-gray-600">Total Registrations</p>
+                                        <p class="text-lg font-normal">{<TotalRegistration job={job} />}</p>
+
+                                    </div>
+                                </div>
+
+                                <div class="flex items-center">
+                                    <div class="bg-orange-100 p-2 rounded-full">
+                                        {/* <!-- Icon for Fee --> */}
+                                        <FaIndianRupeeSign className="text-orange-600 h-6 w-6" />
+
+                                    </div>
+                                    <div class="ml-3">
+
+                                        <p class="text-gray-600">Registration Fee</p>
+                                        {job.price == 0 ? (<> <p class="text-lg  font-normal"> Free</p></>) : (<><p className="text-lg font-normal">{job.price}</p></>)}
+                                    </div>
+                                </div>
+                            </div>
+
 
                             {/* <!-- Manage --> */}
                             {
