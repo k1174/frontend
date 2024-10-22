@@ -96,8 +96,8 @@ const HomePagePastEvents = () => {
                     <Link
                         to="past"
                         className="block bg-black text-white text-center py-4 px-6 rounded-xl hover:bg-gray-700"
-                    >View All Past Events</Link
-                    >
+                    >View All Past Events
+                    </Link>
                 </section>
             </div>
         </section>

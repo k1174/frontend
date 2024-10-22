@@ -44,12 +44,9 @@ const JobPage = () => {
 
     return (
         <>
-            <BackLink />
             <Job job={job} />
 
-            <div className="flex justify-center items-baseline">
-                {<TotalRegistration job={job} />}
-            </div>
+         
 
             {(isAdmin || creator) &&
                 <>
