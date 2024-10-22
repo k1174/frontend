@@ -2,7 +2,11 @@ import { Form } from "react-router-dom";
 import AddImages from "./AddImages";
 import AddBrochure from "./AddBrochure";
 import AddActivityReport from "./AddActivityReport";
-export default function AdminManage() {
+import { useAuth } from "../../context/AuthContext";
+
+export default function AdminManage({ job }) {
+    const { isAdmin } = useAuth();
+
     return (
         <>
             {/* <!-- Manage --> */}
@@ -15,7 +19,8 @@ export default function AdminManage() {
                     </button>
                 </Form>
 
-                <Form method="post" action="delete"
+                {(isAdmin || job.status === 'pending') &&
+                    <Form method="post" action="delete"
                     onSubmit={(event) => {
                         if (!confirm("Please confirm you want to delete this record.")) {
                             event.preventDefault();
@@ -29,10 +34,13 @@ export default function AdminManage() {
                         Delete
                     </button>
                 </Form>
+                }
+
                 <hr className="my-3" />
-                <AddBrochure />
+
                 <AddImages />
-                <AddActivityReport />
+                <AddBrochure job={job} />
+                <AddActivityReport job={job}/>
             </div>
         </>
     )
