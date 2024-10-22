@@ -48,22 +48,23 @@ const router = createBrowserRouter(
         <Route path='/admin/:jobId' element={<AdminJobPage />} loader={JobPageLoader} errorElement={<NotFound />} />
         <Route path='/table' element={<Table />} />
         <Route path='/date' element={<DateRangeSelector />} />
+
+        <Route path='/eventsPage/:jobId/delete' action={deleteAction} errorElement={<NotFound />} />
+        <Route path='/past/:jobId/delete' action={deleteAction} errorElement={<NotFound />} />
+        <Route path='/profile/:jobId/delete' action={deleteAction} errorElement={<NotFound />} />
       </Route>
       <Route path='/table/:jobId' element={<Table />} />
 
       <Route path='/eventsPage' element={<JobsPage />} />
       <Route path='/eventsPage/:jobId' element={<JobPage />} loader={JobPageLoader} errorElement={<NotFound />} />
       <Route path='/eventsPage/:jobId/edit' element={<Edit />} loader={JobPageLoader} errorElement={<NotFound />} action={editAction} />
-      <Route path='/eventsPage/:jobId/delete' action={deleteAction} errorElement={<NotFound />} />
 
       <Route path='/past' element={<Past />} errorElement={<NotFound />} />
       <Route path='/past/:jobId' element={<JobPage />} loader={JobPageLoader} errorElement={<NotFound />} />
       <Route path='/past/:jobId/edit' element={<Edit />} loader={JobPageLoader} errorElement={<NotFound />} action={editAction} />
-      <Route path='/past/:jobId/delete' action={deleteAction} errorElement={<NotFound />} />
 
       <Route path='profile/:jobId' element={<JobPage />} loader={JobPageLoader} errorElement={<NotFound />} />
       <Route path='/profile/:jobId/edit' element={<Edit />} loader={JobPageLoader} errorElement={<NotFound />} action={editAction} />
-      <Route path='/profile/:jobId/delete' action={deleteAction} errorElement={<NotFound />} />
 
       <Route path='/addjob'
         element={
@@ -79,7 +80,7 @@ const router = createBrowserRouter(
       <Route path='/test' element={<Test />} />
 
       <Route path='/Register' element={<Register />} />
-      <Route path='ConfirmAccount/:token' element={<ConfirmAccount /> } />
+      <Route path='ConfirmAccount/:token' element={<ConfirmAccount />} />
       <Route path='/Login' element={<Login />} />
       <Route path='/forgotpassword/' element={<ForgotPassword />} />
       <Route path='/password-reset/:token' element={<RestPassword />} />
