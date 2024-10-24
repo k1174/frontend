@@ -5,8 +5,7 @@ import UserManage from "./UserManage";
 import Carousel from "./Carousel";
 import parseCustomSyntax from "../methods/parseCutomSyntax";
 import PastEventManage from "./PastEventManage";
-import TimeDisplay from "./TimeDisplay";
-import { FaCalendarAlt, FaMapMarkerAlt, FaRupeeSign } from "react-icons/fa";
+import { FaCalendarAlt, FaMapMarkerAlt } from "react-icons/fa";
 import BackLink from "./BackLink";
 import { MdOutlineAlternateEmail } from "react-icons/md";
 import { FcDepartment } from "react-icons/fc";
@@ -66,7 +65,7 @@ const Job = ({ job }) => {
         if (diffMs < 0) return true
     }
 
-    const UrlbyOrg = job.details?.match(/(https?:\/\/[^\s]+)/g)[0];
+    // const UrlbyOrg = job.details?.match(/(https?:\/\/[^\s]+)/g);
 
 
 
@@ -93,14 +92,15 @@ const Job = ({ job }) => {
         <>
 
             <section className="bg-indigo-50">
-                <div className=" w-full h-[450px]">
-                    {/* this is for event banner image */}
+                {/* <div className=" w-full h-[450px] flex justify-center "> */}
+                {/* this is for event banner image */}
 
-                    <img className="object-fill w-full max-h-[450px]" src={`${job.images[0]}`} alt="" />
+                {/* <img className="object-fill   max-h-[450px]" src={`https://www.shutterstock.com/shutterstock/photos/2478322965/display_1500/stock-vector-abstract-blue-background-with-glowing-geometric-lines-modern-blue-gradient-square-shape-design-2478322965.jpg`} alt="" /> */}
 
 
+                {/* <img className="object-fill w-full max-h-[450px]" src={`${job.images[0]}`} alt="" /> */}
 
-                </div>
+                {/* </div> */}
                 <BackLink />
 
                 <div className="container m-auto py-2 px-6">
@@ -126,54 +126,65 @@ const Job = ({ job }) => {
 
 
 
+
+
+
                             <div className="bg-white p-6 rounded-lg shadow-md mt-6">
                                 <h3 className="text-indigo-800 text-lg font-bold mb-6">
                                     Event Description
                                 </h3>
-
                                 <p className="mb-4">{job.description}</p>
-                                <h3 className="text-indigo-800 text-lg font-bold mb-2">
-                                    Event Details
-                                </h3>
-                                {/* <div style={{ whiteSpace: 'pre-wrap' }} className="mb-4">{job.details}</div> */}
-                                {job.details &&
-                                    <div className="mb-6"
-                                        dangerouslySetInnerHTML={{ __html: formattedText }}
-                                        style={{ whiteSpace: 'pre-wrap' }}
-                                    />}
 
                                 {job.images.length > 0 &&
                                     <Carousel items={job.images} />
+
                                 }
 
 
 
+                                {/* <div style={{ whiteSpace: 'pre-wrap' }} className="mb-4">{job.details}</div> */}
+                                {job.details &&
+                                    <>
+                                        <h3 className="text-indigo-800 text-lg font-bold mb-2">
+                                            Event Details
+                                        </h3>
+                                        <div className="mb-6"
+                                            dangerouslySetInnerHTML={{ __html: formattedText }}
+                                            style={{ whiteSpace: 'pre-wrap' }} 
+                                        />
+                                    </>
+                                }
+
                             </div>
-
-
-
-
                         </main>
+
+
+
+
+
+
+
+
 
                         {/* <!-- Sidebar --> */}
                         <aside>
+
+
                             {/* Event Link */}
                             {/* {
-                                       
+                                <div className="bg-white rounded-lg shadow-md ">
+                                    <div className="p-6 mb-3">
 
-                                      <div className="bg-white rounded-lg shadow-md ">
-                                        <div className="p-6 mb-3">
 
-                                            
                                         <p className="font-normal text-gray-500 ">Link Provided by Organiser</p>
                                         <a className="text-base font-normal" href={UrlbyOrg} > {UrlbyOrg} </a>
                                         <div>
 
-                                    </div>
                                         </div>
                                     </div>
+                                </div>
 
-                                    } */}
+                            } */}
 
                             {/* <!-- Company Info --> */}
                             <div className="bg-white p-6 rounded-lg shadow-md">
@@ -196,7 +207,7 @@ const Job = ({ job }) => {
                                         {/* email styling */}
                                         <div className="flex w-10 items-center">
                                             {/* for icons */}
-                                            <div class="bg-orange-100 p-2 rounded-full">
+                                            <div className="bg-orange-100 p-2 rounded-full">
 
                                                 <MdOutlineAlternateEmail className="text-orange-400 h-6 w-6" size={20} />
                                             </div>
@@ -204,43 +215,43 @@ const Job = ({ job }) => {
                                         <div className="flex-1 ml-3 flex items-center">
                                             {/* for text */}
                                             <div>
-                                                
+
                                                 <div className="flex">
-                                                    <p className="font-normal text-gray-500">Organiser Email</p> 
-                                                <div className="relative inline-block">
-            <button
-                className="ml-2 p-1 text-gray-500 hover:text-gray-700 border-none"
-                onMouseEnter={() => setShowTooltip(copied ? "Copied!" : "copy")}
-                onMouseLeave={() => setShowTooltip(copied ? "Copied!" : "copy")}
-                onClick={() => copyToClipboard(job.organiserEmail)} // Replace with your text
-            >
-                {copied ? <LuCheck className="transition duration-1000" /> : <GoCopy className="transition duration-1000" />}
-            </button>
-            {copied && <div className="absolute  bottom-full mb-2 left-1/2 transform -translate-x-1/2 bg-black text-white text-center text-sm rounded py-1 px-2">
-                {showTooltip === 'copy' && <>Copy</>}
-                {showTooltip === 'Copied!' && <>Copied!</>}
-            </div>
-    }
-        </div>
+                                                    <p className="font-normal text-gray-500">Organiser Email</p>
+                                                    <div className="relative inline-block">
+                                                        <button
+                                                            className="ml-2 p-1 text-gray-500 hover:text-gray-700 border-none"
+                                                            onMouseEnter={() => setShowTooltip(copied ? "Copied!" : "copy")}
+                                                            onMouseLeave={() => setShowTooltip(copied ? "Copied!" : "copy")}
+                                                            onClick={() => copyToClipboard(job.organiserEmail)} // Replace with your text
+                                                        >
+                                                            {copied ? <LuCheck className="transition duration-1000" /> : <GoCopy className="transition duration-1000" />}
+                                                        </button>
+                                                        {copied && <div className="absolute  bottom-full mb-2 left-1/2 transform -translate-x-1/2 bg-black text-white text-center text-sm rounded py-1 px-2">
+                                                            {showTooltip === 'copy' && <>Copy</>}
+                                                            {showTooltip === 'Copied!' && <>Copied!</>}
+                                                        </div>
+                                                        }
+                                                    </div>
                                                 </div>
-                                                
-                                                <p className="font-medium text-sm">{job.organiserEmail}</p>
+
+                                                <p className="font-medium text-sm break-all">{job.organiserEmail}</p>
                                             </div>
 
                                             {/* Clipboard button */}
 
                                             {/* <LuCheck /> */}
-
                                         </div>
-
-
                                     </div>
+
+
+
 
                                     <div className="flex">
                                         {/* email styling */}
                                         <div className="flex w-10 items-center">
                                             {/* for icons */}
-                                            <div class="bg-orange-100 p-2 rounded-full">
+                                            <div className="bg-orange-100 p-2 rounded-full">
 
                                                 <FcDepartment className="text-orange-400 h-6 w-6" size={20} />
                                             </div>
@@ -251,15 +262,15 @@ const Job = ({ job }) => {
                                             <p className="font-medium ">{job.organiserDepartment}</p>
                                         </div>
 
-
                                     </div>
 
                                 </div>
 
-
-
-
                             </div>
+
+
+
+
                             {/* Date and Venue */}
                             <div className="bg-white p-6 rounded-lg shadow-md mt-6">
                                 {/* Event Date */}
@@ -289,32 +300,32 @@ const Job = ({ job }) => {
 
 
                             {/* Registred User and Fees */}
-                            <div class="bg-white p-6 rounded-lg shadow-md  mt-6">
+                            <div className="bg-white p-6 rounded-lg shadow-md  mt-6">
 
 
-                                <div class="flex items-center mb-4">
-                                    <div class="bg-green-100 p-2 rounded-full">
+                                <div className="flex items-center mb-4">
+                                    <div className="bg-green-100 p-2 rounded-full">
                                         {/* <!-- Icon for Registrations --> */}
                                         <IoIosCreate className="text-green-400 h-6 w-6" />
                                     </div>
-                                    <div class="ml-3">
+                                    <div className="ml-3">
 
-                                        <p class="text-gray-600">Total Registrations</p>
-                                        <p class="text-lg font-normal">{<TotalRegistration job={job} />}</p>
+                                        <p className="text-gray-600">Total Registrations</p>
+                                        <p className="text-lg font-normal">{<TotalRegistration job={job} />}</p>
 
                                     </div>
                                 </div>
 
-                                <div class="flex items-center">
-                                    <div class="bg-orange-100 p-2 rounded-full">
+                                <div className="flex items-center">
+                                    <div className="bg-orange-100 p-2 rounded-full">
                                         {/* <!-- Icon for Fee --> */}
                                         <FaIndianRupeeSign className="text-orange-600 h-6 w-6" />
 
                                     </div>
-                                    <div class="ml-3">
+                                    <div className="ml-3">
 
-                                        <p class="text-gray-600">Registration Fee</p>
-                                        {job.price == 0 ? (<> <p class="text-lg  font-normal"> Free</p></>) : (<><p className="text-lg font-normal">{job.price}</p></>)}
+                                        <p className="text-gray-600">Registration Fee</p>
+                                        {job.price == 0 ? (<> <p className="text-lg  font-normal"> Free</p></>) : (<><p className="text-lg font-normal">{job.price}</p></>)}
                                     </div>
                                 </div>
                             </div>
@@ -323,10 +334,10 @@ const Job = ({ job }) => {
                             {/* <!-- Manage --> */}
                             {
                                 isPast(job.date)
-                                    ? <PastEventManage job={job} /> : <UserManage job={job} />
+                                    ? <PastEventManage job={job} /> : !creator && !isAdmin && <UserManage job={job} />
                             }
 
-                            {(isAdmin || creator) && <AdminManage />}
+                            {(isAdmin || creator) && <AdminManage job={job} />}
                         </aside>
                     </div>
                 </div>
