@@ -1,11 +1,27 @@
+import { useEffect, useState } from "react";
 import { Form } from "react-router-dom";
 import AddImages from "./AddImages";
 import AddBrochure from "./AddBrochure";
 import AddActivityReport from "./AddActivityReport";
-import { useAuth } from "../../context/AuthContext";
+import PopupModal from "./PopupModal";
+export default function AdminManage() {
 
-export default function AdminManage({ job }) {
-    const { isAdmin } = useAuth();
+
+    const [showPopupModal, setShowPopupModal] = useState(false);
+
+    useEffect(() => {
+
+        if (showPopupModal) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'auto';
+        }
+
+        return () => {
+            document.body.style.overflow = 'auto';
+        }
+    }, [showPopupModal])
+
 
     return (
         <>
@@ -38,9 +54,15 @@ export default function AdminManage({ job }) {
 
                 <hr className="my-3" />
 
+                <button onClick={() => { setShowPopupModal(true) }} className="bg-indigo-500 hover:bg-indigo-600 text-white text-center font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline mt-4 block">
+                    Manage Event Report
+                </button>
+                {showPopupModal && <PopupModal onClose={() => setShowPopupModal(false)} />
+                }
+                <AddBrochure />
+
                 <AddImages />
-                <AddBrochure job={job} />
-                <AddActivityReport job={job}/>
+                <AddActivityReport />
             </div>
         </>
     )
