@@ -22,6 +22,7 @@ export default function AdminManage() {
         }
     }, [showPopupModal])
 
+
     return (
         <>
             {/* <!-- Manage --> */}
@@ -34,7 +35,8 @@ export default function AdminManage() {
                     </button>
                 </Form>
 
-                <Form method="post" action="delete"
+                {(isAdmin || job.status === 'pending') &&
+                    <Form method="post" action="delete"
                     onSubmit={(event) => {
                         if (!confirm("Please confirm you want to delete this record.")) {
                             event.preventDefault();
@@ -48,13 +50,17 @@ export default function AdminManage() {
                         Delete
                     </button>
                 </Form>
+                }
+
                 <hr className="my-3" />
+
                 <button onClick={() => { setShowPopupModal(true) }} className="bg-indigo-500 hover:bg-indigo-600 text-white text-center font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline mt-4 block">
                     Manage Event Report
                 </button>
                 {showPopupModal && <PopupModal onClose={() => setShowPopupModal(false)} />
                 }
                 <AddBrochure />
+
                 <AddImages />
                 <AddActivityReport />
             </div>

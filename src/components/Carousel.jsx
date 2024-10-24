@@ -11,6 +11,41 @@ const Carousel = ({ items }) => {
         setCurrentIndex((prevIndex) => (prevIndex - 1 + items.length) % items.length);
     };
 
+    const ImageModal = ({ imageUrl, closeModal }) => {
+        return (
+            <div
+                className="fixed top-0 left-0 w-full h-full overflow-y-scroll bg-black bg-opacity-75 flex justify-center items-center z-50"
+                onClick={closeModal}
+            >
+                <div className="relative max-w-8xl flex justify-center items-center  max-h-screen  w-full h-full">
+                    <button
+                        className="absolute top-4 right-4 bg-gray-300 rounded-full p-3 text-xl"
+                        onClick={closeModal}
+                    >
+                        ✖
+                    </button>
+                    <img
+                        src={imageUrl}
+                        alt="Large view"
+                        className="w-full h-auto max-h-screen object-contain"
+                    />
+                </div>
+            </div>
+        );
+    };
+    
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [selectedImage, setSelectedImage] = useState('');
+
+    const handleImageClick = (imageUrl) => {
+        setSelectedImage(imageUrl);
+        setIsModalOpen(true);
+    }
+    const closeModal = () => {
+        setIsModalOpen(false);
+        setSelectedImage('');
+    }
+
     return (
         <div className="relative w-full max-w-2xl mx-auto pt-4">
             <div className="overflow-hidden rounded-lg shadow-lg">
@@ -20,10 +55,17 @@ const Carousel = ({ items }) => {
                 >
                     {items.map((item, index) => (
                         <div key={index} className="min-w-full flex items-center justify-center">
-                            <img src={item} alt="Event" className="w-auto h-[450px]  rounded-lg" />
+                            <img onClick={() => handleImageClick(item)} src={item} alt="Event" className="w-full h-[450px] hover:cursor-pointer  rounded-lg" />
+
+
                         </div>
+
+
+
                     ))}
                 </div>
+
+                {isModalOpen && <ImageModal imageUrl={selectedImage} closeModal={closeModal} />}
             </div>
             {/* Previous Button */}
             <button

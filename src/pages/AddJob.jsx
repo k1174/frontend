@@ -3,9 +3,20 @@ import { useAuth } from "../../context/AuthContext";
 import Tooltip from '../components/Tooltip';
 import Upload from '../components/Upload';
 import FormComponet from '../components/FormComponet'
+import { useState } from 'react';
 
 const AddJob = () => {
     const { user } = useAuth();
+    const [showRegistration, setShowRegistration] = useState(true);
+
+    const handleDateChange = (e) => {
+        const selectedDate = new Date(e.target.value);
+        const currentDate = new Date();
+
+        // Check if the selected date is in the past
+        setShowRegistration(selectedDate >= currentDate);
+    }
+
     return (
         <>
             <section className="bg-indigo-50">
@@ -95,6 +106,7 @@ const AddJob = () => {
                                         name="date"
                                         id="date"
                                         className="border rounded w-full py-2 px-3"
+                                        onChange={handleDateChange}
                                     />
                                 </div>
                             </div>
@@ -155,8 +167,44 @@ const AddJob = () => {
                                 value={user._id}
                             />
 
-                            <h3 className="text-2xl my-5">Add Form Fields</h3>
-                            <FormComponet />
+
+                            {/* Registraion  Section start*/}
+                            {showRegistration &&
+                                <>
+                                <hr />
+                                <h3 className="text-2xl my-5">Add Registraion Details</h3>
+
+                                <div className="mb-4 flex gap-2">
+                                    <div className="flex-1">
+                                        <label htmlFor="registrationStart" className="block text-gray-700 font-bold mb-2">Registraion Start</label>
+                                        <input
+                                            required
+                                            type="datetime-local"
+                                            name="registrationStart"
+                                            id="registrationStart"
+                                            className="border rounded w-full py-2 px-3"
+                                        />
+                                    </div>
+                                </div>
+
+                                <div className="mb-4 flex gap-2">
+                                    <div className="flex-1">
+                                        <label htmlFor="registrationEnd" className="block text-gray-700 font-bold mb-2">Registraion End</label>
+                                        <input
+                                            required
+                                            type="datetime-local"
+                                            name="registrationEnd"
+                                            id="registrationEnd"
+                                            className="border rounded w-full py-2 px-3"
+                                        />
+                                    </div>
+                                </div>
+
+                                <div className="mb-4">Form Fields</div>
+                                <FormComponet />
+                            </>}
+
+                            {/* Registraion  Section End*/}
 
                             <div>
                                 <button

@@ -1,15 +1,64 @@
 import { Form, useLoaderData } from "react-router-dom";
 import Tooltip from "../components/Tooltip";
+import { useAuth } from "../../context/AuthContext";
+import { useState, useEffect } from "react";
 
 export default function Edit() {
+
     const job = useLoaderData();
+    
+    const { isAdmin, isAuthenticated } = useAuth();
+    const [creator, setCreator] = useState(false)
+
+    useEffect(() => {
+
+        const fetchData = async () => {
+            //get user id from token
+            const token = localStorage.getItem('token');
+            const response = await fetch('/auth/checkEvent',
+                {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ eventId: job._id, token: token }),
+                }
+            )
+            if (!response.ok) {
+                console.error('Failed to fetch data')
+                return
+            }
+            const result = await response.json()
+            if (result == true) {
+                setCreator(true)
+            }
+        }
+        if (isAuthenticated) {
+            fetchData();
+        }
+    }, [job, isAuthenticated])
+
+    if (!creator && !isAdmin) {
+        return (
+            <div className="container m-auto max-w-2xl py-24">
+                <div className="bg-white px-6 py-8 mb-4 shadow-md rounded-md border m-4 md:m-0">
+                    <h2 className="text-3xl text-center font-semibold mb-6">You do not have permission to edit this event</h2>
+                </div>
+            </div>
+        )
+    }
+
+
     const date = new Date(job.date);
     const adjusted = new Date(date.getTime() + (5 * 60 * 60 * 1000) + (30 * 60 * 1000));
     const formattedDate = adjusted.toISOString().slice(0, 16);
+
     
+
     return (
-        <>
-            <section className="bg-indigo-50">
+        <>  
+
+            {<section className="bg-indigo-50">
                 <div className="container m-auto max-w-2xl py-24">
                     <div className="bg-white px-6 py-8 mb-4 shadow-md rounded-md border m-4 md:m-0">
                         <Form method="post">
@@ -156,7 +205,35 @@ export default function Edit() {
                                     defaultValue={job.organiserDepartment}
                                 />
                             </div>
+                            {job.registrationStart &&
+                                <>
+                                    <div className="mb-4 flex gap-2">
+                                        <div className="flex-1">
+                                            <label htmlFor="registrationStart" className="block text-gray-700 font-bold mb-2">Registraion Start</label>
+                                            <input
+                                                required
+                                                type="datetime-local"
+                                                name="registrationStart"
+                                                id="registrationStart"
+                                                className="border rounded w-full py-2 px-3"
+                                            />
+                                        </div>
+                                    </div>
 
+                                    <div className="mb-4 flex gap-2">
+                                        <div className="flex-1">
+                                            <label htmlFor="registrationEnd" className="block text-gray-700 font-bold mb-2">Registraion End</label>
+                                            <input
+                                                required
+                                                type="datetime-local"
+                                                name="registrationEnd"
+                                                id="registrationEnd"
+                                                className="border rounded w-full py-2 px-3"
+                                            />
+                                        </div>
+                                    </div>
+                                </>
+                            }
                             <div>
                                 <button
                                     type="submit"
@@ -168,7 +245,7 @@ export default function Edit() {
                         </Form>
                     </div>
                 </div>
-            </section>
+            </section>}
         </>
     )
 }

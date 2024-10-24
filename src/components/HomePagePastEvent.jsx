@@ -2,6 +2,7 @@ import { FaMapMarkerAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import TimeDisplay from "./TimeDisplay";
+import { CalendarCheck } from "lucide-react";
 
 const HomePagePastEvent = ({ job }) => { // {job} -> Destructuring assignment
     const [daysLeft, setDaysLeft] = useState(0);
@@ -63,9 +64,14 @@ const HomePagePastEvent = ({ job }) => { // {job} -> Destructuring assignment
                     <div className="mb-4 h-20 ">{description}</div>
 
 
-                    <h3 className="text-indigo-500 mb-4">Price: {job.price}</h3>
-                    <p className="mb-2"> {new Date(job.date).toLocaleDateString()}   <TimeDisplay jobDate={job.date} /> <span></span></p>
-
+                    <h3 className="text-indigo-500 mb-4">Fees: {job.price < 1 ? "Free" : job.price}</h3>
+                    <p className="mb-2 flex ">
+                        <span className="flex gap-1  mr-4">
+                            <CalendarCheck size={20} strokeWidth={1} />
+                            {new Date(job.date).toLocaleDateString()}
+                        </span>
+                        <TimeDisplay jobDate={job.date} />
+                    </p>
                     <div className="border border-gray-100 mb-5"></div>
 
                     <div className="flex flex-col lg:flex-row items-center justify-between   space-x-0 lg:space-x-2 mb-4 w-full ">

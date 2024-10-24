@@ -1,6 +1,4 @@
 const PastEventManage = ({ job }) => {
-    const hasBrochure = job.brochure?.length > 0;
-    const hasActivityReport = job.ActivityReport?.length > 0;
 
     return (
         <>
@@ -9,7 +7,7 @@ const PastEventManage = ({ job }) => {
 
                 <h3 className="text-xl font-bold mb-6">Explore</h3>
 
-                {hasBrochure ?
+                {job.brochure && job.brochure.length > 0 ?
                     <a href={`${job.brochure}`}
                         className="bg-indigo-500 hover:bg-indigo-600 text-white text-center font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline mt-4 block"
                     >
@@ -20,7 +18,7 @@ const PastEventManage = ({ job }) => {
                         Brochure not available
                     </p>
                 }
-                {hasActivityReport ?
+                {job.ActivityReport && job.ActivityReport.length > 0 ?
                     <a href={`${job.ActivityReport}`}
                         className="bg-indigo-500 hover:bg-indigo-600 text-white text-center font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline mt-4 block"
                     >
