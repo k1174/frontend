@@ -75,7 +75,6 @@ const router = createBrowserRouter(
 
       <Route path='/Calender' element={<Calender />} />
       <Route path='/download' element={<DownloadEmailsButton />} />
-      <Route path='/dashboard/:jobId' element={<Download />} />
       <Route path='/test' element={<Test />} />
 
       <Route path='/Register' element={<Register />} />

@@ -2,7 +2,27 @@ import { Form } from "react-router-dom";
 import AddImages from "./AddImages";
 import AddBrochure from "./AddBrochure";
 import AddActivityReport from "./AddActivityReport";
+import { useEffect, useState } from "react";
+import PopupModal from "./PopupModal";
 export default function AdminManage() {
+
+    const [showPopupModal, setShowPopupModal] = useState(false);
+
+    useEffect(() => {
+
+        if (showPopupModal) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'auto';
+        }
+
+        return () => {
+            document.body.style.overflow = 'auto';
+        }
+    }, [showPopupModal])
+
+
+
     return (
         <>
             {/* <!-- Manage --> */}
@@ -30,9 +50,15 @@ export default function AdminManage() {
                     </button>
                 </Form>
                 <hr className="my-3" />
+                <button onClick={() => { setShowPopupModal(true) }} className="bg-indigo-500 hover:bg-indigo-600 text-white text-center font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline mt-4 block">
+                    Manage Event Report
+                </button>
+                {showPopupModal && <PopupModal onClose={() => setShowPopupModal(false)} />
+                }
                 <AddBrochure />
                 <AddImages />
                 <AddActivityReport />
+
             </div>
         </>
     )
