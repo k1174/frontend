@@ -54,10 +54,11 @@ const HomePagePastEvent = ({ job }) => { // {job} -> Destructuring assignment
     return (
         <>
             <div className="bg-white rounded-xl shadow-md relative  hover:shadow-lg hover:ring-1 hover:ring-gray-200  ">
-                <div className="p-4 ">
+                <div className="p-4  ">
                     <div className="mb-6">
                         <div className="text-gray-600 my-2">{job.type}</div>
-                        <h3 className="text-xl font-bold"> {job.name} </h3>
+                        <h3 className="text-xl font-bold "> {job.name} </h3> 
+                        {/* add truncate for div same size */}
                     </div>
 
                     <div className="mb-4 h-20 ">{description}</div>
@@ -73,17 +74,20 @@ const HomePagePastEvent = ({ job }) => { // {job} -> Destructuring assignment
                     </p>
                     <div className="border border-gray-100 mb-5"></div>
 
-                    <div className="flex flex-col lg:flex-row justify-between mb-4">
-                        <div className="text-orange-700 mb-3 flex items-start gap-x-1">
-                            <FaMapMarkerAlt className=" text-lg " />
+                    <div className="flex flex-col lg:flex-row items-center justify-between   space-x-0 lg:space-x-2 mb-4 w-full ">
+                        <div className="text-orange-700 mb-3 flex items-center gap-2">
+                            <FaMapMarkerAlt className=" text-lg  " />
                             {job.location}
                         </div>
+                        <div className="p-2 flex w-full lg:w-auto ">
+
                         <Link
                             to={url}
-                            className="h-[36px] bg-indigo-500 hover:bg-indigo-600 text-white px-4 py-2 rounded-lg text-center text-sm"
-                        >
+                            className=" h-[35px] w-full  md:w-[100px] flex items-center justify-center  bg-indigo-500 hover:bg-indigo-600 text-white rounded-lg text-center text-sm transition-colors duration-300"
+                            >
                             Read More
                         </Link>
+                        </div>
                     </div>
                 </div>
 

@@ -15,7 +15,7 @@ function Hero() {
           <div className="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-8">
             <div className="flex-1 text-center md:text-left space-y-6 md:-translate-y-24 md:translate-x-20">
               <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl text-gray-900">
-                Event Management Simplified
+                Event Scheduling Simplified
               </h1>
               <p className="mx-auto max-w-[700px] text-gray-500 md:text-xl">
                 Streamline your event planning process with our comprehensive platform. From creation to execution, we&apos;ve got you covered.
