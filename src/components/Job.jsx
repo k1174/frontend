@@ -6,6 +6,7 @@ import Carousel from "./Carousel";
 import parseCustomSyntax from "../methods/parseCutomSyntax";
 import PastEventManage from "./PastEventManage";
 import TimeDisplay from "./TimeDisplay";
+import { CalendarCheck, ReceiptIndianRupee } from "lucide-react";
 
 const Job = ({ job }) => {
     const { isAdmin, isAuthenticated } = useAuth();
@@ -98,11 +99,15 @@ const Job = ({ job }) => {
                                         style={{ whiteSpace: 'pre-wrap' }}
                                     />}
 
-                                <p className="mb-4">{job.date.split('T')[0]} <TimeDisplay jobDate={job.date} /></p>
-
-                                <h3 className="text-indigo-800 text-lg font-bold mb-2">Price</h3>
-
-                                <p className="mb-4">{job.price}</p>
+                                <p className="mb-2 flex ">
+                                    <span className="flex gap-1  mr-4">
+                                        <CalendarCheck size={20} strokeWidth={1} />
+                                        {new Date(job.date).toLocaleDateString()}
+                                    </span>
+                                    <TimeDisplay jobDate={job.date} />
+                                </p>
+                                <p className="mb-4 flex">Fees : {job.price < 1 ? "Free" : job.price}<ReceiptIndianRupee size={20} strokeWidth={1} /></p>
+                               
                             </div>
 
 
@@ -139,10 +144,10 @@ const Job = ({ job }) => {
                             {/* <!-- Manage --> */}
                             {
                                 isPast(job.date)
-                                    ? <PastEventManage job={job} /> : <UserManage job={job} />
+                                    ? <PastEventManage job={job} /> : !creator && !isAdmin && <UserManage job={job} />
                             }
 
-                            {(isAdmin || creator) && <AdminManage />}
+                            {(isAdmin || creator) && <AdminManage job={job}  />}
                         </aside>
                     </div>
                 </div>
