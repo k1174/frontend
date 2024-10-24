@@ -141,16 +141,18 @@ const Job = ({ job }) => {
                                 }
 
 
-                                <h3 className="text-indigo-800 text-lg font-bold mb-2">
-                                    Event Details
-                                </h3>
 
                                 {/* <div style={{ whiteSpace: 'pre-wrap' }} className="mb-4">{job.details}</div> */}
                                 {job.details &&
-                                    <div className="mb-6"
-                                        dangerouslySetInnerHTML={{ __html: formattedText }}
-                                        style={{ whiteSpace: 'pre-wrap' }}
-                                    />
+                                    <>
+                                        <h3 className="text-indigo-800 text-lg font-bold mb-2">
+                                            Event Details
+                                        </h3>
+                                        <div className="mb-6"
+                                            dangerouslySetInnerHTML={{ __html: formattedText }}
+                                            style={{ whiteSpace: 'pre-wrap' }} 
+                                        />
+                                    </>
                                 }
 
                             </div>
