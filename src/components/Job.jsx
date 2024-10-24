@@ -5,8 +5,7 @@ import UserManage from "./UserManage";
 import Carousel from "./Carousel";
 import parseCustomSyntax from "../methods/parseCutomSyntax";
 import PastEventManage from "./PastEventManage";
-import TimeDisplay from "./TimeDisplay";
-import { FaCalendarAlt, FaMapMarkerAlt, FaRupeeSign } from "react-icons/fa";
+import { FaCalendarAlt, FaMapMarkerAlt } from "react-icons/fa";
 import BackLink from "./BackLink";
 import { MdOutlineAlternateEmail } from "react-icons/md";
 import { FcDepartment } from "react-icons/fc";
@@ -127,61 +126,63 @@ const Job = ({ job }) => {
 
 
 
+
+
+
                             <div className="bg-white p-6 rounded-lg shadow-md mt-6">
                                 <h3 className="text-indigo-800 text-lg font-bold mb-6">
                                     Event Description
                                 </h3>
-
-                                
-
                                 <p className="mb-4">{job.description}</p>
 
                                 {job.images.length > 0 &&
                                     <Carousel items={job.images} />
-               
+
                                 }
 
 
                                 <h3 className="text-indigo-800 text-lg font-bold mb-2">
                                     Event Details
                                 </h3>
+
                                 {/* <div style={{ whiteSpace: 'pre-wrap' }} className="mb-4">{job.details}</div> */}
                                 {job.details &&
                                     <div className="mb-6"
                                         dangerouslySetInnerHTML={{ __html: formattedText }}
                                         style={{ whiteSpace: 'pre-wrap' }}
-                                    />}
-
-                              
-
-
+                                    />
+                                }
 
                             </div>
-
-
-
-
                         </main>
+
+
+
+
+
+
+
+
 
                         {/* <!-- Sidebar --> */}
                         <aside>
+
+
                             {/* Event Link */}
                             {/* {
-                                       
+                                <div className="bg-white rounded-lg shadow-md ">
+                                    <div className="p-6 mb-3">
 
-                                      <div className="bg-white rounded-lg shadow-md ">
-                                        <div className="p-6 mb-3">
 
-                                            
                                         <p className="font-normal text-gray-500 ">Link Provided by Organiser</p>
                                         <a className="text-base font-normal" href={UrlbyOrg} > {UrlbyOrg} </a>
                                         <div>
 
-                                    </div>
                                         </div>
                                     </div>
+                                </div>
 
-                                    } */}
+                            } */}
 
                             {/* <!-- Company Info --> */}
                             <div className="bg-white p-6 rounded-lg shadow-md">
@@ -204,7 +205,7 @@ const Job = ({ job }) => {
                                         {/* email styling */}
                                         <div className="flex w-10 items-center">
                                             {/* for icons */}
-                                            <div class="bg-orange-100 p-2 rounded-full">
+                                            <div className="bg-orange-100 p-2 rounded-full">
 
                                                 <MdOutlineAlternateEmail className="text-orange-400 h-6 w-6" size={20} />
                                             </div>
@@ -238,17 +239,17 @@ const Job = ({ job }) => {
                                             {/* Clipboard button */}
 
                                             {/* <LuCheck /> */}
-
                                         </div>
-
-
                                     </div>
+
+
+
 
                                     <div className="flex">
                                         {/* email styling */}
                                         <div className="flex w-10 items-center">
                                             {/* for icons */}
-                                            <div class="bg-orange-100 p-2 rounded-full">
+                                            <div className="bg-orange-100 p-2 rounded-full">
 
                                                 <FcDepartment className="text-orange-400 h-6 w-6" size={20} />
                                             </div>
@@ -259,15 +260,15 @@ const Job = ({ job }) => {
                                             <p className="font-medium ">{job.organiserDepartment}</p>
                                         </div>
 
-
                                     </div>
 
                                 </div>
 
-
-
-
                             </div>
+
+
+
+
                             {/* Date and Venue */}
                             <div className="bg-white p-6 rounded-lg shadow-md mt-6">
                                 {/* Event Date */}
@@ -297,32 +298,32 @@ const Job = ({ job }) => {
 
 
                             {/* Registred User and Fees */}
-                            <div class="bg-white p-6 rounded-lg shadow-md  mt-6">
+                            <div className="bg-white p-6 rounded-lg shadow-md  mt-6">
 
 
-                                <div class="flex items-center mb-4">
-                                    <div class="bg-green-100 p-2 rounded-full">
+                                <div className="flex items-center mb-4">
+                                    <div className="bg-green-100 p-2 rounded-full">
                                         {/* <!-- Icon for Registrations --> */}
                                         <IoIosCreate className="text-green-400 h-6 w-6" />
                                     </div>
-                                    <div class="ml-3">
+                                    <div className="ml-3">
 
-                                        <p class="text-gray-600">Total Registrations</p>
-                                        <p class="text-lg font-normal">{<TotalRegistration job={job} />}</p>
+                                        <p className="text-gray-600">Total Registrations</p>
+                                        <p className="text-lg font-normal">{<TotalRegistration job={job} />}</p>
 
                                     </div>
                                 </div>
 
-                                <div class="flex items-center">
-                                    <div class="bg-orange-100 p-2 rounded-full">
+                                <div className="flex items-center">
+                                    <div className="bg-orange-100 p-2 rounded-full">
                                         {/* <!-- Icon for Fee --> */}
                                         <FaIndianRupeeSign className="text-orange-600 h-6 w-6" />
 
                                     </div>
-                                    <div class="ml-3">
+                                    <div className="ml-3">
 
-                                        <p class="text-gray-600">Registration Fee</p>
-                                        {job.price == 0 ? (<> <p class="text-lg  font-normal"> Free</p></>) : (<><p className="text-lg font-normal">{job.price}</p></>)}
+                                        <p className="text-gray-600">Registration Fee</p>
+                                        {job.price == 0 ? (<> <p className="text-lg  font-normal"> Free</p></>) : (<><p className="text-lg font-normal">{job.price}</p></>)}
                                     </div>
                                 </div>
                             </div>
@@ -334,7 +335,7 @@ const Job = ({ job }) => {
                                     ? <PastEventManage job={job} /> : !creator && !isAdmin && <UserManage job={job} />
                             }
 
-                            {(isAdmin || creator) && <AdminManage job={job}  />}
+                            {(isAdmin || creator) && <AdminManage job={job} />}
                         </aside>
                     </div>
                 </div>
