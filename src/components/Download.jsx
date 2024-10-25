@@ -159,9 +159,7 @@ const generateExcel = (reports) => {
 
 // Your existing Download component code remains unchanged
 const Download = () => {
-    // get jobId from params
     const { jobId } = useParams();
-
     const [showPreview, setShowPreview] = useState(false);
     const [data, setData] = useState();
     const [loading, setLoading] = useState(true);
@@ -171,47 +169,26 @@ const Download = () => {
         const fetchData = async () => {
             const response = await fetch(`/service/getRegistrations/${jobId}`)
             const data = await response.json();
-            setData(data)
+            setData(data);
             currentReport = data;
-            setLoading(false)
-        }
-        fetchData()
-    }, [])
+            setLoading(false);
+        };
+        fetchData();
+    }, [jobId]);
 
     if (loading) {
-        return <Spinner />
+        return <Spinner />;
     }
 
-
-    if (data.length == 0) {
-        return <h1 className="text-center text-3xl mt-10">No Registrations Yet</h1>
+    if (data.length === 0) {
+        return <h1 className="text-center text-3xl mt-10">No Registrations Found</h1>;
     }
-    //if data doesn't contains additionaldetails field
+
     if (!data[0].additionalDetails) {
-        return <h1 className="text-center text-3xl mt-10">No Additional Details Found</h1>
+        return <h1 className="text-center text-3xl mt-10">No Additional Details Found</h1>;
     }
 
-    keys = data.length > 0 ? Object.keys(data[0].additionalDetails) : [];
-
-
-    // const currentReport = [
-    //     {
-    //         "_id": "67054e409cf0abe571735f3b",
-    //         "additionalDetails": {
-    //             "Name ": "Kamlesh",
-    //             "EnrollMent Number": "210303108300",
-    //             "College EmailID": "parul@email.id"
-    //         }
-    //     },
-    //     {
-    //         "_id": "67056ea8bbcfe87c6e2960cc",
-    //         "additionalDetails": {
-    //             "Name ": "Baljit ",
-    //             "EnrollMent Number": "210303108333",
-    //             "College EmailID": "2103031083333@paruluniversity.ac.in"
-    //         }
-    //     }
-    // ];
+    keys = Object.keys(data[0].additionalDetails);
 
     const togglePreview = () => {
         setShowPreview(!showPreview);
@@ -219,67 +196,77 @@ const Download = () => {
 
     return (
         <div className="p-4">
-            <h1 className="text-2xl font-bold mb-4">Event Report</h1>
-            <button
-                className="bg-blue-500 text-white py-2 px-4 rounded mb-4"
-                onClick={togglePreview}
-            >
-                {showPreview ? "Hide Preview" : "Show Preview"}
-            </button>
 
-            {showPreview && (
-                <div className="border border-gray-300 rounded p-4 mb-4">
-                    <h2 className="text-xl font-semibold mb-2">Report Preview</h2>
-                    <div className="overflow-x-auto">
-                        <table className="min-w-full border-collapse border border-gray-300">
-                            <thead>
-                                <tr className="bg-yellow-300">
-                                    {/* Add the Index Header */}
-                                    <th className="border border-gray-300 p-2">#</th>
-                                    {keys.map((key) => (
-                                        <th key={key} className="border border-gray-300 p-2" >{key}</th>
-                                    ))}
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {currentReport.map((report, index) => (
-                                    <tr key={index} className="hover:bg-gray-100">
-                                        {/* Add the Index Cell */}
-                                        <td className="border border-gray-300 px-4 py-2 text-center">{index + 1}</td>
-                                        {keys.map((key) => (
-                                            <td className="border border-gray-300 px-4 py-2 text-center" key={key}>{report.additionalDetails[key]}</td>
-                                        ))}
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            )}
-
-            <PDFDownloadLink
-                document={<PDFFile reports={currentReport} />}
-                fileName="Event_Report.pdf"
-            >
-                {({ loading }) =>
-                    loading ? (
-                        <button className="bg-gray-500 text-white py-2 px-4 rounded" disabled>
-                            Loading PDF...
-                        </button>
-                    ) : (
-                        <button className="bg-green-500 text-white py-2 px-4 rounded">
-                            Download PDF
-                        </button>
-                    )
-                }
-            </PDFDownloadLink>
-            <button
-                className="bg-blue-700 text-white py-2 px-4 rounded ml-4"
-                onClick={() => generateExcel(currentReport, keys)}
-            >
-                Download Excel
-            </button>
+        {/* Button Section */}
+        <div className="space-x-4 flex justify-center">
+          <button
+      className={`text-white py-2 px-4 rounded mb-4 ${togglePreview ? 'bg-blue-500' : 'bg-blue-700'}`}
+      onClick={togglePreview}
+          >
+            {showPreview ? "Hide Preview" : "Show Preview"}
+          </button>
+  
+          <PDFDownloadLink
+            document={<PDFFile reports={currentReport} />}
+            fileName="Event_Report.pdf"
+          >
+            {({ loading }) =>
+              loading ? (
+                <button className="bg-gray-500 text-white py-2 px-4 mb-4 rounded" disabled>
+                  Loading PDF...
+                </button>
+              ) : (
+                <button className="bg-green-500 text-white py-2 px-4 mb-4 rounded">
+                  Download PDF
+                </button>
+              )
+            }
+          </PDFDownloadLink>
+  
+          <button
+            className="bg-blue-700 text-white py-2 px-4 mb-4 rounded"
+            onClick={() => generateExcel(currentReport, keys)}
+          >
+            Download Excel
+          </button>
         </div>
+  
+        {/* Table Preview Section */}
+        {showPreview && (
+          <div className="border border-gray-300 rounded-lg p-4 mb-4 bg-white">
+            <h2 className="text-xl font-semibold mb-2 text-gray-900">Report Preview</h2>
+            <div className="overflow-x-auto">
+              <table className="min-w-full border-collapse border border-gray-300 text-black">
+                <thead>
+                  <tr className="bg-yellow-300 text-black">
+                    <th className="border border-gray-300 p-2">#</th>
+                    {keys.map((key) => (
+                      <th key={key} className="border border-gray-300 p-2">
+                        {key}
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {currentReport.map((report, index) => (
+                    <tr key={index} className="hover:bg-gray-100">
+                      <td className="border border-gray-300 px-4 py-2 text-center">{index + 1}</td>
+                      {keys.map((key) => (
+                        <td
+                          key={key}
+                          className="border border-gray-300 px-4 py-2 text-center"
+                        >
+                          {report.additionalDetails[key]}
+                        </td>
+                      ))}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        )}
+      </div>
     );
 };
 
