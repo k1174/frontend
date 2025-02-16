@@ -101,7 +101,6 @@ const Job = ({ job }) => {
                 {/* <img className="object-fill w-full max-h-[450px]" src={`${job.images[0]}`} alt="" /> */}
 
                 {/* </div> */}
-                <BackLink />
 
                 <div className="container m-auto py-2 px-6">
                     <div className="grid grid-cols-1 md:grid-cols-70/30 w-full gap-6">
