@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Page, Text, Document, StyleSheet, PDFDownloadLink, View } from "@react-pdf/renderer";
 import { useParams } from 'react-router-dom';
 import Spinner from "../components/Spinner";
-import * as XLSX from 'xlsx';
+// import * as XLSX from 'xlsx';
 
 
 // Define your styles for the PDF
@@ -145,16 +145,16 @@ const PDFFile = ({ reports }) => {
 let currentReport = []
 let keys = []
 
-// Function to generate Excel file
-const generateExcel = (reports) => {
-    const worksheet = XLSX.utils.json_to_sheet(reports.map(report => report.additionalDetails));
+// // Function to generate Excel file
+// const generateExcel = (reports) => {
+//     const worksheet = XLSX.utils.json_to_sheet(reports.map(report => report.additionalDetails));
 
-    const workbook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(workbook, worksheet, "Reports");
+//     const workbook = XLSX.utils.book_new();
+//     XLSX.utils.book_append_sheet(workbook, worksheet, "Reports");
 
-    // Create a Blob and use it to download the file
-    XLSX.writeFile(workbook, "Event_Report.xlsx");
-};
+//     // Create a Blob and use it to download the file
+//     XLSX.writeFile(workbook, "Event_Report.xlsx");
+// };
 
 
 // Your existing Download component code remains unchanged
@@ -225,7 +225,7 @@ const Download = () => {
   
           <button
             className="bg-blue-700 text-white py-2 px-4 mb-4 rounded"
-            onClick={() => generateExcel(currentReport, keys)}
+            // onClick={() => generateExcel(currentReport, keys)}
           >
             Download Excel
           </button>
