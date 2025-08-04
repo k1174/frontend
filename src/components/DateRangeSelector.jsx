@@ -1,26 +1,26 @@
 import { useState } from 'react';
 import { Link } from "react-router-dom";
-import * as XLSX from 'xlsx';
+// import * as XLSX from 'xlsx';
 import Spinner from './Spinner';
 
 // Function to generate Excel file
-const generateExcel = (events) => {
-    const data = events.map((event, index) => ({
-        Index: index + 1,
-        'Event Name': event.name,
-        'Registrations': event.registrationCount,
-        'Organiser Email': event.organiserEmail,
-        'Event Date': new Date(event.date).toLocaleDateString(),
-        'Event Time': event.time,
-    }));
-    const worksheet = XLSX.utils.json_to_sheet(data);
+// const generateExcel = (events) => {
+//     const data = events.map((event, index) => ({
+//         Index: index + 1,
+//         'Event Name': event.name,
+//         'Registrations': event.registrationCount,
+//         'Organiser Email': event.organiserEmail,
+//         'Event Date': new Date(event.date).toLocaleDateString(),
+//         'Event Time': event.time,
+//     }));
+//     // const worksheet = XLSX.utils.json_to_sheet(data);
 
-    const workbook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(workbook, worksheet, "Events_List");
+//     // const workbook = XLSX.utils.book_new();
+//     // XLSX.utils.book_append_sheet(workbook, worksheet, "Events_List");
 
-    // Create a Blob and use it to download the file
-    XLSX.writeFile(workbook, "Events_List.xlsx");
-};
+//     // Create a Blob and use it to download the file
+//     // XLSX.writeFile(workbook, "Events_List.xlsx");
+// };
 
 const DateRangeSelector = () => {
     const [startDate, setStartDate] = useState('')
@@ -91,7 +91,7 @@ const DateRangeSelector = () => {
                     <>
                         <button
                             className="bg-blue-700 text-white py-2 px-4 rounded my-4"
-                            onClick={() => generateExcel(events,)}
+                            // onClick={() => generateExcel(events,)}
                         >
                             Download Excel
                         </button>
